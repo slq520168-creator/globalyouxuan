@@ -1,0 +1,62 @@
+[
+  {
+    "id": "web-starter",
+    "category": "web",
+    "price": 99,
+    "title": {
+      "zh": "企业展示网站",
+      "en": "Business Showcase Website",
+      "km": "គេហទំព័របង្ហាញអាជីវកម្ម"
+    },
+    "desc": {
+      "zh": "适合品牌展示、联系方式、业务介绍与移动端访问。",
+      "en": "For brand presentation, contact details, services and mobile access.",
+      "km": "សម្រាប់បង្ហាញម៉ាក ព័ត៌មានទំនាក់ទំនង សេវាកម្ម និងការប្រើប្រាស់លើទូរស័ព្ទ។"
+    }
+  },
+  {
+    "id": "ai-content",
+    "category": "ai",
+    "price": 49,
+    "title": {
+      "zh": "AI内容解决方案",
+      "en": "AI Content Solution",
+      "km": "ដំណោះស្រាយមាតិកា AI"
+    },
+    "desc": {
+      "zh": "用于文案、图片提示词、客服回复与内容生产。",
+      "en": "For copywriting, image prompts, customer replies and content production.",
+      "km": "សម្រាប់សរសេរមាតិកា prompt រូបភាព ឆ្លើយតបអតិថិជន និងផលិតមាតិកា។"
+    }
+  },
+  {
+    "id": "automation-order",
+    "category": "auto",
+    "price": 149,
+    "title": {
+      "zh": "订单自动化方案",
+      "en": "Order Automation Solution",
+      "km": "ដំណោះស្រាយស្វ័យប្រវត្តិកម្មការបញ្ជាទិញ"
+    },
+    "desc": {
+      "zh": "自动收集需求、发送通知、整理订单与交付信息。",
+      "en": "Collects requests, sends alerts and organises orders and delivery.",
+      "km": "ប្រមូលតម្រូវការ ផ្ញើការជូនដំណឹង និងរៀបចំការបញ្ជាទិញ និងការបញ្ជូន។"
+    }
+  },
+  {
+    "id": "digital-global",
+    "category": "digital",
+    "price": 129,
+    "title": {
+      "zh": "跨境数字业务方案",
+      "en": "Cross-border Digital Business",
+      "km": "ដំណោះស្រាយអាជីវកម្មឌីជីថលឆ្លងដែន"
+    },
+    "desc": {
+      "zh": "适合数字产品展示、咨询、下单与自动交付。",
+      "en": "For digital product display, enquiry, ordering and delivery.",
+      "km": "សម្រាប់បង្ហាញផលិតផលឌីជីថល សាកសួរ បញ្ជាទិញ និងបញ្ជូន។"
+    }
+  }
+]
