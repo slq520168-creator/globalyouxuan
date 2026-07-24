@@ -1,18 +1,12 @@
-# GlobalYouXuan Enterprise UI V2
+# GlobalYouXuan V2.0 Home Rebuild
 
-这是第二包，覆盖上传到现有 GitHub 仓库根目录。
+本包是明显重构版首页，重点：
+- 手机端先显示标题，再显示地球
+- 地球缩小
+- 搜索框不再被底部工具栏挡住
+- 首页视觉完全重排
+- 四个独立业务中心保留
+- 三语言保留
 
-文件全部在同一级，适合 iPhone：
-- index.html
-- style.css
-- app.js
-- web.html
-- ai.html
-- automation.html
-- digital.html
-- manifest.json
-- robots.txt
-- sitemap.xml
-- README.md
-
-上传：Add file → Upload files → 全选 → Commit directly to main。
+上传方式：
+解压后，全选本包全部文件，上传到原 GitHub 仓库根目录并覆盖同名文件。

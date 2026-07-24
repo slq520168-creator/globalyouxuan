@@ -3,6 +3,6 @@
   "short_name": "GYX",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#06101f",
-  "theme_color": "#06101f"
+  "background_color": "#040814",
+  "theme_color": "#040814"
 }
