@@ -1,13 +1,18 @@
-# GlobalYouXuan Enterprise Core V1
+# GlobalYouXuan Enterprise UI V2
 
-iPhone / GitHub Pages 单层上传版。
+这是第二包，覆盖上传到现有 GitHub 仓库根目录。
 
-上传方法：
-1. 解压 ZIP。
-2. 打开 GitHub 仓库 globalyouxuan。
-3. Add file → Upload files。
-4. 一次全选所有文件上传。
-5. Commit changes。
-6. 等待 GitHub Pages 自动更新。
+文件全部在同一级，适合 iPhone：
+- index.html
+- style.css
+- app.js
+- web.html
+- ai.html
+- automation.html
+- digital.html
+- manifest.json
+- robots.txt
+- sitemap.xml
+- README.md
 
-本包全部文件位于同一级目录，没有子文件夹。
+上传：Add file → Upload files → 全选 → Commit directly to main。
