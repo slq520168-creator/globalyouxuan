@@ -1,40 +1,219 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#020814"><meta name="description" content="GlobalYouXuan 全球数字解决方案平台"><title>GlobalYouXuan</title><link rel="stylesheet" href="assets/style.css"></head>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#06101f">
+  <meta name="description" content="GlobalYouXuan 全球数字化解决方案平台">
+  <title>GlobalYouXuan｜全球优选</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+</head>
 <body>
-<script id="seedProducts" type="application/json">[{"id": "web-starter", "category": "web", "price": 99, "title": {"zh": "企业展示网站", "en": "Business Showcase Website", "km": "គេហទំព័របង្ហាញអាជីវកម្ម"}, "desc": {"zh": "适合品牌展示、联系方式、业务介绍与移动端访问。", "en": "For brand presentation, contact details, services and mobile access.", "km": "សម្រាប់បង្ហាញម៉ាក ព័ត៌មានទំនាក់ទំនង សេវាកម្ម និងការប្រើប្រាស់លើទូរស័ព្ទ។"}}, {"id": "ai-content", "category": "ai", "price": 49, "title": {"zh": "AI内容解决方案", "en": "AI Content Solution", "km": "ដំណោះស្រាយមាតិកា AI"}, "desc": {"zh": "用于文案、图片提示词、客服回复与内容生产。", "en": "For copywriting, image prompts, customer replies and content production.", "km": "សម្រាប់សរសេរមាតិកា prompt រូបភាព ឆ្លើយតបអតិថិជន និងផលិតមាតិកា។"}}, {"id": "automation-order", "category": "auto", "price": 149, "title": {"zh": "订单自动化方案", "en": "Order Automation Solution", "km": "ដំណោះស្រាយស្វ័យប្រវត្តិកម្មការបញ្ជាទិញ"}, "desc": {"zh": "自动收集需求、发送通知、整理订单与交付信息。", "en": "Collects requests, sends alerts and organises orders and delivery.", "km": "ប្រមូលតម្រូវការ ផ្ញើការជូនដំណឹង និងរៀបចំការបញ្ជាទិញ និងការបញ្ជូន។"}}, {"id": "digital-global", "category": "digital", "price": 129, "title": {"zh": "跨境数字业务方案", "en": "Cross-border Digital Business", "km": "ដំណោះស្រាយអាជីវកម្មឌីជីថលឆ្លងដែន"}, "desc": {"zh": "适合数字产品展示、咨询、下单与自动交付。", "en": "For digital product display, enquiry, ordering and delivery.", "km": "សម្រាប់បង្ហាញផលិតផលឌីជីថល សាកសួរ បញ្ជាទិញ និងបញ្ជូន។"}}]</script>
-<header><div class="wrap"><div class="brand">GlobalYouXuan</div><div class="header-actions"><a class="admin-link" href="admin.html">后台</a><button id="langBtn">中文 ▾</button><div class="lang-menu" id="langMenu"><button data-lang="zh">中文</button><button data-lang="en">English</button><button data-lang="km">ខ្មែរ</button></div></div></div></header>
-<main>
-<section class="screen hero"><div class="wrap hero-grid">
-<div><h1><span data-t="hero1">全球智慧连接</span><br><span data-t="hero2">驱动数字未来</span></h1><p data-t="heroDesc"></p><div class="search"><input id="searchInput" data-ph="search"><button id="searchBtn">⌕</button></div></div>
-<div class="earth"><div class="orbit"></div>
-<svg viewBox="0 0 600 600" aria-label="Digital Earth">
-<defs><radialGradient id="g" cx="35%" cy="30%"><stop offset="0" stop-color="#8ec8ff"/><stop offset=".42" stop-color="#2f79d8"/><stop offset="1" stop-color="#051b43"/></radialGradient><clipPath id="c"><circle cx="300" cy="300" r="220"/></clipPath></defs>
-<circle cx="300" cy="300" r="224" fill="url(#g)" stroke="#83bfff" stroke-opacity=".55" stroke-width="2"/>
-<g clip-path="url(#c)" fill="none" stroke="#a8d5ff" stroke-opacity=".28">
-<ellipse cx="300" cy="300" rx="220" ry="78"/><ellipse cx="300" cy="300" rx="220" ry="150"/><ellipse cx="300" cy="300" rx="80" ry="220"/><ellipse cx="300" cy="300" rx="150" ry="220"/><path d="M80 300h440M100 220h400M100 380h400"/>
-</g>
-<g clip-path="url(#c)" fill="#b9dcff" opacity=".8"><path d="M175 180l54-28 50 19 13 37-26 23-42-9-32 20-35-16zM318 150l62 8 44 34-20 33-54 8-28-26-34-19zM205 305l42-31 61 10 34 46-16 74-46 48-37-22-10-70-38-24zM386 316l66-18 35 27-13 48-59 18-38-31z"/></g>
-<g fill="#d7ecff"><circle cx="205" cy="220" r="4"/><circle cx="378" cy="198" r="4"/><circle cx="430" cy="348" r="4"/><circle cx="264" cy="410" r="4"/></g>
-</svg></div>
-<div class="cards4">
-<article class="card" data-cat="web"><h3 data-t="web"></h3><small>Website Development</small><p>定制网站、企业官网、自动收款与数字交付。</p></article>
-<article class="card" data-cat="ai"><h3 data-t="ai"></h3><small>Artificial Intelligence</small><p>智能内容、客户服务、业务辅助与效率提升。</p></article>
-<article class="card" data-cat="auto"><h3 data-t="auto"></h3><small>Automation Operations</small><p>订单、通知、交付与重复流程自动运行。</p></article>
-<article class="card" data-cat="digital"><h3 data-t="digital"></h3><small>Digital Solutions</small><p>数字产品、跨境业务与企业数字化升级。</p></article>
-</div></div></section>
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="GlobalYouXuan">
+      <span class="brand-mark">GY</span>
+      <span class="brand-copy">
+        <strong>GlobalYouXuan</strong>
+        <small data-i18n="brandSub">全球数字化解决方案</small>
+      </span>
+    </a>
 
-<section class="screen"><div class="wrap"><div class="section-title"><h2 data-t="services"></h2><p data-t="servicesDesc"></p></div><div class="grid6">
-<div class="service"><h3>软件开发</h3><p>定制稳定高效的软件、工具与业务系统。</p></div><div class="service"><h3>数据分析</h3><p>让数据形成判断依据，帮助业务持续优化。</p></div><div class="service"><h3>云端服务</h3><p>提供稳定、灵活、便于扩展的数字基础能力。</p></div><div class="service"><h3>网络安全</h3><p>保护网站、订单、系统与客户数据。</p></div><div class="service"><h3>数字营销</h3><p>通过内容、渠道和数据提升品牌与转化。</p></div><div class="service"><h3>技术支持</h3><p>持续解决实际问题，保持网站和系统运行。</p></div>
-</div></div></section>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#home" data-i18n="navHome">首页</a>
+      <a href="#business" data-i18n="navBusiness">业务中心</a>
+      <a href="#services" data-i18n="navServices">服务方案</a>
+      <a href="#recommend" data-i18n="navRecommend">热门推荐</a>
+      <a href="#contact" data-i18n="navContact">联系我们</a>
+    </nav>
 
-<section class="screen" id="products"><div class="wrap"><div class="section-title"><h2 id="searchResultTitle" data-t="products"></h2><p data-t="productsDesc"></p></div><div class="products" id="productGrid"></div></div></section>
+    <div class="top-actions">
+      <button class="lang-btn active" data-lang="zh">中文</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="km">ខ្មែរ</button>
+    </div>
+  </header>
 
-<section class="screen"><div class="wrap"><div class="section-title"><h2 data-t="flow"></h2><p data-t="flowDesc"></p></div><div class="flow">
-<div class="step"><b>搜索问题</b><span>SEARCH</span><p>直接输入需求，不需要先理解复杂分类。</p></div><div class="step"><b>智能匹配</b><span>MATCH</span><p>系统根据问题推荐更适合的数字解决方案。</p></div><div class="step"><b>立即下单</b><span>ORDER</span><p>收藏后仍可直接下单，减少不必要步骤。</p></div><div class="step"><b>自动交付</b><span>DELIVERY</span><p>付款确认后，订单与数字资料自动发送。</p></div>
-</div></div></section>
+  <main>
+    <section class="hero section" id="home">
+      <div class="hero-content">
+        <span class="eyebrow" data-i18n="heroEyebrow">GLOBAL DIGITAL SOLUTIONS</span>
+        <h1 data-i18n="heroTitle">让 AI 帮助企业完成数字化升级</h1>
+        <p class="hero-sub" data-i18n="heroSub">从网站、人工智能到自动化运营，用一个平台匹配真正适合你的解决方案。</p>
 
-<section class="screen"><div class="wrap"><div class="contact"><h2 data-t="contact"></h2><p data-t="contactDesc"></p><div class="contact-row"><button id="contactBtn" data-t="contactBtn"></button><a href="mailto:contact@globalyouxuan.com">contact@globalyouxuan.com</a><a href="#" aria-label="Telegram">Telegram</a></div></div></div></section>
-</main>
-<footer><div class="wrap">© 2026 GlobalYouXuan · 全球数字解决方案平台</div></footer>
+        <form class="search-shell hero-search" id="heroSearchForm">
+          <input id="heroSearchInput" type="search" autocomplete="off" data-i18n-placeholder="heroPlaceholder" placeholder="请输入你想解决的问题，例如：我想卖数字产品">
+          <button type="submit" data-i18n="searchBtn">AI 搜索</button>
+        </form>
 
-<div class="modal" id="orderModal"><div class="modal-box"><div class="modal-head"><h3 data-t="orderTitle"></h3><button class="close" onclick="closeModal()">×</button></div><form class="form" onsubmit="submitOrder(event)"><input type="hidden" name="product" id="orderProduct"><input name="name" required data-ph="name"><input name="contact" required data-ph="email"><textarea name="need" data-ph="need"></textarea><button data-t="submit"></button><div class="notice">当前订单会保存在本机浏览器后台中；接入正式数据库、USDT收款地址、Telegram机器人和邮件服务后，即可自动通知与交付。</div></form></div></div>
-<script src="assets/app.js"></script></body></html>
+        <div class="quick-tags">
+          <button data-query="我想建设企业官网">企业官网</button>
+          <button data-query="我需要AI客服">AI 客服</button>
+          <button data-query="我想自动化运营Telegram">自动化运营</button>
+          <button data-query="我想销售数字产品">数字产品</button>
+        </div>
+
+        <div class="hero-metrics">
+          <div><strong>4</strong><span data-i18n="metric1">业务中心</span></div>
+          <div><strong>6</strong><span data-i18n="metric2">核心服务</span></div>
+          <div><strong>3</strong><span data-i18n="metric3">语言支持</span></div>
+        </div>
+      </div>
+
+      <div class="earth-wrap" aria-label="Digital Earth">
+        <div class="orbit orbit-a"></div>
+        <div class="orbit orbit-b"></div>
+        <div class="earth">
+          <div class="earth-grid"></div>
+          <span class="pin p1"></span>
+          <span class="pin p2"></span>
+          <span class="pin p3"></span>
+          <span class="pin p4"></span>
+        </div>
+        <div class="earth-caption">
+          <strong data-i18n="earthTitle">Global Network</strong>
+          <span data-i18n="earthSub">连接全球业务与数字能力</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="business">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow" data-i18n="businessEyebrow">BUSINESS CENTERS</span>
+          <h2 data-i18n="businessTitle">四大业务中心</h2>
+        </div>
+        <p data-i18n="businessSub">点击任意业务中心，直接进入对应解决方案。</p>
+      </div>
+
+      <form class="search-shell compact-search js-section-search">
+        <input type="search" data-i18n-placeholder="sectionPlaceholder" placeholder="搜索当前版块的解决方案">
+        <button type="submit" data-i18n="searchBtn">AI 搜索</button>
+      </form>
+
+      <div class="business-grid">
+        <article class="business-card" data-center="web">
+          <span class="icon">◉</span>
+          <h3 data-i18n="webTitle">网站建设</h3>
+          <p data-i18n="webSub">企业官网、跨境商城、AI 网站、多语言站点。</p>
+          <button class="open-center" data-center="web" data-i18n="viewSolutions">查看方案</button>
+        </article>
+        <article class="business-card" data-center="ai">
+          <span class="icon">✦</span>
+          <h3 data-i18n="aiTitle">人工智能</h3>
+          <p data-i18n="aiSub">AI 客服、AI 写作、AI 图片、AI 办公与智能体。</p>
+          <button class="open-center" data-center="ai" data-i18n="viewSolutions">查看方案</button>
+        </article>
+        <article class="business-card" data-center="automation">
+          <span class="icon">⌘</span>
+          <h3 data-i18n="autoTitle">自动化运营</h3>
+          <p data-i18n="autoSub">Telegram、WhatsApp、邮件、n8n 与流程自动化。</p>
+          <button class="open-center" data-center="automation" data-i18n="viewSolutions">查看方案</button>
+        </article>
+        <article class="business-card" data-center="digital">
+          <span class="icon">◇</span>
+          <h3 data-i18n="digitalTitle">数字化方案</h3>
+          <p data-i18n="digitalSub">数字产品、课程、SaaS、支付与自动交付。</p>
+          <button class="open-center" data-center="digital" data-i18n="viewSolutions">查看方案</button>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow" data-i18n="servicesEyebrow">CORE SERVICES</span>
+          <h2 data-i18n="servicesTitle">六大核心服务</h2>
+        </div>
+        <p data-i18n="servicesSub">从入口到成交，覆盖企业数字化完整链路。</p>
+      </div>
+
+      <form class="search-shell compact-search js-section-search">
+        <input type="search" data-i18n-placeholder="sectionPlaceholder" placeholder="搜索当前版块的解决方案">
+        <button type="submit" data-i18n="searchBtn">AI 搜索</button>
+      </form>
+
+      <div class="service-list" id="serviceList"></div>
+    </section>
+
+    <section class="section section-dark" id="recommend">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow" data-i18n="recommendEyebrow">SMART MATCHING</span>
+          <h2 data-i18n="recommendTitle">AI 智能推荐</h2>
+        </div>
+        <p data-i18n="recommendSub">输入问题后，系统会自动组合适合你的多项方案。</p>
+      </div>
+
+      <div class="recommend-layout">
+        <div class="recommend-panel">
+          <h3 data-i18n="recommendPrompt">你现在最想解决什么？</h3>
+          <form class="search-shell" id="recommendSearchForm">
+            <input id="recommendSearchInput" type="search" data-i18n-placeholder="recommendPlaceholder" placeholder="例如：我想用手机做跨境电商">
+            <button type="submit" data-i18n="generateBtn">生成方案</button>
+          </form>
+          <div class="example-list">
+            <button data-query="我想卖数字产品">卖数字产品</button>
+            <button data-query="我需要一个企业网站">建设企业网站</button>
+            <button data-query="我想自动回复客户">自动回复客户</button>
+          </div>
+        </div>
+
+        <div class="result-panel" id="resultPanel">
+          <div class="result-empty">
+            <span>AI</span>
+            <p data-i18n="resultEmpty">输入你的需求，这里会显示匹配结果。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="process">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow" data-i18n="processEyebrow">HOW IT WORKS</span>
+          <h2 data-i18n="processTitle">从问题到解决方案</h2>
+        </div>
+      </div>
+      <div class="process-grid">
+        <div><b>01</b><h3 data-i18n="step1Title">输入问题</h3><p data-i18n="step1Sub">告诉平台你想解决什么。</p></div>
+        <div><b>02</b><h3 data-i18n="step2Title">识别需求</h3><p data-i18n="step2Sub">AI 判断行业、目标和关键需求。</p></div>
+        <div><b>03</b><h3 data-i18n="step3Title">组合方案</h3><p data-i18n="step3Sub">自动匹配网站、AI 与自动化能力。</p></div>
+        <div><b>04</b><h3 data-i18n="step4Title">开始执行</h3><p data-i18n="step4Sub">进入对应服务中心继续咨询。</p></div>
+      </div>
+    </section>
+
+    <section class="section contact-section" id="contact">
+      <div>
+        <span class="eyebrow" data-i18n="contactEyebrow">CONTACT</span>
+        <h2 data-i18n="contactTitle">准备开始你的数字化项目？</h2>
+        <p data-i18n="contactSub">留下你的需求，GlobalYouXuan 将为你匹配合适的解决方案。</p>
+      </div>
+      <a class="primary-cta" href="mailto:contact@globalyouxuan.com" data-i18n="contactBtn">立即联系</a>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <strong>GlobalYouXuan</strong>
+      <span data-i18n="footerSub">全球数字化解决方案平台</span>
+    </div>
+    <small>© 2026 GlobalYouXuan</small>
+  </footer>
+
+  <div class="modal" id="centerModal" aria-hidden="true">
+    <div class="modal-card">
+      <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+      <span class="eyebrow" id="modalEyebrow">SOLUTION CENTER</span>
+      <h2 id="modalTitle">解决方案中心</h2>
+      <form class="search-shell" id="modalSearchForm">
+        <input id="modalSearchInput" type="search" placeholder="搜索这个中心的解决方案">
+        <button type="submit" data-i18n="searchBtn">AI 搜索</button>
+      </form>
+      <div class="modal-grid" id="modalGrid"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
