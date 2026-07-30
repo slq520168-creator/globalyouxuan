@@ -7,6 +7,14 @@
 <title>GlobalYouXuan｜全球优选数字化平台</title>
 <meta name="description" content="GlobalYouXuan 全球数字化解决方案平台">
 <link rel="stylesheet" href="style.css">
+<style>
+#heroResult{margin-top:16px;text-align:left}
+#heroResult .result-card{
+  background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:16px;box-shadow:var(--shadow)
+}
+#heroResult button{font:inherit}
+</style>
 </head>
 <body>
 <header class="topbar">
@@ -39,7 +47,10 @@
         <button type="submit" aria-label="搜索">🔍</button>
       </form>
 
-      <div class="entry-grid">
+      <!-- 顶部搜索结果，直接弹在下面 -->
+      <div id="heroResult"></div>
+
+      <div class="entry-grid" id="entryGrid">
         <a class="entry-card c1" href="web.html">
           <div class="entry-icon">🖥️</div>
           <h3 data-i18n="card1">网站建设</h3>
@@ -69,10 +80,10 @@
           <button type="submit" data-i18n="searchBtn">生成方案</button>
         </form>
         <div class="quick">
-          <button data-q="网站建设">网站建设</button>
-          <button data-q="AI">智控未来</button>
-          <button data-q="订单">量化感知</button>
-          <button data-q="数字">数字学院</button>
+          <button type="button" data-q="网站建设">网站建设</button>
+          <button type="button" data-q="AI">智控未来</button>
+          <button type="button" data-q="订单">量化感知</button>
+          <button type="button" data-q="数字">数字学院</button>
         </div>
         <div class="result-panel" id="resultPanel">
           <div class="result-empty">
@@ -104,5 +115,24 @@
 </footer>
 
 <script src="app.js"></script>
+<script>
+// 让结果同时显示在顶部搜索下方
+(function(){
+  const _renderOptions = window.renderOptions;
+  const _renderPlan = window.renderPlan;
+  function syncHero(html){
+    const hero = document.getElementById('heroResult');
+    if(hero) hero.innerHTML = html || '';
+  }
+  // 轻量包装：每次结果更新时同步到顶部
+  const panel = document.getElementById('resultPanel');
+  if(panel){
+    const obs = new MutationObserver(() => {
+      syncHero(panel.innerHTML);
+    });
+    obs.observe(panel, {childList:true, subtree:true});
+  }
+})();
+</script>
 </body>
 </html>
