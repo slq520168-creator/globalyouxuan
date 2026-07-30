@@ -1,14 +1,200 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GlobalYouXuan 后台</title><link rel="stylesheet" href="assets/style.css"><style>
-.admin{padding:90px 0 40px}.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.panel{border:1px solid var(--line);border-radius:18px;padding:20px;background:rgba(7,27,63,.72)}.panel h2{margin-top:0}.panel input,.panel textarea,.panel select{width:100%;padding:11px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:white;margin:6px 0}.panel button{padding:11px 14px;border-radius:10px;border:0;background:white;color:#06152e;font-weight:700}.list{display:grid;gap:10px}.row{border:1px solid var(--line);border-radius:12px;padding:12px}.row small{color:var(--muted)}@media(max-width:800px){.admin-grid{grid-template-columns:1fr}}
-</style></head><body><header><div class="wrap"><div class="brand">GlobalYouXuan 后台</div><a href="index.html">返回网站</a></div></header><main class="admin"><div class="wrap"><div class="admin-grid">
-<section class="panel"><h2>产品管理</h2><form id="productForm"><input name="id" placeholder="产品ID" required><select name="category"><option value="web">网站建设</option><option value="ai">人工智能</option><option value="auto">自动化运营</option><option value="digital">数字化方案</option></select><input name="titleZh" placeholder="中文标题" required><input name="titleEn" placeholder="英文标题"><input name="titleKm" placeholder="柬文标题"><textarea name="descZh" placeholder="中文说明"></textarea><input name="price" type="number" placeholder="USDT价格" required><button>保存产品</button></form><div class="list" id="productList"></div></section>
-<section class="panel"><h2>订单与需求</h2><button onclick="exportData()">导出数据</button><h3>订单</h3><div class="list" id="orders"></div><h3>未匹配需求</h3><div class="list" id="demands"></div></section>
-</div></div></main><script>
-const seed=[{"id": "web-starter", "category": "web", "price": 99, "title": {"zh": "企业展示网站", "en": "Business Showcase Website", "km": "គេហទំព័របង្ហាញអាជីវកម្ម"}, "desc": {"zh": "适合品牌展示、联系方式、业务介绍与移动端访问。", "en": "For brand presentation, contact details, services and mobile access.", "km": "សម្រាប់បង្ហាញម៉ាក ព័ត៌មានទំនាក់ទំនង សេវាកម្ម និងការប្រើប្រាស់លើទូរស័ព្ទ។"}}, {"id": "ai-content", "category": "ai", "price": 49, "title": {"zh": "AI内容解决方案", "en": "AI Content Solution", "km": "ដំណោះស្រាយមាតិកា AI"}, "desc": {"zh": "用于文案、图片提示词、客服回复与内容生产。", "en": "For copywriting, image prompts, customer replies and content production.", "km": "សម្រាប់សរសេរមាតិកា prompt រូបភាព ឆ្លើយតបអតិថិជន និងផលិតមាតិកា។"}}, {"id": "automation-order", "category": "auto", "price": 149, "title": {"zh": "订单自动化方案", "en": "Order Automation Solution", "km": "ដំណោះស្រាយស្វ័យប្រវត្តិកម្មការបញ្ជាទិញ"}, "desc": {"zh": "自动收集需求、发送通知、整理订单与交付信息。", "en": "Collects requests, sends alerts and organises orders and delivery.", "km": "ប្រមូលតម្រូវការ ផ្ញើការជូនដំណឹង និងរៀបចំការបញ្ជាទិញ និងការបញ្ជូន។"}}, {"id": "digital-global", "category": "digital", "price": 129, "title": {"zh": "跨境数字业务方案", "en": "Cross-border Digital Business", "km": "ដំណោះស្រាយអាជីវកម្មឌីជីថលឆ្លងដែន"}, "desc": {"zh": "适合数字产品展示、咨询、下单与自动交付。", "en": "For digital product display, enquiry, ordering and delivery.", "km": "សម្រាប់បង្ហាញផលិតផលឌីជីថល សាកសួរ បញ្ជាទិញ និងបញ្ជូន។"}}];let products=JSON.parse(localStorage.getItem("gyx_products")||JSON.stringify(seed));
-function save(){localStorage.setItem("gyx_products",JSON.stringify(products));render()}
-function render(){document.getElementById("productList").innerHTML=products.map(p=>`<div class="row"><b>${p.title.zh}</b><br><small>${p.category} · ${p.price} USDT</small><br><button onclick="delP('${p.id}')">删除</button></div>`).join("");const orders=JSON.parse(localStorage.getItem("gyx_orders")||"[]");document.getElementById("orders").innerHTML=orders.length?orders.map(o=>`<div class="row"><b>${o.product||"咨询"}</b><br><small>${o.name||""} · ${o.contact||""}</small><p>${o.need||""}</p></div>`).join(""):"暂无订单";const d=JSON.parse(localStorage.getItem("gyx_demands")||"[]");document.getElementById("demands").innerHTML=d.length?d.map(x=>`<div class="row">${x.q}<br><small>${x.date}</small></div>`).join(""):"暂无记录"}
-function delP(id){products=products.filter(p=>p.id!==id);save()}
-document.getElementById("productForm").onsubmit=e=>{e.preventDefault();const f=new FormData(e.target);const p={id:f.get("id"),category:f.get("category"),price:Number(f.get("price")),title:{zh:f.get("titleZh"),en:f.get("titleEn")||f.get("titleZh"),km:f.get("titleKm")||f.get("titleZh")},desc:{zh:f.get("descZh"),en:f.get("descZh"),km:f.get("descZh")}};products=products.filter(x=>x.id!==p.id);products.push(p);save();e.target.reset()}
-function exportData(){const data={products,orders:JSON.parse(localStorage.getItem("gyx_orders")||"[]"),demands:JSON.parse(localStorage.getItem("gyx_demands")||"[]")};const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:"application/json"}));a.download="GlobalYouXuan-data.json";a.click()}
-render()
-</script></body></html>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GlobalYouXuan 后台</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.admin{padding:90px 0 40px}
+.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.panel{border:1px solid var(--line);border-radius:18px;padding:20px;background:rgba(7,27,63,.72)}
+.panel h2{margin-top:0;font-size:22px}
+.panel h3{margin:20px 0 10px;font-size:16px;color:var(--cyan)}
+.panel input,.panel textarea,.panel select{width:100%;padding:11px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:white;margin:6px 0}
+.panel button{padding:11px 14px;border-radius:10px;border:0;background:linear-gradient(135deg,var(--cyan),var(--blue));color:#03101b;font-weight:700;cursor:pointer;margin-right:8px;margin-top:8px}
+.panel button.danger{background:#ff5c7a;color:#fff}
+.panel button.secondary{background:rgba(255,255,255,.1);color:#fff}
+.list{display:grid;gap:10px;margin-top:12px}
+.row{border:1px solid var(--line);border-radius:12px;padding:12px;background:rgba(255,255,255,.03)}
+.row b{display:block;margin-bottom:4px}
+.row small{color:var(--muted)}
+.row .actions{margin-top:8px}
+.tip{font-size:13px;color:var(--muted);margin:8px 0 16px;line-height:1.5}
+@media(max-width:800px){.admin-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">GY</span>
+    <span class="brand-text"><b>GlobalYouXuan 后台</b><small>产品与订单管理</small></span>
+  </div>
+  <a href="index.html" style="color:var(--cyan)">返回网站</a>
+</header>
+
+<main class="admin">
+  <div class="screen" style="padding-top:20px">
+    <div class="admin-grid">
+      <section class="panel">
+        <h2>产品管理</h2>
+        <p class="tip">数据优先从 products.json 加载。后台修改会保存在本机浏览器，可导出后覆盖仓库的 products.json。</p>
+        <form id="productForm">
+          <input name="id" placeholder="产品ID（英文，如 web-starter）" required>
+          <select name="category">
+            <option value="web">网站建设</option>
+            <option value="ai">人工智能</option>
+            <option value="auto">自动化运营</option>
+            <option value="digital">数字化方案</option>
+          </select>
+          <input name="titleZh" placeholder="中文标题" required>
+          <input name="titleEn" placeholder="英文标题">
+          <input name="titleKm" placeholder="柬文标题">
+          <textarea name="descZh" placeholder="中文说明" rows="3"></textarea>
+          <input name="price" type="number" placeholder="USDT价格" required min="0" step="1">
+          <button type="submit">保存产品</button>
+          <button type="button" class="secondary" id="btnReset">重置表单</button>
+        </form>
+        <div class="list" id="productList"></div>
+      </section>
+
+      <section class="panel">
+        <h2>订单与需求</h2>
+        <button type="button" onclick="exportData()">导出 products.json</button>
+        <button type="button" class="secondary" onclick="importFromFile()">导入 products.json</button>
+        <input type="file" id="importFile" accept=".json" style="display:none">
+        <h3>订单记录</h3>
+        <div class="list" id="orders"></div>
+        <h3>未匹配需求</h3>
+        <div class="list" id="demands"></div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<script>
+const STORAGE_KEY = 'gyx_products_v2';
+const ORDERS_KEY = 'gyx_orders';
+const DEMANDS_KEY = 'gyx_demands';
+let products = [];
+
+async function loadProducts() {
+  const local = localStorage.getItem(STORAGE_KEY);
+  if (local) {
+    try { products = JSON.parse(local); render(); return; } catch(e) {}
+  }
+  try {
+    const res = await fetch('products.json?t=' + Date.now());
+    if (res.ok) {
+      products = await res.json();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+    }
+  } catch(e) { products = []; }
+  render();
+}
+
+function save() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+  render();
+}
+
+function render() {
+  document.getElementById('productList').innerHTML = products.length
+    ? products.map(p => `
+      <div class="row">
+        <b>${p.title?.zh || p.id}</b>
+        <small>${p.category} · ${p.price} USDT · ID: ${p.id}</small>
+        <div class="actions">
+          <button type="button" onclick="editP('${p.id}')">编辑</button>
+          <button type="button" class="danger" onclick="delP('${p.id}')">删除</button>
+        </div>
+      </div>`).join('')
+    : '<div class="row"><small>暂无产品</small></div>';
+
+  const orders = JSON.parse(localStorage.getItem(ORDERS_KEY) || '[]');
+  document.getElementById('orders').innerHTML = orders.length
+    ? orders.map(o => `<div class="row"><b>${o.product || '咨询'}</b><br><small>${o.name || ''} · ${o.contact || ''}</small><p style="margin:6px 0 0;color:var(--muted)">${o.need || ''}</p></div>`).join('')
+    : '<div class="row"><small>暂无订单</small></div>';
+
+  const d = JSON.parse(localStorage.getItem(DEMANDS_KEY) || '[]');
+  document.getElementById('demands').innerHTML = d.length
+    ? d.map(x => `<div class="row">${x.q}<br><small>${x.date || ''}</small></div>`).join('')
+    : '<div class="row"><small>暂无记录</small></div>';
+}
+
+function delP(id) {
+  if (!confirm('确定删除？')) return;
+  products = products.filter(p => p.id !== id);
+  save();
+}
+
+function editP(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  const f = document.getElementById('productForm');
+  f.id.value = p.id;
+  f.category.value = p.category || 'web';
+  f.titleZh.value = p.title?.zh || '';
+  f.titleEn.value = p.title?.en || '';
+  f.titleKm.value = p.title?.km || '';
+  f.descZh.value = p.desc?.zh || '';
+  f.price.value = p.price || 0;
+  f.scrollIntoView({behavior:'smooth'});
+}
+
+document.getElementById('productForm').onsubmit = e => {
+  e.preventDefault();
+  const f = new FormData(e.target);
+  const p = {
+    id: String(f.get('id')).trim(),
+    category: f.get('category'),
+    price: Number(f.get('price')) || 0,
+    title: {
+      zh: f.get('titleZh'),
+      en: f.get('titleEn') || f.get('titleZh'),
+      km: f.get('titleKm') || f.get('titleZh')
+    },
+    desc: {
+      zh: f.get('descZh') || '',
+      en: f.get('descZh') || '',
+      km: f.get('descZh') || ''
+    }
+  };
+  products = products.filter(x => x.id !== p.id);
+  products.push(p);
+  save();
+  e.target.reset();
+  alert('已保存到本地。请点「导出 products.json」后覆盖仓库文件，主站才会永久更新。');
+};
+
+document.getElementById('btnReset').onclick = () => document.getElementById('productForm').reset();
+
+function exportData() {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(products, null, 2)], {type: 'application/json'}));
+  a.download = 'products.json';
+  a.click();
+}
+
+function importFromFile() {
+  document.getElementById('importFile').click();
+}
+
+document.getElementById('importFile').onchange = async e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  try {
+    const data = JSON.parse(await file.text());
+    products = Array.isArray(data) ? data : (data.products || []);
+    save();
+    alert('导入成功，共 ' + products.length + ' 个产品');
+  } catch(err) {
+    alert('导入失败：JSON 格式错误');
+  }
+  e.target.value = '';
+};
+
+loadProducts();
+</script>
+</body>
+</html>
