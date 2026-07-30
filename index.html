@@ -8,12 +8,57 @@
 <meta name="description" content="GlobalYouXuan 全球数字化解决方案平台">
 <link rel="stylesheet" href="style.css">
 <style>
-#heroResult{margin-top:16px;text-align:left}
-#heroResult .result-card{
-  background:var(--card);border:1px solid var(--line);border-radius:16px;
-  padding:16px;box-shadow:var(--shadow)
+.hero-content{width:min(100%,720px)}
+#heroResult{margin-top:18px;text-align:left}
+.qa-card{
+  background:rgba(255,255,255,.92);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:18px 16px;
+  box-shadow:0 10px 30px rgba(15,23,42,.06);
+  animation:fadeUp .25s ease;
 }
-#heroResult button{font:inherit}
+@media (prefers-color-scheme: dark){
+  .qa-card{background:rgba(17,24,39,.92)}
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.qa-card h3{margin:0 0 14px;font-size:17px;line-height:1.4}
+.qa-btn{
+  width:100%;
+  text-align:left;
+  margin:0 0 10px;
+  padding:14px 14px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:var(--bg);
+  color:var(--text);
+  cursor:pointer;
+  font-size:15px;
+  font-weight:600;
+}
+.qa-btn:active{transform:scale(.99)}
+.qa-actions{display:flex;gap:8px;margin-top:8px}
+.qa-mini{
+  border:1px solid var(--line);
+  background:transparent;
+  color:var(--muted);
+  border-radius:10px;
+  padding:10px 12px;
+  font-size:13px;
+  cursor:pointer;
+}
+.plan-item{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+  padding:12px 0;border-bottom:1px solid var(--line);
+}
+.plan-item a{
+  padding:8px 12px;border-radius:10px;
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  color:#fff;font-size:12px;font-weight:700;text-decoration:none;
+}
 </style>
 </head>
 <body>
@@ -43,54 +88,17 @@
 
       <form class="search-box" id="mainSearch">
         <span class="search-icon">✦</span>
-        <input id="mainSearchInput" data-i18n-placeholder="searchPlaceholder" placeholder="AI 智能搜索，探索解决方案...">
+        <input id="mainSearchInput" data-i18n-placeholder="searchPlaceholder" placeholder="说说你现在最想解决的问题...">
         <button type="submit" aria-label="搜索">🔍</button>
       </form>
 
-      <!-- 顶部搜索结果，直接弹在下面 -->
       <div id="heroResult"></div>
 
       <div class="entry-grid" id="entryGrid">
-        <a class="entry-card c1" href="web.html">
-          <div class="entry-icon">🖥️</div>
-          <h3 data-i18n="card1">网站建设</h3>
-        </a>
-        <a class="entry-card c2" href="order.html">
-          <div class="entry-icon">🧠</div>
-          <h3 data-i18n="card2">智控未来</h3>
-        </a>
-        <a class="entry-card c3" href="automation.html">
-          <div class="entry-icon">📊</div>
-          <h3 data-i18n="card3">量化感知</h3>
-        </a>
-        <a class="entry-card c4" href="digital.html">
-          <div class="entry-icon">🎓</div>
-          <h3 data-i18n="card4">数字学院</h3>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="match-section" id="match">
-    <div class="section-inner">
-      <h2 data-i18n="matchTitle">输入目标，生成方案</h2>
-      <div class="match-box">
-        <form class="search-box" id="matchSearch">
-          <input id="matchInput" data-i18n-placeholder="matchPlaceholder" placeholder="例如：我要做跨境电商">
-          <button type="submit" data-i18n="searchBtn">生成方案</button>
-        </form>
-        <div class="quick">
-          <button type="button" data-q="网站建设">网站建设</button>
-          <button type="button" data-q="AI">智控未来</button>
-          <button type="button" data-q="订单">量化感知</button>
-          <button type="button" data-q="数字">数字学院</button>
-        </div>
-        <div class="result-panel" id="resultPanel">
-          <div class="result-empty">
-            <span>AI</span>
-            <p data-i18n="resultEmpty">输入目标后这里会显示匹配方案</p>
-          </div>
-        </div>
+        <a class="entry-card c1" href="web.html"><div class="entry-icon">🖥️</div><h3 data-i18n="card1">网站建设</h3></a>
+        <a class="entry-card c2" href="order.html"><div class="entry-icon">🧠</div><h3 data-i18n="card2">智控未来</h3></a>
+        <a class="entry-card c3" href="automation.html"><div class="entry-icon">📊</div><h3 data-i18n="card3">量化感知</h3></a>
+        <a class="entry-card c4" href="digital.html"><div class="entry-icon">🎓</div><h3 data-i18n="card4">数字学院</h3></a>
       </div>
     </div>
   </section>
@@ -115,24 +123,5 @@
 </footer>
 
 <script src="app.js"></script>
-<script>
-// 让结果同时显示在顶部搜索下方
-(function(){
-  const _renderOptions = window.renderOptions;
-  const _renderPlan = window.renderPlan;
-  function syncHero(html){
-    const hero = document.getElementById('heroResult');
-    if(hero) hero.innerHTML = html || '';
-  }
-  // 轻量包装：每次结果更新时同步到顶部
-  const panel = document.getElementById('resultPanel');
-  if(panel){
-    const obs = new MutationObserver(() => {
-      syncHero(panel.innerHTML);
-    });
-    obs.observe(panel, {childList:true, subtree:true});
-  }
-})();
-</script>
 </body>
 </html>
