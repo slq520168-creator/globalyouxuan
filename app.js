@@ -41,10 +41,10 @@ const TREE = {
   start: {
     title: "你更想先解决哪一类问题？",
     options: [
-      { id: "web", label: "网站建设", desc: "官网/商城/落地页" },
-      { id: "ai", label: "智控未来", desc: "AI工具/提示词/客服" },
-      { id: "auto", label: "量化感知", desc: "自动化/订单/通知" },
-      { id: "digital", label: "数字学院", desc: "课程/资料/教程" },
+      { id: "web", label: "网站建设", desc: "官网 / 商城 / 落地页" },
+      { id: "ai", label: "智控未来", desc: "AI工具 / 提示词 / 客服" },
+      { id: "auto", label: "量化感知", desc: "自动化 / 订单 / 通知" },
+      { id: "digital", label: "数字学院", desc: "课程 / 资料 / 教程" },
       { id: "other", label: "还不确定", desc: "先看看常见方向" }
     ]
   },
@@ -198,78 +198,79 @@ function guessStart(q) {
   q = (q || "").toLowerCase();
   if (!q) return "start";
   if (/(网站|官网|商城|落地|建站|web|shop)/.test(q)) return "web";
-  if (/(ai|提示|客服|写作|智能|chatgpt)/.test(q)) return "ai";
+  if (/(ai|提示|客服|写作|智能|chatgpt|视频)/.test(q)) return "ai";
   if (/(自动|订单|通知|数据|运营|量化)/.test(q)) return "auto";
   if (/(课程|教程|资料|学院|学习)/.test(q)) return "digital";
   return "start";
 }
 
-function renderOptions(nodeId) {
+function paint(html) {
   const panel = document.getElementById("resultPanel");
-  if (!panel) return;
+  const hero = document.getElementById("heroResult");
+  if (panel) panel.innerHTML = html;
+  if (hero) hero.innerHTML = html;
+}
+
+function renderOptions(nodeId) {
   const node = TREE[nodeId];
   if (!node) return renderPlan(nodeId);
 
-  let html = `<div class="result-card">
-    <div style="font-size:12px;color:var(--muted);margin-bottom:8px">第 ${step + 1} 次选择（最多3次）</div>
-    <h3 style="margin:0 0 8px">${node.title}</h3>
-    <p style="color:var(--muted);font-size:13px;margin:0 0 14px">点选最接近的一项，我们继续帮你缩小范围</p>`;
+  let html = `<div class="result-card" style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--shadow);text-align:left">
+    <div style="font-size:12px;color:var(--muted);margin-bottom:8px">第 ${Math.min(step + 1, 3)} 次选择（最多3次）</div>
+    <h3 style="margin:0 0 8px;font-size:18px;color:var(--text)">${node.title}</h3>
+    <p style="color:var(--muted);font-size:13px;margin:0 0 14px">先选方向，确认后再给出方案</p>`;
 
   node.options.forEach(op => {
     html += `<button type="button" onclick="choose('${op.id}')" style="width:100%;text-align:left;margin:0 0 10px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--text);cursor:pointer">
-      <b>${op.label}</b>
+      <b style="font-size:15px">${op.label}</b>
       <div style="font-size:12px;color:var(--muted);margin-top:4px">${op.desc}</div>
     </button>`;
   });
 
   if (step > 0) {
-    html += `<button type="button" onclick="backStep()" style="margin-top:6px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:transparent;color:var(--muted);font-size:13px;cursor:pointer">← 返回上一步</button>`;
+    html += `<button type="button" onclick="backStep()" style="margin-top:4px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:transparent;color:var(--muted);font-size:13px;cursor:pointer">← 返回上一步</button>`;
   }
   html += `</div>`;
-  panel.innerHTML = html;
+  paint(html);
 }
 
 function renderPlan(planId) {
-  const panel = document.getElementById("resultPanel");
-  if (!panel) return;
   const plan = PLANS[planId] || {
     title: "综合数字化方案",
     summary: "建议先从网站展示或 AI 提效其中一个方向开始。",
     items: [
       { name: "三分钟玩转AI", price: "9.9U", link: "order.html" },
-      { name: "查看全部资源", price: "", link: "index.html" }
+      { name: "查看全部资源", price: "", link: "ai.html" }
     ]
   };
 
-  let html = `<div class="result-card">
+  let html = `<div class="result-card" style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--shadow);text-align:left">
     <div style="font-size:12px;color:var(--cyan);margin-bottom:8px">匹配完成</div>
-    <h3 style="margin:0 0 8px">${plan.title}</h3>
+    <h3 style="margin:0 0 8px;font-size:18px;color:var(--text)">${plan.title}</h3>
     <p style="color:var(--muted);font-size:14px;margin:0 0 14px">${plan.summary}</p>`;
 
   plan.items.forEach(it => {
     html += `<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)">
-      <div style="text-align:left"><b style="font-size:14px">${it.name}</b></div>
+      <div style="text-align:left"><b style="font-size:14px;color:var(--text)">${it.name}</b></div>
       <div style="display:flex;gap:8px;align-items:center">
         ${it.price ? `<span style="color:var(--blue);font-weight:700;font-size:13px">${it.price}</span>` : ""}
-        <a href="${it.link}" style="padding:8px 12px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;font-size:12px;font-weight:700">${it.price ? "去付款" : "查看"}</a>
+        <a href="${it.link}" style="padding:8px 12px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;font-size:12px;font-weight:700;text-decoration:none">${it.price ? "去付款" : "查看"}</a>
       </div>
     </div>`;
   });
 
   html += `<button type="button" onclick="restart()" style="margin-top:14px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:transparent;color:var(--muted);font-size:13px;cursor:pointer">重新匹配</button>`;
   html += `</div>`;
-  panel.innerHTML = html;
+  paint(html);
 }
 
 function choose(id) {
   path.push(id);
   step += 1;
 
-  // 已是最终方案节点，或已选满3次
   if (PLANS[id] || step >= 3) {
-    // 第3次还没到最终节点时，尽量落到已有方案
     if (!PLANS[id]) {
-      const fallback = path.reverse().find(x => PLANS[x]) || "ai_start";
+      const fallback = [...path].reverse().find(x => PLANS[x]) || "ai_start";
       renderPlan(fallback);
       return;
     }
@@ -277,12 +278,8 @@ function choose(id) {
     return;
   }
 
-  // 还有下一层选项
-  if (TREE[id]) {
-    renderOptions(id);
-  } else {
-    renderPlan(id);
-  }
+  if (TREE[id]) renderOptions(id);
+  else renderPlan(id);
 }
 
 function backStep() {
@@ -311,7 +308,6 @@ function showPlan(q) {
   } catch (e) {}
 
   const startId = guessStart(lastQuery);
-  // 如果一搜就很明确，直接进入对应第1层；否则从总入口开始
   if (startId !== "start" && TREE[startId]) {
     path = [startId];
     step = 1;
@@ -332,10 +328,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setLang(localStorage.getItem("gyxLang") || "zh");
 
   document.querySelectorAll("[data-q]").forEach(b => {
-    b.onclick = () => {
-      showPlan(b.dataset.q);
-      document.getElementById("match")?.scrollIntoView({ behavior: "smooth" });
-    };
+    b.onclick = () => showPlan(b.dataset.q);
   });
 
   [["mainSearch", "mainSearchInput"], ["matchSearch", "matchInput"]].forEach(([f, i]) => {
@@ -344,7 +337,6 @@ document.addEventListener("DOMContentLoaded", () => {
     form.onsubmit = e => {
       e.preventDefault();
       showPlan(document.getElementById(i).value);
-      document.getElementById("match")?.scrollIntoView({ behavior: "smooth" });
     };
   });
 });
