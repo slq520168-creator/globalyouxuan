@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>下单 - 三分钟玩转AI</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.order-page{max-width:480px;margin:0 auto;padding:20px 16px 60px}
+.order-card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow);margin-bottom:16px}
+.order-card h1{font-size:22px;margin:0 0 8px}
+.price{font-size:28px;font-weight:800;color:var(--blue);margin:8px 0 20px}
+.price small{font-size:14px;font-weight:500;color:var(--muted)}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+.field input{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--text);outline:0}
+.pay-methods{display:grid;gap:12px;margin:20px 0}
+.pay-item{border:1px solid var(--line);border-radius:14px;padding:14px;background:var(--bg);cursor:pointer;transition:.15s}
+.pay-item.active{border-color:var(--blue);background:color-mix(in srgb,var(--blue) 8%,var(--bg))}
+.pay-item h3{margin:0 0 4px;font-size:15px}
+.pay-item p{margin:0;font-size:13px;color:var(--muted)}
+.addr-box{display:flex;gap:8px;margin-top:10px;align-items:center}
+.addr-box code{flex:1;font-size:12px;word-break:break-all;background:var(--card);padding:10px;border-radius:10px;border:1px solid var(--line)}
+.copy-btn{border:0;background:var(--blue);color:#fff;border-radius:10px;padding:10px 14px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+.placeholder-pay{text-align:center;padding:20px;color:var(--muted);font-size:14px;border:1px dashed var(--line);border-radius:12px;margin-top:10px}
+.btn-main{width:100%;border:0;border-radius:14px;padding:16px;font-size:16px;font-weight:700;cursor:pointer;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;margin-top:8px}
+.btn-main:disabled{opacity:.5;cursor:not-allowed}
+.status-box{text-align:center;padding:20px}
+.status-box .pwd{font-size:28px;font-weight:800;letter-spacing:4px;color:var(--blue);margin:12px 0;padding:12px;background:var(--bg);border-radius:12px}
+.countdown{font-size:13px;color:var(--muted)}
+.back{display:inline-block;margin-bottom:16px;color:var(--blue);font-size:14px}
+.download-links{display:grid;gap:10px;margin-top:16px}
+.download-links a{display:block;padding:12px;border:1px solid var(--line);border-radius:12px;text-align:center;background:var(--bg);font-size:14px}
+.note{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.5}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html">
+    <span class="brand-mark">G</span>
+    <span class="brand-name">GlobalYouXuan</span>
+  </a>
+</header>
+
+<div class="order-page">
+  <a class="back" href="index.html">← 返回首页</a>
+
+  <div class="order-card" id="orderForm">
+    <h1>三分钟玩转AI</h1>
+    <div class="price">9.9 <small>USDT</small></div>
+
+    <div class="field">
+      <label>你的联系方式（选填 Telegram）</label>
+      <input id="contact" placeholder="例如 @username 或微信号" />
+    </div>
+    <div class="field">
+      <label>备注（选填）</label>
+      <input id="note" placeholder="其他说明" />
+    </div>
+
+    <div class="pay-methods">
+      <div class="pay-item active" data-pay="usdt" onclick="selectPay(this)">
+        <h3>① U收款（推荐）</h3>
+        <p>USDT · 一键复制地址</p>
+        <div class="addr-box">
+          <code id="usdtAddr">TKfQoN7kZirALGYxMkxU4SoqMWJRqXsh7k</code>
+          <button class="copy-btn" type="button" onclick="copyAddr(event)">复制</button>
+        </div>
+      </div>
+      <div class="pay-item" data-pay="alipay" onclick="selectPay(this)">
+        <h3>② 支付宝</h3>
+        <p>付款后联系客服确认</p>
+        <div class="placeholder-pay">支付宝收款码（占位）<br>请先联系客服</div>
+      </div>
+      <div class="pay-item" data-pay="wechat" onclick="selectPay(this)">
+        <h3>③ 微信</h3>
+        <p>付款后联系客服确认</p>
+        <div class="placeholder-pay">微信收款码（占位）<br>请先联系客服</div>
+      </div>
+    </div>
+
+    <button class="btn-main" id="payBtn" onclick="submitPaid()">我已付款，请确认</button>
+    <p class="note">请先完成转账，再点击上方按钮。系统会通知客服确认到账，确认后即可获取下载密码。</p>
+  </div>
+
+  <div class="order-card status-box" id="resultBox" style="display:none">
+    <h2>订单已提交</h2>
+    <p id="resultMsg">正在等待确认到账…</p>
+    <div id="pwdArea" style="display:none">
+      <p>你的下载密码：</p>
+      <div class="pwd" id="pwdShow"></div>
+      <p class="countdown" id="countdown"></p>
+      <div class="download-links">
+        <a href="#" id="linkGithub" target="_blank">GitHub 下载（国际）</a>
+        <a href="#" id="linkPan" target="_blank">网盘下载（国内）</a>
+      </div>
+    </div>
+    <p class="note">请保存好密码。确认到账后密码会显示在这里（同一浏览器有效）。</p>
+  </div>
+</div>
+
+<script>
+const BOT_TOKEN = '8835320602:AAEKWaIOio84eu4rE4HszehCVH1Va87-6VA';
+const CHAT_ID = '6934078288';
+const PRODUCT = { name: '三分钟玩转AI', price: '9.9U' };
+
+// 占位下载链接，你后面换成真实的
+const DOWNLOAD = {
+  github: 'https://github.com/slq520168-creator/globalyouxuan',
+  pan: 'https://example.com/pan-link'
+};
+
+function selectPay(el) {
+  document.querySelectorAll('.pay-item').forEach(i => i.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function copyAddr(e) {
+  e.stopPropagation();
+  const text = document.getElementById('usdtAddr').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = e.target;
+    btn.textContent = '已复制';
+    setTimeout(() => btn.textContent = '复制', 1500);
+  });
+}
+
+function genPwd() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let s = '';
+  for (let i = 0; i < 6; i++) s += chars[Math.floor(Math.random() * chars.length)];
+  return s;
+}
+
+async function submitPaid() {
+  const contact = document.getElementById('contact').value.trim();
+  const note = document.getElementById('note').value.trim();
+  const payType = document.querySelector('.pay-item.active')?.dataset.pay || 'usdt';
+  const orderId = 'GYX' + Date.now().toString().slice(-8);
+  const pwd = genPwd();
+
+  const order = {
+    id: orderId,
+    product: PRODUCT.name,
+    price: PRODUCT.price,
+    contact,
+    note,
+    payType,
+    pwd,
+    time: new Date().toLocaleString(),
+    status: 'pending'
+  };
+
+  // 保存到本地
+  const orders = JSON.parse(localStorage.getItem('gyx_orders') || '[]');
+  orders.unshift(order);
+  localStorage.setItem('gyx_orders', JSON.stringify(orders.slice(0, 30)));
+  localStorage.setItem('gyx_last_order', JSON.stringify(order));
+
+  // 发 Telegram 通知
+  const text = encodeURIComponent(
+`🛒 新付款确认请求
+订单号: ${orderId}
+产品: ${PRODUCT.name}
+金额: ${PRODUCT.price}
+付款方式: ${payType}
+联系方式: ${contact || '未填'}
+备注: ${note || '无'}
+下载密码: ${pwd}
+时间: ${order.time}
+
+请核对到账后告知客户密码。`
+  );
+
+  try {
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${text}`);
+  } catch (e) {}
+
+  // 切换界面
+  document.getElementById('orderForm').style.display = 'none';
+  document.getElementById('resultBox').style.display = 'block';
+  document.getElementById('resultMsg').textContent = '已通知客服，请稍候确认到账。密码已生成（见下方）。';
+  document.getElementById('pwdArea').style.display = 'block';
+  document.getElementById('pwdShow').textContent = pwd;
+  document.getElementById('linkGithub').href = DOWNLOAD.github;
+  document.getElementById('linkPan').href = DOWNLOAD.pan;
+
+  // 简单倒计时提示
+  let sec = 180;
+  const cd = document.getElementById('countdown');
+  const timer = setInterval(() => {
+    sec--;
+    cd.textContent = `建议保存密码，页面刷新后仍可在本机查看（${sec}s）`;
+    if (sec <= 0) clearInterval(timer);
+  }, 1000);
+}
+
+// 如果已有最近订单，直接显示
+(function(){
+  const last = localStorage.getItem('gyx_last_order');
+  if (last) {
+    try {
+      const o = JSON.parse(last);
+      document.getElementById('orderForm').style.display = 'none';
+      document.getElementById('resultBox').style.display = 'block';
+      document.getElementById('resultMsg').textContent = `订单 ${o.id} 已提交`;
+      document.getElementById('pwdArea').style.display = 'block';
+      document.getElementById('pwdShow').textContent = o.pwd;
+      document.getElementById('linkGithub').href = DOWNLOAD.github;
+      document.getElementById('linkPan').href = DOWNLOAD.pan;
+    } catch(e){}
+  }
+})();
+</script>
+</body>
+</html>
