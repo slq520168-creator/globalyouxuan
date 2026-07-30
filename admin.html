@@ -6,195 +6,71 @@
 <title>GlobalYouXuan 后台</title>
 <link rel="stylesheet" href="style.css">
 <style>
-.admin{padding:90px 0 40px}
-.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.panel{border:1px solid var(--line);border-radius:18px;padding:20px;background:rgba(7,27,63,.72)}
-.panel h2{margin-top:0;font-size:22px}
-.panel h3{margin:20px 0 10px;font-size:16px;color:var(--cyan)}
-.panel input,.panel textarea,.panel select{width:100%;padding:11px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:white;margin:6px 0}
-.panel button{padding:11px 14px;border-radius:10px;border:0;background:linear-gradient(135deg,var(--cyan),var(--blue));color:#03101b;font-weight:700;cursor:pointer;margin-right:8px;margin-top:8px}
-.panel button.danger{background:#ff5c7a;color:#fff}
-.panel button.secondary{background:rgba(255,255,255,.1);color:#fff}
-.list{display:grid;gap:10px;margin-top:12px}
-.row{border:1px solid var(--line);border-radius:12px;padding:12px;background:rgba(255,255,255,.03)}
-.row b{display:block;margin-bottom:4px}
-.row small{color:var(--muted)}
-.row .actions{margin-top:8px}
-.tip{font-size:13px;color:var(--muted);margin:8px 0 16px;line-height:1.5}
-@media(max-width:800px){.admin-grid{grid-template-columns:1fr}}
+.admin{padding:80px 16px 40px;max-width:720px;margin:0 auto}
+.panel{border:1px solid var(--line);border-radius:18px;padding:20px;background:var(--card);margin-bottom:16px;box-shadow:var(--shadow)}
+.panel h2{margin:0 0 12px;font-size:18px}
+.panel input,.panel textarea{width:100%;padding:11px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--text);margin:6px 0}
+.panel button{padding:11px 14px;border-radius:10px;border:0;background:linear-gradient(135deg,var(--cyan),var(--blue));color:#fff;font-weight:700;cursor:pointer;margin-right:8px;margin-top:8px}
+.tip{font-size:13px;color:var(--muted);line-height:1.5;margin:8px 0 12px}
+.out{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px;font-size:13px;word-break:break-all;margin-top:10px;display:none}
+.row{border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:8px;font-size:14px}
 </style>
 </head>
 <body>
 <header class="topbar">
   <div class="brand">
     <span class="brand-mark">GY</span>
-    <span class="brand-text"><b>GlobalYouXuan 后台</b><small>产品与订单管理</small></span>
+    <span class="brand-text"><b>后台</b></span>
   </div>
   <a href="index.html" style="color:var(--cyan)">返回网站</a>
 </header>
 
 <main class="admin">
-  <div class="screen" style="padding-top:20px">
-    <div class="admin-grid">
-      <section class="panel">
-        <h2>产品管理</h2>
-        <p class="tip">数据优先从 products.json 加载。后台修改会保存在本机浏览器，可导出后覆盖仓库的 products.json。</p>
-        <form id="productForm">
-          <input name="id" placeholder="产品ID（英文，如 web-starter）" required>
-          <select name="category">
-            <option value="web">网站建设</option>
-            <option value="ai">人工智能</option>
-            <option value="auto">自动化运营</option>
-            <option value="digital">数字化方案</option>
-          </select>
-          <input name="titleZh" placeholder="中文标题" required>
-          <input name="titleEn" placeholder="英文标题">
-          <input name="titleKm" placeholder="柬文标题">
-          <textarea name="descZh" placeholder="中文说明" rows="3"></textarea>
-          <input name="price" type="number" placeholder="USDT价格" required min="0" step="1">
-          <button type="submit">保存产品</button>
-          <button type="button" class="secondary" id="btnReset">重置表单</button>
-        </form>
-        <div class="list" id="productList"></div>
-      </section>
+  <section class="panel">
+    <h2>确认订单（最简单）</h2>
+    <p class="tip">从 Telegram 通知里复制订单号和密码，填在下面，点生成。然后把结果复制到 confirmed.json 里保存。</p>
+    <input id="cid" placeholder="订单号 例如 GYX18649672">
+    <input id="cpwd" placeholder="密码 例如 SJC3FC">
+    <button type="button" onclick="makeConfirm()">生成确认内容</button>
+    <div class="out" id="out"></div>
+  </section>
 
-      <section class="panel">
-        <h2>订单与需求</h2>
-        <button type="button" onclick="exportData()">导出 products.json</button>
-        <button type="button" class="secondary" onclick="importFromFile()">导入 products.json</button>
-        <input type="file" id="importFile" accept=".json" style="display:none">
-        <h3>订单记录</h3>
-        <div class="list" id="orders"></div>
-        <h3>未匹配需求</h3>
-        <div class="list" id="demands"></div>
-      </section>
-    </div>
-  </div>
+  <section class="panel">
+    <h2>操作说明</h2>
+    <p class="tip">
+      1. 客户下单后你收到 Telegram 通知<br>
+      2. 核对 U 是否到账<br>
+      3. 把通知里的订单号、密码填到上面<br>
+      4. 点「生成确认内容」<br>
+      5. 复制生成的内容，打开仓库 confirmed.json，粘贴保存<br>
+      6. 客户即可在查询页输入订单号看到密码
+    </p>
+  </section>
+
+  <section class="panel">
+    <h2>快捷链接</h2>
+    <p class="tip">
+      <a href="order.html" style="color:var(--blue)">订单页</a> ·
+      <a href="query.html" style="color:var(--blue)">查询密码页</a> ·
+      <a href="https://github.com/slq520168-creator/globalyouxuan/blob/main/confirmed.json" style="color:var(--blue)">编辑 confirmed.json</a>
+    </p>
+  </section>
 </main>
 
 <script>
-const STORAGE_KEY = 'gyx_products_v2';
-const ORDERS_KEY = 'gyx_orders';
-const DEMANDS_KEY = 'gyx_demands';
-let products = [];
-
-async function loadProducts() {
-  const local = localStorage.getItem(STORAGE_KEY);
-  if (local) {
-    try { products = JSON.parse(local); render(); return; } catch(e) {}
+function makeConfirm(){
+  const id = document.getElementById('cid').value.trim();
+  const pwd = document.getElementById('cpwd').value.trim();
+  const out = document.getElementById('out');
+  if(!id || !pwd){
+    out.style.display = 'block';
+    out.textContent = '请填写订单号和密码';
+    return;
   }
-  try {
-    const res = await fetch('products.json?t=' + Date.now());
-    if (res.ok) {
-      products = await res.json();
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
-    }
-  } catch(e) { products = []; }
-  render();
+  const line = `{"id":"${id}","pwd":"${pwd}"}`;
+  out.style.display = 'block';
+  out.innerHTML = `把 confirmed.json 改成：<br><br>[${line}]<br><br>如果已有其他订单，就加在数组里：<br>[{之前的}, ${line}]`;
 }
-
-function save() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
-  render();
-}
-
-function render() {
-  document.getElementById('productList').innerHTML = products.length
-    ? products.map(p => `
-      <div class="row">
-        <b>${p.title?.zh || p.id}</b>
-        <small>${p.category} · ${p.price} USDT · ID: ${p.id}</small>
-        <div class="actions">
-          <button type="button" onclick="editP('${p.id}')">编辑</button>
-          <button type="button" class="danger" onclick="delP('${p.id}')">删除</button>
-        </div>
-      </div>`).join('')
-    : '<div class="row"><small>暂无产品</small></div>';
-
-  const orders = JSON.parse(localStorage.getItem(ORDERS_KEY) || '[]');
-  document.getElementById('orders').innerHTML = orders.length
-    ? orders.map(o => `<div class="row"><b>${o.product || '咨询'}</b><br><small>${o.name || ''} · ${o.contact || ''}</small><p style="margin:6px 0 0;color:var(--muted)">${o.need || ''}</p></div>`).join('')
-    : '<div class="row"><small>暂无订单</small></div>';
-
-  const d = JSON.parse(localStorage.getItem(DEMANDS_KEY) || '[]');
-  document.getElementById('demands').innerHTML = d.length
-    ? d.map(x => `<div class="row">${x.q}<br><small>${x.date || ''}</small></div>`).join('')
-    : '<div class="row"><small>暂无记录</small></div>';
-}
-
-function delP(id) {
-  if (!confirm('确定删除？')) return;
-  products = products.filter(p => p.id !== id);
-  save();
-}
-
-function editP(id) {
-  const p = products.find(x => x.id === id);
-  if (!p) return;
-  const f = document.getElementById('productForm');
-  f.id.value = p.id;
-  f.category.value = p.category || 'web';
-  f.titleZh.value = p.title?.zh || '';
-  f.titleEn.value = p.title?.en || '';
-  f.titleKm.value = p.title?.km || '';
-  f.descZh.value = p.desc?.zh || '';
-  f.price.value = p.price || 0;
-  f.scrollIntoView({behavior:'smooth'});
-}
-
-document.getElementById('productForm').onsubmit = e => {
-  e.preventDefault();
-  const f = new FormData(e.target);
-  const p = {
-    id: String(f.get('id')).trim(),
-    category: f.get('category'),
-    price: Number(f.get('price')) || 0,
-    title: {
-      zh: f.get('titleZh'),
-      en: f.get('titleEn') || f.get('titleZh'),
-      km: f.get('titleKm') || f.get('titleZh')
-    },
-    desc: {
-      zh: f.get('descZh') || '',
-      en: f.get('descZh') || '',
-      km: f.get('descZh') || ''
-    }
-  };
-  products = products.filter(x => x.id !== p.id);
-  products.push(p);
-  save();
-  e.target.reset();
-  alert('已保存到本地。请点「导出 products.json」后覆盖仓库文件，主站才会永久更新。');
-};
-
-document.getElementById('btnReset').onclick = () => document.getElementById('productForm').reset();
-
-function exportData() {
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([JSON.stringify(products, null, 2)], {type: 'application/json'}));
-  a.download = 'products.json';
-  a.click();
-}
-
-function importFromFile() {
-  document.getElementById('importFile').click();
-}
-
-document.getElementById('importFile').onchange = async e => {
-  const file = e.target.files[0];
-  if (!file) return;
-  try {
-    const data = JSON.parse(await file.text());
-    products = Array.isArray(data) ? data : (data.products || []);
-    save();
-    alert('导入成功，共 ' + products.length + ' 个产品');
-  } catch(err) {
-    alert('导入失败：JSON 格式错误');
-  }
-  e.target.value = '';
-};
-
-loadProducts();
 </script>
 </body>
 </html>
