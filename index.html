@@ -2,199 +2,198 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>GlobalYouXuan 后台</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#040814">
+<title>GlobalYouXuan｜全球优选数字化平台</title>
+<meta name="description" content="GlobalYouXuan 全球数字化解决方案平台">
 <link rel="stylesheet" href="style.css">
-<style>
-.admin{padding:90px 0 40px}
-.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.panel{border:1px solid var(--line);border-radius:18px;padding:20px;background:rgba(7,27,63,.72)}
-.panel h2{margin-top:0;font-size:22px}
-.panel h3{margin:20px 0 10px;font-size:16px;color:var(--cyan)}
-.panel input,.panel textarea,.panel select{width:100%;padding:11px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:white;margin:6px 0}
-.panel button{padding:11px 14px;border-radius:10px;border:0;background:linear-gradient(135deg,var(--cyan),var(--blue));color:#03101b;font-weight:700;cursor:pointer;margin-right:8px;margin-top:8px}
-.panel button.danger{background:#ff5c7a;color:#fff}
-.panel button.secondary{background:rgba(255,255,255,.1);color:#fff}
-.list{display:grid;gap:10px;margin-top:12px}
-.row{border:1px solid var(--line);border-radius:12px;padding:12px;background:rgba(255,255,255,.03)}
-.row b{display:block;margin-bottom:4px}
-.row small{color:var(--muted)}
-.row .actions{margin-top:8px}
-.tip{font-size:13px;color:var(--muted);margin:8px 0 16px;line-height:1.5}
-@media(max-width:800px){.admin-grid{grid-template-columns:1fr}}
-</style>
+<link rel="manifest" href="manifest.json">
 </head>
 <body>
 <header class="topbar">
-  <div class="brand">
+  <a class="brand" href="#home">
     <span class="brand-mark">GY</span>
-    <span class="brand-text"><b>GlobalYouXuan 后台</b><small>产品与订单管理</small></span>
+    <span class="brand-text"><b>GlobalYouXuan</b><small data-i18n="brandSub">全球数字化解决方案平台</small></span>
+  </a>
+  <nav>
+    <a href="#home" data-i18n="navHome">首页</a>
+    <a href="#why" data-i18n="navWhy">优势</a>
+    <a href="#centers" data-i18n="navCenters">业务中心</a>
+    <a href="#cases" data-i18n="navCases">案例</a>
+    <a href="#contact" data-i18n="navContact">联系</a>
+  </nav>
+  <div class="langs">
+    <button class="active" data-lang="zh">中</button>
+    <button data-lang="en">EN</button>
+    <button data-lang="km">ខ្មែរ</button>
   </div>
-  <a href="index.html" style="color:var(--cyan)">返回网站</a>
 </header>
 
-<main class="admin">
-  <div class="screen" style="padding-top:20px">
-    <div class="admin-grid">
-      <section class="panel">
-        <h2>产品管理</h2>
-        <p class="tip">数据优先从 products.json 加载。后台修改会保存在本机浏览器，可导出后覆盖仓库的 products.json。</p>
-        <form id="productForm">
-          <input name="id" placeholder="产品ID（英文，如 web-starter）" required>
-          <select name="category">
-            <option value="web">网站建设</option>
-            <option value="ai">人工智能</option>
-            <option value="auto">自动化运营</option>
-            <option value="digital">数字化方案</option>
-          </select>
-          <input name="titleZh" placeholder="中文标题" required>
-          <input name="titleEn" placeholder="英文标题">
-          <input name="titleKm" placeholder="柬文标题">
-          <textarea name="descZh" placeholder="中文说明" rows="3"></textarea>
-          <input name="price" type="number" placeholder="USDT价格" required min="0" step="1">
-          <button type="submit">保存产品</button>
-          <button type="button" class="secondary" id="btnReset">重置表单</button>
-        </form>
-        <div class="list" id="productList"></div>
-      </section>
+<main>
+<section class="hero screen" id="home">
+  <div class="hero-copy">
+    <span class="badge"><i></i><span data-i18n="badge">GLOBAL AI BUSINESS PLATFORM</span></span>
+    <h1 data-i18n="heroTitle">连接全球业务<br>让数字化真正落地</h1>
+    <p data-i18n="heroSub">网站建设、人工智能、自动化运营与数字化方案，在一个平台完成匹配与执行。</p>
 
-      <section class="panel">
-        <h2>订单与需求</h2>
-        <button type="button" onclick="exportData()">导出 products.json</button>
-        <button type="button" class="secondary" onclick="importFromFile()">导入 products.json</button>
-        <input type="file" id="importFile" accept=".json" style="display:none">
-        <h3>订单记录</h3>
-        <div class="list" id="orders"></div>
-        <h3>未匹配需求</h3>
-        <div class="list" id="demands"></div>
-      </section>
+    <div class="hero-actions">
+      <a class="primary-btn" href="#match" data-i18n="startBtn">立即生成方案</a>
+      <a class="secondary-btn" href="#centers" data-i18n="viewBtn">查看业务中心</a>
+    </div>
+
+    <form class="search-box" id="mainSearch">
+      <span class="search-icon">⌕</span>
+      <input id="mainSearchInput" data-i18n-placeholder="searchPlaceholder" placeholder="输入你的目标，例如：我要做一个跨境商城">
+      <button data-i18n="searchBtn">AI 搜索</button>
+    </form>
+
+    <div class="quick">
+      <button data-q="企业官网">企业官网</button>
+      <button data-q="跨境商城">跨境商城</button>
+      <button data-q="AI客服">AI客服</button>
+      <button data-q="自动化运营">自动化运营</button>
     </div>
   </div>
+
+  <div class="hero-visual">
+    <div class="visual-panel">
+      <div class="panel-top"><span>GLOBAL NETWORK</span><b>LIVE</b></div>
+      <div class="globe-wrap">
+        <div class="globe">
+          <div class="globe-grid"></div>
+          <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="dot d4"></span>
+        </div>
+        <div class="orbit orbit1"></div>
+        <div class="orbit orbit2"></div>
+        <div class="floating-card fc1"><small data-i18n="fc1">AI 服务</small><b>24/7</b></div>
+        <div class="floating-card fc2"><small data-i18n="fc2">语言支持</small><b>3 LANG</b></div>
+      </div>
+      <div class="panel-bottom">
+        <div><span data-i18n="network">数字网络</span><b>ONLINE</b></div>
+        <div><span data-i18n="coverage">全球连接</span><b>GLOBAL</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="why">
+  <div class="section-title">
+    <span>01 / WHY GLOBALYOUXUAN</span>
+    <h2 data-i18n="whyTitle">为什么选择 GlobalYouXuan</h2>
+    <p data-i18n="whySub">不是只做一个页面，而是建立从展示、获客到运营的完整数字链路。</p>
+  </div>
+  <div class="why-grid" id="whyGrid"></div>
+</section>
+
+<section class="screen dark" id="centers">
+  <div class="section-title">
+    <span>02 / BUSINESS CENTERS</span>
+    <h2 data-i18n="centersTitle">四大业务中心</h2>
+    <p data-i18n="centersSub">每个中心都有独立页面、搜索入口和解决方案。</p>
+  </div>
+
+  <div class="center-grid">
+    <a class="center-card" href="web.html">
+      <div class="card-head"><span>01</span><i>◉</i></div>
+      <h3 data-i18n="webTitle">网站建设</h3>
+      <p data-i18n="webSub">企业官网、跨境商城、多语言网站、AI网站。</p>
+      <b data-i18n="enter">进入中心 →</b>
+    </a>
+    <a class="center-card" href="ai.html">
+      <div class="card-head"><span>02</span><i>✦</i></div>
+      <h3 data-i18n="aiTitle">人工智能</h3>
+      <p data-i18n="aiSub">AI客服、写作、图片、办公和智能体。</p>
+      <b data-i18n="enter">进入中心 →</b>
+    </a>
+    <a class="center-card" href="automation.html">
+      <div class="card-head"><span>03</span><i>⌘</i></div>
+      <h3 data-i18n="autoTitle">自动化运营</h3>
+      <p data-i18n="autoSub">Telegram、WhatsApp、邮件和工作流。</p>
+      <b data-i18n="enter">进入中心 →</b>
+    </a>
+    <a class="center-card" href="digital.html">
+      <div class="card-head"><span>04</span><i>◇</i></div>
+      <h3 data-i18n="digitalTitle">数字化方案</h3>
+      <p data-i18n="digitalSub">数字产品、在线课程、SaaS和自动交付。</p>
+      <b data-i18n="enter">进入中心 →</b>
+    </a>
+  </div>
+</section>
+
+<section class="screen" id="solutions">
+  <div class="section-title">
+    <span>03 / CORE SOLUTIONS</span>
+    <h2 data-i18n="solutionsTitle">六大核心解决方案</h2>
+    <p data-i18n="solutionsSub">围绕真实业务目标组合，不再只是单一功能。</p>
+  </div>
+  <div class="solution-grid" id="solutionGrid"></div>
+</section>
+
+<section class="screen dark" id="cases">
+  <div class="section-title">
+    <span>04 / SELECTED CASES</span>
+    <h2 data-i18n="casesTitle">典型数字化案例</h2>
+    <p data-i18n="casesSub">从品牌展示到自动成交，不同业务有不同组合方式。</p>
+  </div>
+  <div class="case-grid" id="caseGrid"></div>
+</section>
+
+<section class="screen stats-section">
+  <div class="section-title">
+    <span>05 / PLATFORM DATA</span>
+    <h2 data-i18n="statsTitle">一个平台，连接多种数字能力</h2>
+  </div>
+  <div class="stats-grid">
+    <div><b>4</b><span data-i18n="stat1">业务中心</span></div>
+    <div><b>6</b><span data-i18n="stat2">核心服务</span></div>
+    <div><b>3</b><span data-i18n="stat3">语言支持</span></div>
+    <div><b>24/7</b><span data-i18n="stat4">在线入口</span></div>
+  </div>
+</section>
+
+<section class="screen match-section dark" id="match">
+  <div class="section-title">
+    <span>06 / AI MATCHING</span>
+    <h2 data-i18n="matchTitle">输入目标，立即生成组合方案</h2>
+  </div>
+  <div class="match-layout">
+    <div class="match-form">
+      <h3 data-i18n="matchQuestion">你现在最想解决什么？</h3>
+      <form class="search-box" id="matchSearch">
+        <span class="search-icon">⌕</span>
+        <input id="matchInput" data-i18n-placeholder="matchPlaceholder" placeholder="例如：我只用手机做跨境电商">
+        <button data-i18n="searchBtn">生成方案</button>
+      </form>
+      <div class="quick">
+        <button data-q="我要做企业网站">企业网站</button>
+        <button data-q="我要做跨境电商">跨境电商</button>
+        <button data-q="我要自动回复客户">自动客服</button>
+      </div>
+    </div>
+    <div class="result-panel" id="resultPanel">
+      <div class="result-empty"><span>AI</span><p data-i18n="resultEmpty">输入你的目标，系统会显示匹配方案。</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="screen contact" id="contact">
+  <div>
+    <span class="badge"><i></i>CONTACT</span>
+    <h2 data-i18n="contactTitle">准备开始你的数字化项目？</h2>
+    <p data-i18n="contactSub">告诉我们你的目标，GlobalYouXuan 将为你匹配合适的执行路径。</p>
+    <div class="contact-list">
+      <span>✉ contact@globalyouxuan.com</span>
+      <span>◉ Telegram / WhatsApp</span>
+    </div>
+  </div>
+  <a class="primary-btn" href="mailto:contact@globalyouxuan.com" data-i18n="contactBtn">立即联系</a>
+</section>
 </main>
 
-<script>
-const STORAGE_KEY = 'gyx_products_v2';
-const ORDERS_KEY = 'gyx_orders';
-const DEMANDS_KEY = 'gyx_demands';
-let products = [];
-
-async function loadProducts() {
-  const local = localStorage.getItem(STORAGE_KEY);
-  if (local) {
-    try { products = JSON.parse(local); render(); return; } catch(e) {}
-  }
-  try {
-    const res = await fetch('products.json?t=' + Date.now());
-    if (res.ok) {
-      products = await res.json();
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
-    }
-  } catch(e) { products = []; }
-  render();
-}
-
-function save() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
-  render();
-}
-
-function render() {
-  document.getElementById('productList').innerHTML = products.length
-    ? products.map(p => `
-      <div class="row">
-        <b>${p.title?.zh || p.id}</b>
-        <small>${p.category} · ${p.price} USDT · ID: ${p.id}</small>
-        <div class="actions">
-          <button type="button" onclick="editP('${p.id}')">编辑</button>
-          <button type="button" class="danger" onclick="delP('${p.id}')">删除</button>
-        </div>
-      </div>`).join('')
-    : '<div class="row"><small>暂无产品</small></div>';
-
-  const orders = JSON.parse(localStorage.getItem(ORDERS_KEY) || '[]');
-  document.getElementById('orders').innerHTML = orders.length
-    ? orders.map(o => `<div class="row"><b>${o.product || '咨询'}</b><br><small>${o.name || ''} · ${o.contact || ''}</small><p style="margin:6px 0 0;color:var(--muted)">${o.need || ''}</p></div>`).join('')
-    : '<div class="row"><small>暂无订单</small></div>';
-
-  const d = JSON.parse(localStorage.getItem(DEMANDS_KEY) || '[]');
-  document.getElementById('demands').innerHTML = d.length
-    ? d.map(x => `<div class="row">${x.q}<br><small>${x.date || ''}</small></div>`).join('')
-    : '<div class="row"><small>暂无记录</small></div>';
-}
-
-function delP(id) {
-  if (!confirm('确定删除？')) return;
-  products = products.filter(p => p.id !== id);
-  save();
-}
-
-function editP(id) {
-  const p = products.find(x => x.id === id);
-  if (!p) return;
-  const f = document.getElementById('productForm');
-  f.id.value = p.id;
-  f.category.value = p.category || 'web';
-  f.titleZh.value = p.title?.zh || '';
-  f.titleEn.value = p.title?.en || '';
-  f.titleKm.value = p.title?.km || '';
-  f.descZh.value = p.desc?.zh || '';
-  f.price.value = p.price || 0;
-  f.scrollIntoView({behavior:'smooth'});
-}
-
-document.getElementById('productForm').onsubmit = e => {
-  e.preventDefault();
-  const f = new FormData(e.target);
-  const p = {
-    id: String(f.get('id')).trim(),
-    category: f.get('category'),
-    price: Number(f.get('price')) || 0,
-    title: {
-      zh: f.get('titleZh'),
-      en: f.get('titleEn') || f.get('titleZh'),
-      km: f.get('titleKm') || f.get('titleZh')
-    },
-    desc: {
-      zh: f.get('descZh') || '',
-      en: f.get('descZh') || '',
-      km: f.get('descZh') || ''
-    }
-  };
-  products = products.filter(x => x.id !== p.id);
-  products.push(p);
-  save();
-  e.target.reset();
-  alert('已保存到本地。请点「导出 products.json」后覆盖仓库文件，主站才会永久更新。');
-};
-
-document.getElementById('btnReset').onclick = () => document.getElementById('productForm').reset();
-
-function exportData() {
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([JSON.stringify(products, null, 2)], {type: 'application/json'}));
-  a.download = 'products.json';
-  a.click();
-}
-
-function importFromFile() {
-  document.getElementById('importFile').click();
-}
-
-document.getElementById('importFile').onchange = async e => {
-  const file = e.target.files[0];
-  if (!file) return;
-  try {
-    const data = JSON.parse(await file.text());
-    products = Array.isArray(data) ? data : (data.products || []);
-    save();
-    alert('导入成功，共 ' + products.length + ' 个产品');
-  } catch(err) {
-    alert('导入失败：JSON 格式错误');
-  }
-  e.target.value = '';
-};
-
-loadProducts();
-</script>
+<footer>
+  <div><b>GlobalYouXuan</b><span data-i18n="footerSub">全球数字化解决方案平台</span></div>
+  <small>© 2026 GlobalYouXuan</small>
+</footer>
+<script src="app.js"></script>
 </body>
 </html>
