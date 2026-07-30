@@ -24,7 +24,6 @@
 .copy-btn{border:0;background:var(--blue);color:#fff;border-radius:10px;padding:10px 14px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
 .placeholder-pay{text-align:center;padding:20px;color:var(--muted);font-size:14px;border:1px dashed var(--line);border-radius:12px;margin-top:10px}
 .btn-main{width:100%;border:0;border-radius:14px;padding:16px;font-size:16px;font-weight:700;cursor:pointer;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;margin-top:8px}
-.btn-main:disabled{opacity:.5;cursor:not-allowed}
 .status-box{text-align:center;padding:20px}
 .status-box .pwd{font-size:28px;font-weight:800;letter-spacing:4px;color:var(--blue);margin:12px 0;padding:12px;background:var(--bg);border-radius:12px}
 .countdown{font-size:13px;color:var(--muted)}
@@ -91,11 +90,10 @@
       <div class="pwd" id="pwdShow"></div>
       <p class="countdown" id="countdown"></p>
       <div class="download-links">
-        <a href="#" id="linkGithub" target="_blank">GitHub 下载（国际）</a>
-        <a href="#" id="linkPan" target="_blank">网盘下载（国内）</a>
+        <a href="resource-ai.html" id="linkGithub">查看资源内容（需密码）</a>
       </div>
     </div>
-    <p class="note">请保存好密码。确认到账后密码会显示在这里（同一浏览器有效）。</p>
+    <p class="note">请保存好密码。打开资源页后输入此密码即可查看内容。</p>
   </div>
 </div>
 
@@ -103,12 +101,6 @@
 const BOT_TOKEN = '8835320602:AAEKWaIOio84eu4rE4HszehCVH1Va87-6VA';
 const CHAT_ID = '6934078288';
 const PRODUCT = { name: '三分钟玩转AI', price: '9.9U' };
-
-// 占位下载链接，你后面换成真实的
-const DOWNLOAD = {
-  github: 'https://github.com/slq520168-creator/globalyouxuan',
-  pan: 'https://example.com/pan-link'
-};
 
 function selectPay(el) {
   document.querySelectorAll('.pay-item').forEach(i => i.classList.remove('active'));
@@ -151,13 +143,11 @@ async function submitPaid() {
     status: 'pending'
   };
 
-  // 保存到本地
   const orders = JSON.parse(localStorage.getItem('gyx_orders') || '[]');
   orders.unshift(order);
   localStorage.setItem('gyx_orders', JSON.stringify(orders.slice(0, 30)));
   localStorage.setItem('gyx_last_order', JSON.stringify(order));
 
-  // 发 Telegram 通知
   const text = encodeURIComponent(
 `🛒 新付款确认请求
 订单号: ${orderId}
@@ -176,26 +166,21 @@ async function submitPaid() {
     await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${text}`);
   } catch (e) {}
 
-  // 切换界面
   document.getElementById('orderForm').style.display = 'none';
   document.getElementById('resultBox').style.display = 'block';
   document.getElementById('resultMsg').textContent = '已通知客服，请稍候确认到账。密码已生成（见下方）。';
   document.getElementById('pwdArea').style.display = 'block';
   document.getElementById('pwdShow').textContent = pwd;
-  document.getElementById('linkGithub').href = DOWNLOAD.github;
-  document.getElementById('linkPan').href = DOWNLOAD.pan;
 
-  // 简单倒计时提示
   let sec = 180;
   const cd = document.getElementById('countdown');
   const timer = setInterval(() => {
     sec--;
-    cd.textContent = `建议保存密码，页面刷新后仍可在本机查看（${sec}s）`;
+    cd.textContent = `建议保存密码（${sec}s）`;
     if (sec <= 0) clearInterval(timer);
   }, 1000);
 }
 
-// 如果已有最近订单，直接显示
 (function(){
   const last = localStorage.getItem('gyx_last_order');
   if (last) {
@@ -206,8 +191,6 @@ async function submitPaid() {
       document.getElementById('resultMsg').textContent = `订单 ${o.id} 已提交`;
       document.getElementById('pwdArea').style.display = 'block';
       document.getElementById('pwdShow').textContent = o.pwd;
-      document.getElementById('linkGithub').href = DOWNLOAD.github;
-      document.getElementById('linkPan').href = DOWNLOAD.pan;
     } catch(e){}
   }
 })();
