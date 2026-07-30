@@ -41,49 +41,49 @@ const TREE = {
   start: {
     title: "你更想先解决哪一类问题？",
     options: [
-      { id: "web", label: "网站建设", desc: "官网 / 商城 / 落地页" },
-      { id: "ai", label: "智控未来", desc: "AI工具 / 提示词 / 客服" },
-      { id: "auto", label: "量化感知", desc: "自动化 / 订单 / 通知" },
-      { id: "digital", label: "数字学院", desc: "课程 / 资料 / 教程" },
-      { id: "other", label: "还不确定", desc: "先看看常见方向" }
+      { id: "web", label: "网站建设" },
+      { id: "ai", label: "智控未来" },
+      { id: "auto", label: "量化感知" },
+      { id: "digital", label: "数字学院" },
+      { id: "other", label: "还不确定" }
     ]
   },
   web: {
     title: "网站建设里，你更需要哪个？",
     options: [
-      { id: "web_site", label: "企业官网", desc: "品牌展示与咨询转化" },
-      { id: "web_shop", label: "商城/跨境", desc: "商品展示与下单" },
-      { id: "web_land", label: "落地页", desc: "投放转化单页" }
+      { id: "web_site", label: "企业官网" },
+      { id: "web_shop", label: "商城/跨境" },
+      { id: "web_land", label: "落地页" }
     ]
   },
   ai: {
     title: "AI方向里，你更想先做哪个？",
     options: [
-      { id: "ai_start", label: "快速入门", desc: "三分钟上手常用提示词" },
-      { id: "ai_prompt", label: "提示词库", desc: "写作/电商/客服模板" },
-      { id: "ai_cs", label: "AI客服", desc: "自动回复与话术" }
+      { id: "ai_start", label: "快速入门" },
+      { id: "ai_prompt", label: "提示词库" },
+      { id: "ai_cs", label: "AI客服" }
     ]
   },
   auto: {
     title: "自动化里，你更关注什么？",
     options: [
-      { id: "auto_order", label: "订单自动化", desc: "下单通知与流程" },
-      { id: "auto_data", label: "运营数据", desc: "统计与复盘模板" }
+      { id: "auto_order", label: "订单自动化" },
+      { id: "auto_data", label: "运营数据" }
     ]
   },
   digital: {
     title: "学习资料里，你更想要？",
     options: [
-      { id: "dig_course", label: "入门课程", desc: "数字业务从0到1" },
-      { id: "dig_mobile", label: "手机运营", desc: "只用手机做运营" }
+      { id: "dig_course", label: "入门课程" },
+      { id: "dig_mobile", label: "手机运营" }
     ]
   },
   other: {
     title: "先从这些常见需求里选一个：",
     options: [
-      { id: "web", label: "先做网站", desc: "有展示和获客入口" },
-      { id: "ai", label: "先用AI提效", desc: "写作/客服/内容" },
-      { id: "auto", label: "先做自动化", desc: "减少重复操作" }
+      { id: "web", label: "先做网站" },
+      { id: "ai", label: "先用AI提效" },
+      { id: "auto", label: "先做自动化" }
     ]
   }
 };
@@ -216,14 +216,11 @@ function renderOptions(nodeId) {
   if (!node) return renderPlan(nodeId);
 
   let html = `<div class="result-card" style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--shadow);text-align:left">
-    <div style="font-size:12px;color:var(--muted);margin-bottom:8px">第 ${Math.min(step + 1, 3)} 次选择（最多3次）</div>
-    <h3 style="margin:0 0 8px;font-size:18px;color:var(--text)">${node.title}</h3>
-    <p style="color:var(--muted);font-size:13px;margin:0 0 14px">先选方向，确认后再给出方案</p>`;
+    <h3 style="margin:0 0 14px;font-size:18px;color:var(--text)">${node.title}</h3>`;
 
   node.options.forEach(op => {
     html += `<button type="button" onclick="choose('${op.id}')" style="width:100%;text-align:left;margin:0 0 10px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--text);cursor:pointer">
       <b style="font-size:15px">${op.label}</b>
-      <div style="font-size:12px;color:var(--muted);margin-top:4px">${op.desc}</div>
     </button>`;
   });
 
@@ -245,7 +242,6 @@ function renderPlan(planId) {
   };
 
   let html = `<div class="result-card" style="background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--shadow);text-align:left">
-    <div style="font-size:12px;color:var(--cyan);margin-bottom:8px">匹配完成</div>
     <h3 style="margin:0 0 8px;font-size:18px;color:var(--text)">${plan.title}</h3>
     <p style="color:var(--muted);font-size:14px;margin:0 0 14px">${plan.summary}</p>`;
 
