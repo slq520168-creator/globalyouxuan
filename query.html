@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>查询下载密码 - GlobalYouXuan</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.box{max-width:420px;margin:0 auto;padding:40px 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px 20px;box-shadow:var(--shadow);text-align:center}
+h1{font-size:22px;margin:0 0 8px}
+.sub{color:var(--muted);font-size:14px;margin-bottom:24px}
+input{width:100%;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--text);text-align:center;font-size:16px;margin-bottom:14px}
+button{width:100%;padding:14px;border:0;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;font-weight:700;font-size:15px;cursor:pointer}
+.result{margin-top:20px;padding:16px;border-radius:12px;background:var(--bg)}
+.pwd{font-size:28px;font-weight:800;letter-spacing:4px;color:var(--blue);margin:10px 0}
+.err{color:#ef4444;font-size:14px}
+.ok{color:var(--cyan);font-size:14px}
+a.back{display:inline-block;margin-bottom:20px;color:var(--blue);font-size:14px}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html"><span class="brand-mark">G</span><span class="brand-name">GlobalYouXuan</span></a>
+</header>
+<div class="box">
+  <a class="back" href="index.html">← 返回首页</a>
+  <div class="card">
+    <h1>查询下载密码</h1>
+    <p class="sub">输入订单号，查询是否已确认到账</p>
+    <input id="oid" placeholder="例如 GYX12345678" />
+    <button onclick="query()">查询</button>
+    <div id="result" class="result" style="display:none"></div>
+  </div>
+</div>
+<script>
+async function query(){
+  const id = document.getElementById('oid').value.trim().toUpperCase();
+  const box = document.getElementById('result');
+  if(!id){ box.style.display='block'; box.innerHTML='<p class="err">请输入订单号</p>'; return; }
+  try{
+    const res = await fetch('confirmed.json?t=' + Date.now());
+    const list = await res.json();
+    const found = list.find(x => (x.id||'').toUpperCase() === id);
+    box.style.display = 'block';
+    if(found && found.pwd){
+      box.innerHTML = `<p class="ok">已确认到账</p><div class="pwd">${found.pwd}</div><p style="font-size:13px;color:var(--muted)">请使用此密码打开资源页</p><p style="margin-top:12px"><a href="resource-ai.html" style="color:var(--blue)">去查看资源 →</a></p>`;
+    }else{
+      box.innerHTML = `<p class="err">未找到或尚未确认到账</p><p style="font-size:13px;color:var(--muted);margin-top:8px">请确认订单号是否正确，或稍后再试。如已付款请联系客服并提供订单号。</p>`;
+    }
+  }catch(e){
+    box.style.display='block';
+    box.innerHTML = '<p class="err">查询失败，请稍后重试</p>';
+  }
+}
+</script>
+</body>
+</html>
