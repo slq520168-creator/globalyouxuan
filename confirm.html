@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>确认订单</title>
+<link rel="stylesheet" href="style.css">
+<style>
+body{padding:20px}
+.box{max-width:420px;margin:40px auto;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow)}
+h1{font-size:20px;margin:0 0 8px}
+.tip{font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.5}
+input{width:100%;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--text);margin-bottom:12px;font-size:15px}
+button{width:100%;padding:14px;border:0;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;font-weight:700;font-size:15px}
+.out{margin-top:16px;padding:14px;background:var(--bg);border-radius:12px;font-size:13px;word-break:break-all;display:none;line-height:1.6}
+a{color:var(--blue)}
+</style>
+</head>
+<body>
+<div class="box">
+  <h1>确认订单</h1>
+  <p class="tip">从 Telegram 复制订单号和密码，填好后点生成，再去更新 confirmed.json</p>
+  
+  <input id="id" placeholder="订单号 GYX......">
+  <input id="pwd" placeholder="密码">
+  <button onclick="go()">生成确认内容</button>
+  
+  <div class="out" id="out"></div>
+  
+  <p class="tip" style="margin-top:20px">
+    <a href="https://github.com/slq520168-creator/globalyouxuan/edit/main/confirmed.json">点这里打开 confirmed.json 编辑</a>
+  </p>
+</div>
+<script>
+function go(){
+  const id = document.getElementById('id').value.trim();
+  const pwd = document.getElementById('pwd').value.trim();
+  const out = document.getElementById('out');
+  if(!id || !pwd){
+    out.style.display = 'block';
+    out.textContent = '请填写完整';
+    return;
+  }
+  out.style.display = 'block';
+  out.innerHTML = `复制下面全部内容，粘贴到 confirmed.json 后提交：<br><br><b>[ {"id":"${id}","pwd":"${pwd}"} ]</b>`;
+}
+</script>
+</body>
+</html>
