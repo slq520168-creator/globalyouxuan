@@ -49,12 +49,62 @@ const I18N = {
   }
 };
 
-const categoryMap = {
-  web: ["网站", "官网", "企业", "商城", "电商", "跨境", "展示", "落地页", "web"],
-  ai: ["ai", "客服", "写作", "图片", "内容", "智能", "对话", "智控"],
-  auto: ["自动", "订单", "telegram", "whatsapp", "消息", "流程", "运营", "量化"],
-  digital: ["数字", "课程", "产品", "saas", "交付", "虚拟", "学院"]
-};
+// 四大类 + 关键词
+const CATEGORIES = [
+  {
+    id: "web",
+    title: "网站建设",
+    desc: "企业官网、商城、落地页、多语言网站",
+    link: "web.html",
+    keys: ["网站", "官网", "商城", "电商", "跨境", "落地页", "页面", "建站", "模板", "html", "web", "shop"]
+  },
+  {
+    id: "ai",
+    title: "智控未来",
+    desc: "AI工具、提示词、客服、内容生成",
+    link: "ai.html",
+    keys: ["ai", "人工智能", "提示词", "客服", "写作", "图片", "智能", "对话", "chatgpt", "玩转"]
+  },
+  {
+    id: "auto",
+    title: "量化感知",
+    desc: "订单自动化、通知、运营数据",
+    link: "automation.html",
+    keys: ["自动", "订单", "通知", "运营", "数据", "量化", "流程", "telegram", "监控"]
+  },
+  {
+    id: "digital",
+    title: "数字学院",
+    desc: "课程、教程、资料包、数字产品",
+    link: "digital.html",
+    keys: ["课程", "教程", "资料", "学院", "学习", "培训", "电子书", "课"]
+  }
+];
+
+// 可购买产品
+const SALE_PRODUCTS = [
+  {
+    title: "三分钟玩转AI",
+    desc: "5个高频提示词 + 使用方法，复制即用",
+    price: "9.9U",
+    link: "order.html",
+    keys: ["ai", "提示词", "玩转", "写作", "入门", "三分钟"]
+  },
+  {
+    title: "企业展示官网模板",
+    desc: "适合品牌展示与业务转化",
+    price: "99U",
+    link: "order.html",
+    keys: ["官网", "企业", "展示", "模板", "网站"]
+  },
+  {
+    title: "高转化落地页模板",
+    desc: "单页销售落地页，适合投放测试",
+    price: "49U",
+    link: "order.html",
+    keys: ["落地页", "转化", "投放", "单页"]
+  }
+];
 
 let products = [];
 let currentLang = "zh";
@@ -72,7 +122,6 @@ function setLang(lang) {
   currentLang = lang;
   const d = I18N[lang] || I18N.zh;
   document.documentElement.lang = lang === "zh" ? "zh-CN" : lang;
-
   document.querySelectorAll("[data-i18n]").forEach(el => {
     const k = el.dataset.i18n;
     if (d[k]) {
@@ -84,89 +133,148 @@ function setLang(lang) {
     const k = el.dataset.i18nPlaceholder;
     if (d[k]) el.placeholder = d[k];
   });
-
   const names = { zh: "中文 ▾", en: "English ▾", km: "ខ្មែរ ▾" };
-  document.getElementById("langBtn").textContent = names[lang] || "中文 ▾";
+  const btn = document.getElementById("langBtn");
+  if (btn) btn.textContent = names[lang] || "中文 ▾";
   localStorage.setItem("gyxLang", lang);
 }
 
-function matchProducts(q) {
+function scoreText(q, keys) {
+  let score = 0;
+  keys.forEach(k => {
+    if (q.includes(k.toLowerCase())) score += 3;
+  });
+  return score;
+}
+
+function matchAll(q) {
   q = (q || "").toLowerCase().trim();
-  if (!q || !products.length) return [];
+  if (!q) return { cats: [], items: [], fallback: true };
 
-  const scored = products.map(p => {
-    let score = 0;
-    const keys = categoryMap[p.category] || [];
-    keys.forEach(k => { if (q.includes(k.toLowerCase())) score += 3; });
-    const title = ((p.title?.zh || "") + (p.title?.en || "")).toLowerCase();
-    const desc = ((p.desc?.zh || "") + (p.desc?.en || "")).toLowerCase();
-    if (title.includes(q) || q.includes((p.title?.zh || "").toLowerCase())) score += 5;
-    if (desc.includes(q)) score += 2;
-    return { p, score };
-  }).filter(x => x.score > 0).sort((a, b) => b.score - a.score);
+  const cats = CATEGORIES.map(c => ({
+    ...c,
+    score: scoreText(q, c.keys)
+  })).filter(c => c.score > 0).sort((a, b) => b.score - a.score);
 
-  return scored.map(x => x.p).slice(0, 4);
+  const items = SALE_PRODUCTS.map(p => ({
+    ...p,
+    score: scoreText(q, p.keys)
+  })).filter(p => p.score > 0).sort((a, b) => b.score - a.score);
+
+  // products.json 补充
+  if (products.length) {
+    products.forEach(p => {
+      const title = ((p.title?.zh || "") + (p.title?.en || "")).toLowerCase();
+      const desc = ((p.desc?.zh || "") + (p.desc?.en || "")).toLowerCase();
+      let score = 0;
+      if (title.includes(q) || q.includes((p.title?.zh || "").toLowerCase())) score += 5;
+      if (desc.includes(q)) score += 2;
+      if (score > 0) {
+        items.push({
+          title: p.title?.zh || p.title?.en || "匹配产品",
+          desc: p.desc?.zh || p.desc?.en || "",
+          price: (p.price || "") + "U",
+          link: "order.html",
+          score
+        });
+      }
+    });
+    items.sort((a, b) => b.score - a.score);
+  }
+
+  return {
+    cats: cats.slice(0, 3),
+    items: items.slice(0, 4),
+    fallback: cats.length === 0 && items.length === 0
+  };
 }
 
 function showPlan(q) {
   q = (q || "").trim();
+  const panel = document.getElementById("resultPanel");
+  if (!panel) return;
+
   try {
     const demands = JSON.parse(localStorage.getItem("gyx_demands") || "[]");
     demands.unshift({ q, date: new Date().toLocaleString() });
     localStorage.setItem("gyx_demands", JSON.stringify(demands.slice(0, 50)));
   } catch (e) {}
 
-  const matched = matchProducts(q);
-  const d = I18N[currentLang] || I18N.zh;
+  const { cats, items, fallback } = matchAll(q);
   let html = `<div class="result-card">`;
 
-  if (matched.length) {
-    html += `<h3>${matched[0].title?.[currentLang] || matched[0].title?.zh || "匹配方案"}</h3>`;
-    html += `<p>${matched[0].desc?.[currentLang] || matched[0].desc?.zh || ""}</p>`;
-    html += `<div class="result-tags">`;
-    matched.forEach(p => {
-      html += `<span>${p.title?.[currentLang] || p.title?.zh} · ${p.price} ${d.productPrice}</span>`;
+  if (!fallback) {
+    html += `<h3>为你匹配到以下方案</h3>`;
+    if (items.length) {
+      html += `<p style="margin:8px 0 6px;color:var(--muted);font-size:13px">可直接购买</p>`;
+      items.forEach(p => {
+        html += `<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)">
+          <div style="text-align:left">
+            <b style="font-size:14px">${p.title}</b>
+            <div style="font-size:12px;color:var(--muted)">${p.desc || ""}</div>
+          </div>
+          <a href="${p.link}" style="white-space:nowrap;padding:8px 12px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;font-size:12px;font-weight:700">${p.price || "购买"}</a>
+        </div>`;
+      });
+    }
+    if (cats.length) {
+      html += `<p style="margin:14px 0 6px;color:var(--muted);font-size:13px">相关资源库</p>`;
+      html += `<div class="result-tags">`;
+      cats.forEach(c => {
+        html += `<a href="${c.link}" style="padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);font-size:13px">${c.title}</a>`;
+      });
+      html += `</div>`;
+    }
+  } else {
+    html += `<h3>暂时没有精确匹配</h3>`;
+    html += `<p>你可以先从下面方向继续选择：</p>`;
+    html += `<div class="result-tags" style="margin-top:12px">`;
+    CATEGORIES.forEach(c => {
+      html += `<a href="${c.link}" style="padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);font-size:13px">${c.title}</a>`;
     });
     html += `</div>`;
-  } else {
-    html += `<h3>综合数字化解决方案</h3>`;
-    html += `<p>建议先做需求诊断，再组合网站、AI 与自动化能力。</p>`;
-    html += `<div class="result-tags"><span>需求诊断</span><span>网站建设</span><span>智控未来</span><span>量化感知</span></div>`;
+    html += `<div style="margin-top:14px"><a href="order.html" style="color:var(--blue);font-size:13px">或直接查看热门产品「三分钟玩转AI」→</a></div>`;
   }
+
   html += `</div>`;
-  document.getElementById("resultPanel").innerHTML = html;
+  panel.innerHTML = html;
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
   await loadProducts();
 
-  // 语言切换
   const langBtn = document.getElementById("langBtn");
   const langMenu = document.getElementById("langMenu");
-  langBtn.onclick = () => langMenu.classList.toggle("open");
-  document.addEventListener("click", e => {
-    if (!e.target.closest(".lang-select")) langMenu.classList.remove("open");
-  });
-  langMenu.querySelectorAll("button").forEach(b => {
+  if (langBtn && langMenu) {
+    langBtn.onclick = () => langMenu.classList.toggle("open");
+    document.addEventListener("click", e => {
+      if (!e.target.closest(".lang-select")) langMenu.classList.remove("open");
+    });
+    langMenu.querySelectorAll("button").forEach(b => {
+      b.onclick = () => {
+        setLang(b.dataset.lang);
+        langMenu.classList.remove("open");
+      };
+    });
+  }
+  setLang(localStorage.getItem("gyxLang") || "zh");
+
+  document.querySelectorAll("[data-q]").forEach(b => {
     b.onclick = () => {
-      setLang(b.dataset.lang);
-      langMenu.classList.remove("open");
+      showPlan(b.dataset.q);
+      const match = document.getElementById("match");
+      if (match) match.scrollIntoView({ behavior: "smooth" });
     };
   });
 
-  setLang(localStorage.getItem("gyxLang") || "zh");
-
-  // 搜索
-  document.querySelectorAll("[data-q]").forEach(b => {
-    b.onclick = () => showPlan(b.dataset.q);
-  });
   [["mainSearch", "mainSearchInput"], ["matchSearch", "matchInput"]].forEach(([f, i]) => {
     const form = document.getElementById(f);
     if (form) {
       form.onsubmit = e => {
         e.preventDefault();
         showPlan(document.getElementById(i).value);
-        document.getElementById("match").scrollIntoView({ behavior: "smooth" });
+        const match = document.getElementById("match");
+        if (match) match.scrollIntoView({ behavior: "smooth" });
       };
     }
   });
