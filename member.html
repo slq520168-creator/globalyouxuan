@@ -1,64 +1,341 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>会员中心 - GlobalYouXuan</title>
-<link rel="stylesheet" href="style.css">
-<style>
-.box{max-width:420px;margin:0 auto;padding:40px 16px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow);margin-bottom:16px}
-h1{font-size:20px;margin:0 0 16px}
-.info{font-size:14px;color:var(--muted);line-height:1.6}
-.btn{display:block;width:100%;padding:14px;border:0;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;font-weight:700;text-align:center;text-decoration:none;margin-top:12px}
-.btn-out{background:#ef4444}
-a.back{display:inline-block;margin-bottom:20px;color:var(--blue);font-size:14px}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>会员中心 - GlobalYouXuan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: #f5f7fb;
+            color: #1a1a2e;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            margin-bottom: 20px;
+        }
+        .card h2 {
+            font-size: 20px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card h2 .badge {
+            font-size: 12px;
+            background: #667eea;
+            color: #fff;
+            padding: 2px 12px;
+            border-radius: 20px;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid #f0f2f7;
+        }
+        .user-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .user-detail .name {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .user-detail .email {
+            font-size: 14px;
+            color: #888;
+        }
+        .order-item {
+            padding: 14px 0;
+            border-bottom: 1px solid #f0f2f7;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .order-item:last-child {
+            border-bottom: none;
+        }
+        .order-item .info .title {
+            font-weight: 600;
+            font-size: 15px;
+        }
+        .order-item .info .time {
+            font-size: 12px;
+            color: #999;
+        }
+        .order-item .status {
+            font-size: 13px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        .order-item .status.pending {
+            background: #fff3e0;
+            color: #e65100;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 24px;
+            background: #1a1a2e;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: #667eea;
+        }
+        .btn-outline {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        .btn-outline:hover {
+            background: #667eea;
+            color: #fff;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+        .empty-state .icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .mt-16 {
+            margin-top: 16px;
+        }
+        @media (max-width: 480px) {
+            .card {
+                padding: 18px;
+            }
+            .order-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+    </style>
 </head>
 <body>
-<header class="topbar">
-  <a class="brand" href="index.html"><span class="brand-mark">G</span><span class="brand-name">GlobalYouXuan</span></a>
-</header>
-<div class="box">
-  <a class="back" href="index.html">← 返回首页</a>
-  <div class="card">
-    <h1>会员中心</h1>
-    <div class="info" id="info">加载中...</div>
-    <a class="btn" href="index.html">去首页选方案</a>
-    <a class="btn" href="query.html">查询下载</a>
-    <button class="btn btn-out" onclick="logout()">退出登录</button>
-  </div>
+
+<div class="container">
+
+    <!-- 会员中心 -->
+    <div class="card" id="memberCard">
+        <h2>👤 会员中心 <span class="badge">已登录</span></h2>
+
+        <!-- 用户信息 -->
+        <div class="user-info" id="userInfo">
+            <div class="user-avatar" id="userAvatar">G</div>
+            <div class="user-detail">
+                <div class="name" id="userName">用户</div>
+                <div class="email" id="userEmail">email@example.com</div>
+            </div>
+        </div>
+
+        <!-- 退出按钮 -->
+        <div style="margin-top:16px;">
+            <button class="btn btn-outline" id="logoutBtn">🚪 退出登录</button>
+        </div>
+    </div>
+
+    <!-- 我的订单 -->
+    <div class="card">
+        <h2>📦 我的订单</h2>
+        <div id="orderList">
+            <div class="order-item" id="noOrder">
+                <div class="empty-state" style="width:100%;">
+                    <div class="icon">📭</div>
+                    <p>暂无订单<br><span style="font-size:13px;color:#ccc;">去首页选一个方案开始赚钱吧</span></p>
+                    <a href="index.html" class="btn" style="margin-top:12px;">去首页选方案</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 快捷入口 -->
+    <div class="card">
+        <h2>🚀 快捷入口</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <a href="index.html" class="btn" style="text-align:center;">🏠 首页</a>
+            <a href="order.html" class="btn" style="text-align:center;">📥 查询下载</a>
+        </div>
+    </div>
+
 </div>
 
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
-const SUPABASE_URL = 'https://bpbstpwppprizduoppox.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_l3NVNYilYYqLFSWODvpLYw_sp9Bpefg';
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    // ============================================================
+    // Supabase 配置（替换成你自己的）
+    // ============================================================
+    const SUPABASE_URL = 'https://你的项目ID.supabase.co';
+    const SUPABASE_KEY = '你的anon公钥';
 
-async function init() {
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) {
-    location.href = 'login.html';
-    return;
-  }
-  document.getElementById('info').innerHTML = `
-    已登录<br>
-    邮箱：${user.email}<br>
-    注册时间：${new Date(user.created_at).toLocaleString()}
-  `;
-}
+    // ============================================================
+    // 初始化 Supabase 客户端
+    // ============================================================
+    const supabaseClient = {
+        url: SUPABASE_URL,
+        key: SUPABASE_KEY,
+        async getSession() {
+            // 从 localStorage 读取会话
+            try {
+                const session = JSON.parse(localStorage.getItem('supabase_session') || 'null');
+                if (session && session.user) {
+                    return { data: { session }, error: null };
+                }
+                return { data: { session: null }, error: null };
+            } catch (e) {
+                return { data: { session: null }, error: e };
+            }
+        },
+        async auth() {
+            const session = await this.getSession();
+            return {
+                getUser: async () => {
+                    if (session.data.session && session.data.session.user) {
+                        return { data: { user: session.data.session.user }, error: null };
+                    }
+                    return { data: { user: null }, error: new Error('未登录') };
+                },
+                signOut: async () => {
+                    localStorage.removeItem('supabase_session');
+                    return { error: null };
+                }
+            };
+        }
+    };
 
-async function logout() {
-  await supabase.auth.signOut();
-  location.href = 'login.html';
-}
+    // ============================================================
+    // 页面加载时检查登录状态
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', async function() {
+        try {
+            // 检查 Supabase 会话
+            const session = JSON.parse(localStorage.getItem('supabase_session') || 'null');
+            
+            if (!session || !session.user) {
+                // 未登录，跳转到登录页
+                window.location.href = 'login.html';
+                return;
+            }
 
-init();
+            // 已登录，显示用户信息
+            const user = session.user;
+            document.getElementById('userName').textContent = user.user_metadata?.full_name || user.email || '用户';
+            document.getElementById('userEmail').textContent = user.email || '';
+            document.getElementById('userAvatar').textContent = (user.user_metadata?.full_name || user.email || 'U')[0].toUpperCase();
+
+            // 加载订单（从 localStorage 读取演示数据）
+            loadOrders();
+
+        } catch (error) {
+            console.error('会员中心加载失败:', error);
+            window.location.href = 'login.html';
+        }
+    });
+
+    // ============================================================
+    // 加载订单列表
+    // ============================================================
+    function loadOrders() {
+        const orderList = document.getElementById('orderList');
+        try {
+            const orders = JSON.parse(localStorage.getItem('gyx_orders') || '[]');
+            
+            if (orders.length === 0) {
+                // 显示空状态（已在HTML中默认显示）
+                return;
+            }
+
+            // 隐藏空状态
+            const noOrder = document.getElementById('noOrder');
+            if (noOrder) noOrder.style.display = 'none';
+
+            // 渲染订单
+            let html = '';
+            orders.forEach(order => {
+                const statusMap = {
+                    'paid': '✅ 已支付',
+                    'pending': '⏳ 待支付',
+                    'downloaded': '📥 已下载'
+                };
+                const statusClass = order.status === 'pending' ? 'pending' : '';
+                html += `
+                    <div class="order-item">
+                        <div class="info">
+                            <div class="title">${order.name || '方案'}</div>
+                            <div class="time">${order.time || '2026-07-30'}</div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:12px;">
+                            <span style="font-weight:700;color:#667eea;">${order.price || '0U'}</span>
+                            <span class="status ${statusClass}">${statusMap[order.status] || order.status}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            orderList.innerHTML = html;
+
+        } catch (e) {
+            console.error('加载订单失败:', e);
+        }
+    }
+
+    // ============================================================
+    // 退出登录
+    // ============================================================
+    document.getElementById('logoutBtn')?.addEventListener('click', async function() {
+        try {
+            // 清除本地会话
+            localStorage.removeItem('supabase_session');
+            // 跳转到登录页
+            window.location.href = 'login.html';
+        } catch (error) {
+            console.error('退出失败:', error);
+            alert('退出失败，请重试');
+        }
+    });
 </script>
-
 
 </body>
 </html>
