@@ -3,68 +3,110 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>智控未来资源库 - GlobalYouXuan</title>
+<title>量化感知 - GlobalYouXuan</title>
 <link rel="stylesheet" href="style.css">
 <style>
-.res-page{max-width:720px;margin:0 auto;padding:20px 16px 60px}
-.res-header{margin-bottom:28px}
-.res-header a{color:var(--blue);font-size:14px}
-.res-header h1{font-size:26px;margin:12px 0 8px}
-.res-header p{color:var(--muted);font-size:15px;margin:0}
-.res-list{display:grid;gap:14px}
-.res-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
-.res-card h3{margin:0 0 6px;font-size:17px}
-.res-card p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
-.res-meta{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
-.res-price{font-weight:700;color:var(--blue);font-size:15px}
-.res-price.free{color:var(--cyan)}
-.res-btn{display:inline-block;padding:8px 16px;border-radius:10px;font-size:13px;font-weight:600;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff}
-.res-btn.outline{background:transparent;border:1px solid var(--line);color:var(--text)}
+.page{max-width:720px;margin:0 auto;padding:20px 16px 60px}
+.back{display:inline-block;margin-bottom:14px;color:var(--blue);font-size:15px}
+h1{font-size:28px;margin:0 0 10px}
+.lead{color:var(--muted);font-size:16px;margin:0 0 24px;line-height:1.7}
+.tier{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:16px;box-shadow:var(--shadow)}
+.tier-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px}
+.tier h2{margin:0;font-size:20px}
+.price{font-size:24px;font-weight:800;color:var(--blue);white-space:nowrap}
+.price small{font-size:14px;font-weight:600;color:var(--muted)}
+.tag{display:inline-block;font-size:13px;padding:5px 10px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--muted);margin-bottom:10px}
+.tier p{margin:0 0 12px;font-size:16px;line-height:1.75}
+.tier ul{margin:0 0 14px;padding-left:18px;font-size:16px;line-height:1.85;color:var(--text)}
+.btn-wrap{text-align:center}
+.btn{display:inline-block;padding:12px 20px;border-radius:12px;font-size:15px;font-weight:700;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;text-decoration:none}
 </style>
 </head>
 <body>
 <header class="topbar">
   <a class="brand" href="index.html"><span class="brand-mark">G</span><span class="brand-name">GlobalYouXuan</span></a>
 </header>
-<div class="res-page">
-  <div class="res-header">
-    <a href="index.html">← 返回首页</a>
-    <h1>智控未来资源库</h1>
-    <p>AI工具、提示词、客服方案、自动化能力</p>
+
+<div class="page">
+  <a class="back" href="index.html">← 返回首页</a>
+  <h1>量化感知</h1>
+  <p class="lead">四个方案，从个人AI提效到企业私有化智能，按需求选择即可。</p>
+
+  <div class="tier">
+    <div class="tag">体验版</div>
+    <div class="tier-top">
+      <h2>体验版</h2>
+      <div class="price">9.9 <small>U</small></div>
+    </div>
+    <p>没有基础也能快速掌握，从零开始用AI提效。</p>
+    <ul>
+      <li>AI写周报、日报、工作总结</li>
+      <li>AI整理会议纪要，自动提炼要点</li>
+      <li>AI做PPT大纲，自动生成汇报框架</li>
+      <li>AI翻译、润色、改写各类文档</li>
+      <li>手机端可用，不复杂、不费时</li>
+      <li>附赠新手操作手册+入门教程</li>
+    </ul>
+    <p>适合个人日常办公：写周报、整理纪要、做PPT、翻译润色等。</p>
+    <div class="btn-wrap"><a class="btn" href="order.html">选择此方案</a></div>
   </div>
-  <div class="res-list">
-    <div class="res-card">
-      <h3>三分钟玩转AI</h3>
-      <p>快速上手 AI 写作、图片、对话的实用入门包。</p>
-      <div class="res-meta">
-        <span class="res-price">9.9 U</span>
-        <a class="res-btn" href="order.html">立即购买</a>
-      </div>
+
+  <div class="tier">
+    <div class="tag">内容营销版</div>
+    <div class="tier-top">
+      <h2>内容营销版</h2>
+      <div class="price">99 <small>U</small></div>
     </div>
-    <div class="res-card">
-      <h3>AI提示词精选库</h3>
-      <p>覆盖写作、电商、客服、社媒等高频场景提示词。</p>
-      <div class="res-meta">
-        <span class="res-price">29 U</span>
-        <a class="res-btn" href="order.html">立即购买</a>
-      </div>
+    <p>AI帮你写文案、做图片、剪视频，一个人就是一支团队。</p>
+    <ul>
+      <li>AI批量生成小红书/抖音/公众号文案</li>
+      <li>AI生成配图、海报、封面图</li>
+      <li>AI辅助剪辑短视频（字幕/配音/自动切片）</li>
+      <li>多平台内容统一管理，一键分发</li>
+      <li>数据反馈自动汇总，帮你判断哪类内容更受欢迎</li>
+      <li>无需设计/剪辑基础，从脚本到发布全流程辅助</li>
+    </ul>
+    <p>适合自媒体、内容运营：小红书笔记、抖音脚本、公众号配图、电商主图等。</p>
+    <div class="btn-wrap"><a class="btn" href="order.html">选择此方案</a></div>
+  </div>
+
+  <div class="tier">
+    <div class="tag">企业办公版</div>
+    <div class="tier-top">
+      <h2>企业办公版</h2>
+      <div class="price">999 <small>U</small></div>
     </div>
-    <div class="res-card">
-      <h3>AI客服自动回复方案</h3>
-      <p>常见问题库 + 自动回复逻辑，适合店铺和社群。</p>
-      <div class="res-meta">
-        <span class="res-price">49 U</span>
-        <a class="res-btn" href="order.html">立即购买</a>
-      </div>
+    <p>团队内容创作与知识管理全流程AI化。</p>
+    <ul>
+      <li>智能会议纪要：录音自动转文字+提炼要点+待办事项</li>
+      <li>内部知识库搭建：文档自动整理、智能检索</li>
+      <li>AI辅助撰写各类商业文档（方案、报告、合同框架）</li>
+      <li>团队资料自动分类归档，快速查找</li>
+      <li>接入飞书/钉钉/企业微信，团队即开即用</li>
+      <li>内容创作资产统一管理，沉淀为团队知识库</li>
+    </ul>
+    <p>适合企业团队：会议待办、知识库、商业方案、合同模板、培训资料管理等。</p>
+    <div class="btn-wrap"><a class="btn" href="order.html">选择此方案</a></div>
+  </div>
+
+  <div class="tier">
+    <div class="tag">企业定制版</div>
+    <div class="tier-top">
+      <h2>企业定制版</h2>
+      <div class="price">3999 <small>U</small></div>
     </div>
-    <div class="res-card">
-      <h3>免费AI工具导航</h3>
-      <p>精选可用的免费AI工具清单与使用建议。</p>
-      <div class="res-meta">
-        <span class="res-price free">免费</span>
-        <a class="res-btn outline" href="#">查看</a>
-      </div>
-    </div>
+    <p>私有化AI平台，企业数据训练专属模型，全链路智能。</p>
+    <ul>
+      <li>基于企业专属数据进行模型微调训练</li>
+      <li>私有化部署，数据不出企业</li>
+      <li>对接企业内部知识库、文档库、数据库</li>
+      <li>专属AI助手：懂你的业务、懂你的产品、懂你的客户</li>
+      <li>支持财务/人事/销售/客服等多部门专属AI应用</li>
+      <li>与企业现有系统（CRM/ERP/OA）深度集成</li>
+      <li>持续迭代优化，与企业业务同步进化</li>
+    </ul>
+    <p>适合大型企业、集团：专属AI助手、产品知识库问答、销售策略、财务分析等。</p>
+    <div class="btn-wrap"><a class="btn" href="order.html">选择此方案</a></div>
   </div>
 </div>
 </body>
