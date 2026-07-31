@@ -82,7 +82,7 @@
 </div>
 <script>
 // ============================================================
-// 配置（改成你自己的）
+// 配置
 // ============================================================
 const SUPABASE_URL = 'https://bpbstpwwpprzduoppox.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJwYnN0cHd3cHByemR1b3Bwb3giLCJyb2xlIjoiYW5vbiIsImlhdCI6MTc1Mjg2MTE4NCwiZXhwIjoyMDY4NDM3MTg0fQ.9JmCQoP7R5K8m3xVnqT6WgLrFh2YbZ4NcD1eU5fJ8oA';
@@ -90,7 +90,6 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const BOT_TOKEN = '8835320602:AAGCrOvqcmBcYIFctpTAba3ZcPw3a7GU8aQ';
 const CHAT_ID = '6934078288';
 
-// ============================================================
 const params = new URLSearchParams(location.search);
 const PRODUCT = {
   name: params.get('name') || '未指定产品',
@@ -141,9 +140,14 @@ async function submitPaid(){
     }
   } catch(e) {}
 
-  // 写入 Supabase orders 表
+  // 先显示订单，再异步写入
+  document.getElementById('orderForm').style.display = 'none';
+  document.getElementById('resultBox').style.display = 'block';
+  document.getElementById('orderIdShow').textContent = orderId;
+
+  // 后台异步写入 Supabase（不阻塞页面）
   try {
-    const response = await fetch(SUPABASE_URL + '/rest/v1/orders', {
+    await fetch(SUPABASE_URL + '/rest/v1/orders', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -158,14 +162,11 @@ async function submitPaid(){
         status: 'pending'
       })
     });
-    if (!response.ok) {
-      console.error('Supabase写入失败:', await response.text());
-    }
   } catch(e) {
     console.error('写入订单错误:', e);
   }
 
-  // 发送 Telegram 通知
+  // 后台异步发送 Telegram（不阻塞页面）
   const orderText = encodeURIComponent(`🛒 待确认订单
 订单号: ${orderId}
 产品: ${PRODUCT.name}
@@ -182,13 +183,9 @@ async function submitPaid(){
 
   try {
     await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${orderText}`);
-    await new Promise(r => setTimeout(r, 600));
+    await new Promise(r => setTimeout(r, 300));
     await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${jsonText}`);
   } catch(e) {}
-
-  document.getElementById('orderForm').style.display = 'none';
-  document.getElementById('resultBox').style.display = 'block';
-  document.getElementById('orderIdShow').textContent = orderId;
 }
 </script>
 </body>
