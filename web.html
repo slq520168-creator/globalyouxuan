@@ -10,21 +10,17 @@
 .back{display:inline-block;margin-bottom:14px;color:var(--blue);font-size:14px}
 h1{font-size:26px;margin:0 0 8px}
 .lead{color:var(--muted);font-size:15px;margin:0 0 22px;line-height:1.6}
-.tier{
-  background:var(--card);border:1px solid var(--line);border-radius:18px;
-  padding:18px;margin-bottom:14px;box-shadow:var(--shadow)
-}
+.tier{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:14px;box-shadow:var(--shadow)}
 .tier-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px}
 .tier h2{margin:0;font-size:18px}
 .price{font-size:22px;font-weight:800;color:var(--blue);white-space:nowrap}
 .price small{font-size:13px;font-weight:600;color:var(--muted)}
-.tag{display:inline-block;font-size:12px;padding:4px 8px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--muted);margin-bottom:8px}
-.tier p{margin:0 0 8px;color:var(--text);font-size:14px;line-height:1.6}
-.tier ul{margin:8px 0 12px;padding-left:18px;color:var(--muted);font-size:13px;line-height:1.7}
-.btn{
-  display:inline-block;padding:10px 14px;border-radius:12px;font-size:13px;font-weight:700;
-  background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff
-}
+.tag{display:inline-block;font-size:12px;padding:4px 8px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--muted);margin:0 6px 8px 0}
+.tier p{margin:0 0 8px;font-size:14px;line-height:1.6}
+.tier ul{margin:8px 0 14px;padding-left:18px;color:var(--muted);font-size:13px;line-height:1.7}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.btn{display:inline-block;padding:10px 14px;border-radius:12px;font-size:13px;font-weight:700;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff}
+.btn.outline{background:transparent;border:1px solid var(--line);color:var(--text)}
 .note{margin-top:18px;font-size:12px;color:var(--muted);line-height:1.6}
 </style>
 </head>
@@ -32,80 +28,87 @@ h1{font-size:26px;margin:0 0 8px}
 <header class="topbar">
   <a class="brand" href="index.html"><span class="brand-mark">G</span><span class="brand-name">GlobalYouXuan</span></a>
 </header>
-
 <div class="page">
   <a class="back" href="index.html">← 返回首页</a>
   <h1>网站建设</h1>
-  <p class="lead">四个梯级，从展示到系统。每一档都说明功能范围，并附详细教程资料。</p>
+  <p class="lead">四个梯级，从展示到系统。每档都标明功能、难度，并提供模板预览与教程资料。</p>
 
   <div class="tier">
-    <div class="tag">入门档</div>
+    <span class="tag">入门档</span><span class="tag">难度 ★☆☆☆☆</span>
     <div class="tier-top">
       <h2>展示型官网</h2>
       <div class="price">99 <small>U</small></div>
     </div>
     <p><b>适合：</b>个人、工作室、小团队，先有一个干净的线上门面。</p>
-    <p><b>你将得到：</b></p>
     <ul>
       <li>页面：首页 / 关于 / 服务介绍 / 联系</li>
       <li>功能：手机自适应、基础 SEO、一键联系</li>
       <li>资料：搭建教程、上线发布说明、内容填写模板</li>
     </ul>
-    <a class="btn" href="order.html">选择此方案</a>
+    <div class="btns">
+      <a class="btn outline" href="preview-99.html">预览模板</a>
+      <a class="btn" href="order.html">选择此方案</a>
+    </div>
   </div>
 
   <div class="tier">
-    <div class="tag">获客档</div>
+    <span class="tag">获客档</span><span class="tag">难度 ★★☆☆☆</span>
     <div class="tier-top">
       <h2>获客型官网</h2>
       <div class="price">399 <small>U</small></div>
     </div>
     <p><b>适合：</b>需要咨询转化、留资、私域导流的业务。</p>
-    <p><b>你将得到：</b></p>
     <ul>
-      <li>包含「展示型」全部内容</li>
+      <li>包含展示型全部内容</li>
       <li>页面：产品/服务详情、案例、表单留资页</li>
-      <li>功能：表单收集、Telegram/WhatsApp 跳转、基础访问统计</li>
+      <li>功能：表单收集、Telegram/WhatsApp 跳转、基础统计</li>
       <li>资料：获客页结构教程、表单对接说明、文案示例</li>
     </ul>
-    <a class="btn" href="order.html">选择此方案</a>
+    <div class="btns">
+      <a class="btn outline" href="preview-399.html">预览模板</a>
+      <a class="btn" href="order.html">选择此方案</a>
+    </div>
   </div>
 
   <div class="tier">
-    <div class="tag">业务档</div>
+    <span class="tag">业务档</span><span class="tag">难度 ★★★☆☆</span>
     <div class="tier-top">
       <h2>商城 / 业务站</h2>
       <div class="price">999 <small>U</small></div>
     </div>
     <p><b>适合：</b>有产品或套餐，需要展示并引导下单/询价。</p>
-    <p><b>你将得到：</b></p>
     <ul>
-      <li>包含「获客型」全部内容</li>
+      <li>包含获客型全部内容</li>
       <li>页面：商品/套餐列表、详情页、下单引导页</li>
       <li>功能：分类展示、询价/下单入口、订单引导流程</li>
-      <li>资料：业务站结构教程、下单流程说明、页面配置清单</li>
+      <li>资料：业务站结构教程、下单流程说明、配置清单</li>
     </ul>
-    <a class="btn" href="order.html">选择此方案</a>
+    <div class="btns">
+      <a class="btn outline" href="preview-999.html">预览模板</a>
+      <a class="btn" href="order.html">选择此方案</a>
+    </div>
   </div>
 
   <div class="tier">
-    <div class="tag">系统档</div>
+    <span class="tag">系统档</span><span class="tag">难度 ★★★★☆</span>
     <div class="tier-top">
       <h2>定制系统站</h2>
       <div class="price">3999 <small>U</small></div>
     </div>
-    <p><b>适合：</b>需要更完整的业务闭环（展示 + 下单 + 通知 + 管理思路）。</p>
-    <p><b>你将得到：</b></p>
+    <p><b>适合：</b>需要更完整的业务闭环（展示 + 下单 + 通知 + 管理）。</p>
     <ul>
-      <li>包含「商城/业务站」全部内容</li>
+      <li>包含商城/业务站全部内容</li>
       <li>模块：自动化通知、后台管理思路、多入口/多语言规划</li>
       <li>功能：订单通知路径、客户跟进链路、可扩展模块清单</li>
       <li>资料：完整落地教程、模块说明、交付与维护指南</li>
     </ul>
-    <a class="btn" href="order.html">选择此方案</a>
+    <div class="btns">
+      <a class="btn outline" href="preview-3999.html">预览模板</a>
+      <a class="btn" href="order.html">选择此方案</a>
+    </div>
   </div>
 
-  <p class="note">说明：以上为标准化方案与资料包报价。若需代为部署、定制开发或长期维护，可在下单备注，或联系客服单独确认。</p>
+  <p class="note">说明：预览页用于查看对应档位的页面结构示意。购买后将提供完整模板文件与详细教程。</p>
 </div>
 </body>
 </html>
