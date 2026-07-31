@@ -3,19 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>查询下载密码 - GlobalYouXuan</title>
+<title>查询下载 - GlobalYouXuan</title>
 <link rel="stylesheet" href="style.css">
 <style>
 .box{max-width:420px;margin:0 auto;padding:40px 16px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px 20px;box-shadow:var(--shadow);text-align:center}
 h1{font-size:22px;margin:0 0 8px}
 .sub{color:var(--muted);font-size:14px;margin-bottom:24px}
-input{width:100%;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--text);text-align:center;font-size:16px;margin-bottom:14px}
+input{width:100%;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--text);text-align:center;font-size:16px;margin-bottom:12px}
 button{width:100%;padding:14px;border:0;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;font-weight:700;font-size:15px;cursor:pointer}
-.result{margin-top:20px;padding:16px;border-radius:12px;background:var(--bg)}
-.pwd{font-size:28px;font-weight:800;letter-spacing:4px;color:var(--blue);margin:10px 0}
-.err{color:#ef4444;font-size:14px}
-.ok{color:var(--cyan);font-size:14px}
+.result{margin-top:20px;padding:16px;border-radius:12px;background:var(--bg);text-align:left}
+.err{color:#ef4444;font-size:14px;text-align:center}
+.ok{color:var(--cyan);font-size:14px;text-align:center;margin-bottom:12px}
+.product-name{font-size:16px;font-weight:700;margin:8px 0;text-align:center}
+.dl-btn{display:block;width:100%;padding:14px;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;font-weight:700;text-align:center;text-decoration:none;margin-top:12px}
 a.back{display:inline-block;margin-bottom:20px;color:var(--blue);font-size:14px}
 </style>
 </head>
@@ -26,30 +27,78 @@ a.back{display:inline-block;margin-bottom:20px;color:var(--blue);font-size:14px}
 <div class="box">
   <a class="back" href="index.html">← 返回首页</a>
   <div class="card">
-    <h1>查询下载密码</h1>
-    <p class="sub">输入订单号，查询是否已确认到账</p>
-    <input id="oid" placeholder="例如 GYX12345678" />
-    <button onclick="query()">查询</button>
+    <h1>查询并下载</h1>
+    <p class="sub">输入订单号和下载密码</p>
+    <input id="oid" placeholder="订单号 例如 GYX12345678" />
+    <input id="pwd" placeholder="下载密码" />
+    <button onclick="query()">查询下载</button>
     <div id="result" class="result" style="display:none"></div>
   </div>
 </div>
 <script>
+// 产品名严格对应文件（不会下错）
+const FILE_MAP = {
+  "个人相册版": "files/个人相册版.zip",
+  "商户展示版": "files/商户展示版.zip",
+  "品牌官网版": "files/品牌官网版.zip",
+  "企业系统版": "files/企业系统版.zip",
+
+  "体验版": "files/自动化体验版.zip",
+  "小微自动化版": "files/小微自动化版.zip",
+  "团队协同版": "files/团队协同版.zip",
+  "企业定制版": "files/企业定制版.zip",
+
+  "内容营销版": "files/内容营销版.zip",
+  "企业办公版": "files/企业办公版.zip",
+
+  "体验包": "files/体验包.zip",
+  "学习包": "files/学习包.zip",
+  "高手包": "files/高手包.zip",
+  "私教定制": "files/私教定制.zip"
+};
+
 async function query(){
   const id = document.getElementById('oid').value.trim().toUpperCase();
+  const pwd = document.getElementById('pwd').value.trim();
   const box = document.getElementById('result');
-  if(!id){ box.style.display='block'; box.innerHTML='<p class="err">请输入订单号</p>'; return; }
+  
+  if(!id || !pwd){
+    box.style.display = 'block';
+    box.innerHTML = '<p class="err">请输入订单号和密码</p>';
+    return;
+  }
+
   try{
     const res = await fetch('confirmed.json?t=' + Date.now());
     const list = await res.json();
-    const found = list.find(x => (x.id||'').toUpperCase() === id);
+    const found = list.find(x => (x.id||'').toUpperCase() === id && x.pwd === pwd);
+    
     box.style.display = 'block';
-    if(found && found.pwd){
-      box.innerHTML = `<p class="ok">已确认到账</p><div class="pwd">${found.pwd}</div><p style="font-size:13px;color:var(--muted)">请使用此密码打开资源页</p><p style="margin-top:12px"><a href="resource-ai.html" style="color:var(--blue)">去查看资源 →</a></p>`;
-    }else{
-      box.innerHTML = `<p class="err">未找到或尚未确认到账</p><p style="font-size:13px;color:var(--muted);margin-top:8px">请确认订单号是否正确，或稍后再试。如已付款请联系客服并提供订单号。</p>`;
+    
+    if(found){
+      const product = found.product || '';
+      const file = FILE_MAP[product] || found.file || '';
+
+      if(file){
+        box.innerHTML = `
+          <p class="ok">验证成功，可以下载</p>
+          <div class="product-name">${product || '您的产品'}</div>
+          <a class="dl-btn" href="${file}" download>立即下载</a>
+        `;
+      } else {
+        box.innerHTML = `
+          <p class="ok">验证成功</p>
+          <p style="font-size:14px;color:var(--muted);text-align:center;margin-top:8px">该产品文件暂未上传，请联系客服</p>
+        `;
+      }
+    } else {
+      box.innerHTML = `
+        <p class="err">订单号或密码错误</p>
+        <p style="font-size:13px;color:var(--muted);margin-top:8px;text-align:center">请确认是否正确，或联系客服</p>
+      `;
     }
-  }catch(e){
-    box.style.display='block';
+  } catch(e){
+    box.style.display = 'block';
     box.innerHTML = '<p class="err">查询失败，请稍后重试</p>';
   }
 }
