@@ -25,72 +25,71 @@ const I18N = {
   }
 };
 
-// 独立搜索内容库（不依赖四个固定入口）
+// 动态赚钱项目搜索库
 const SEARCH_DB = [
   {
-    keywords: ["网站", "官网", "主页", "展示", "相册", "落地页", "商城", "页面"],
-    title: "你可能需要网站相关方案",
+    keywords: ["夜市", "做图", "绘画", "打印", "摆摊", "广场", "AI绘画"],
+    title: "推荐：夜市AI绘画打印赚钱",
     items: [
-      { name: "个人相册版", price: "99U", desc: "私人数字空间，适合家庭/作品记录", link: "web.html" },
-      { name: "商户展示版", price: "399U", desc: "小生意线上展示，客户点开就能看懂", link: "web.html" },
-      { name: "品牌官网版", price: "999U", desc: "有品牌感的正式官网", link: "web.html" }
+      { name: "夜市AI绘画打印赚钱", price: "19.9U", desc: "一单15-30元，手机+打印机就能做", link: "order.html?name=夜市AI绘画打印赚钱&price=19.9U" },
+      { name: "AI头像/情侣画接单", price: "9.9U", desc: "在家接单，单张9.9-30元", link: "order.html?name=AI头像/情侣画接单&price=9.9U" },
+      { name: "AI宠物拟人写真", price: "9.9U", desc: "单张15-40元，主人愿意为可爱买单", link: "order.html?name=AI宠物拟人写真&price=9.9U" }
     ]
   },
   {
-    keywords: ["自动", "提醒", "通知", "流程", "审批", "同步", "订单", "库存", "表单"],
-    title: "你可能需要自动化相关方案",
+    keywords: ["头像", "情侣", "定制", "AI头像"],
+    title: "推荐：AI头像/情侣画接单",
     items: [
-      { name: "体验版", price: "9.9U", desc: "日程提醒、到点通知，从零开始", link: "automation.html" },
-      { name: "小微自动化版", price: "99U", desc: "表单自动回复、库存提醒、订单通知", link: "automation.html" },
-      { name: "团队协同版", price: "999U", desc: "跨部门审批、数据自动汇总", link: "automation.html" }
+      { name: "AI头像/情侣画接单", price: "9.9U", desc: "在家接单，单张9.9-30元", link: "order.html?name=AI头像/情侣画接单&price=9.9U" },
+      { name: "夜市AI绘画打印赚钱", price: "19.9U", desc: "一单15-30元，手机+打印机就能做", link: "order.html?name=夜市AI绘画打印赚钱&price=19.9U" },
+      { name: "AI宠物拟人写真", price: "9.9U", desc: "单张15-40元，主人愿意为可爱买单", link: "order.html?name=AI宠物拟人写真&price=9.9U" }
     ]
   },
   {
-    keywords: ["ai", "写作", "文案", "图片", "视频", "剪辑", "周报", "PPT", "翻译", "润色", "内容"],
-    title: "你可能需要AI提效相关方案",
+    keywords: ["文案", "朋友圈", "脚本", "代写", "短视频文案"],
+    title: "推荐：朋友圈/短视频文案代写",
     items: [
-      { name: "体验版", price: "9.9U", desc: "写周报、整理纪要、做PPT大纲", link: "ai.html" },
-      { name: "内容营销版", price: "99U", desc: "批量生成文案、配图、短视频辅助", link: "ai.html" },
-      { name: "企业办公版", price: "999U", desc: "会议纪要、知识库、商业文档辅助", link: "ai.html" }
+      { name: "朋友圈/短视频文案代写", price: "9.9U", desc: "单条15-50元，宝妈上班族都适合", link: "order.html?name=朋友圈/短视频文案代写&price=9.9U" },
+      { name: "本地商家海报/封面", price: "29U", desc: "服务本地店，单张30-80元", link: "order.html?name=本地商家海报/封面&price=29U" },
+      { name: "AI头像/情侣画接单", price: "9.9U", desc: "在家接单，单张9.9-30元", link: "order.html?name=AI头像/情侣画接单&price=9.9U" }
     ]
   },
   {
-    keywords: ["学习", "课程", "教程", "培训", "学院", "怎么学", "入门", "变现", "接单"],
-    title: "你可能需要学习相关方案",
+    keywords: ["老照片", "修复", "上色", "黑白照片"],
+    title: "推荐：老照片修复上色",
     items: [
-      { name: "体验包", price: "9.9U", desc: "11个板块免费工具+操作步骤", link: "digital.html" },
-      { name: "学习包", price: "99U", desc: "系统课程+实战作业+答疑", link: "digital.html" },
-      { name: "高手包", price: "999U", desc: "深度教学+接单变现路径", link: "digital.html" }
+      { name: "老照片修复上色", price: "19.9U", desc: "单张20-100元，中老年人需求大", link: "order.html?name=老照片修复上色&price=19.9U" },
+      { name: "AI头像/情侣画接单", price: "9.9U", desc: "在家接单，单张9.9-30元", link: "order.html?name=AI头像/情侣画接单&price=9.9U" },
+      { name: "夜市AI绘画打印赚钱", price: "19.9U", desc: "一单15-30元，手机+打印机就能做", link: "order.html?name=夜市AI绘画打印赚钱&price=19.9U" }
     ]
   },
   {
-    keywords: ["便宜", "低成本", "试一下", "体验", "入门", "新手", "不会"],
-    title: "推荐从低成本体验开始",
+    keywords: ["海报", "商家", "封面", "美甲", "餐饮", "本地"],
+    title: "推荐：本地商家海报/封面",
     items: [
-      { name: "自动化体验版", price: "9.9U", desc: "从零体验日程提醒与通知", link: "automation.html" },
-      { name: "AI体验版", price: "9.9U", desc: "写周报、做PPT、翻译润色", link: "ai.html" },
-      { name: "学院体验包", price: "9.9U", desc: "快速上手AI工具", link: "digital.html" }
+      { name: "本地商家海报/封面", price: "29U", desc: "服务本地店，单张30-80元", link: "order.html?name=本地商家海报/封面&price=29U" },
+      { name: "朋友圈/短视频文案代写", price: "9.9U", desc: "单条15-50元，宝妈上班族都适合", link: "order.html?name=朋友圈/短视频文案代写&price=9.9U" },
+      { name: "夜市AI绘画打印赚钱", price: "19.9U", desc: "一单15-30元，手机+打印机就能做", link: "order.html?name=夜市AI绘画打印赚钱&price=19.9U" }
     ]
   },
   {
-    keywords: ["企业", "公司", "团队", "集团", "定制", "私有化", "高端", "完整"],
-    title: "推荐企业级完整方案",
+    keywords: ["宠物", "拟人", "写真", "猫", "狗"],
+    title: "推荐：AI宠物拟人写真",
     items: [
-      { name: "企业系统版（网站）", price: "3999U", desc: "多账号+API+千万级承载", link: "web.html" },
-      { name: "企业定制版（自动化）", price: "3999U", desc: "私有化部署+ERP/CRM打通", link: "automation.html" },
-      { name: "企业定制版（AI）", price: "3999U", desc: "专属模型+系统深度集成", link: "ai.html" }
+      { name: "AI宠物拟人写真", price: "9.9U", desc: "单张15-40元，主人愿意为可爱买单", link: "order.html?name=AI宠物拟人写真&price=9.9U" },
+      { name: "AI头像/情侣画接单", price: "9.9U", desc: "在家接单，单张9.9-30元", link: "order.html?name=AI头像/情侣画接单&price=9.9U" },
+      { name: "夜市AI绘画打印赚钱", price: "19.9U", desc: "一单15-30元，手机+打印机就能做", link: "order.html?name=夜市AI绘画打印赚钱&price=19.9U" }
     ]
   }
 ];
 
-// 兜底内容（随便输什么都有答案）
+// 匹配不到时固定推3套
 const FALLBACK = {
-  title: "根据你的描述，推荐先从这些开始",
+  title: "为你推荐这3个容易上手的赚钱项目",
   items: [
-    { name: "AI体验版", price: "9.9U", desc: "最快上手，写周报/做PPT/润色", link: "ai.html" },
-    { name: "个人相册版", price: "99U", desc: "先有一个属于自己的数字空间", link: "web.html" },
-    { name: "自动化体验版", price: "9.9U", desc: "日程提醒、到点通知", link: "automation.html" },
-    { name: "学院体验包", price: "9.9U", desc: "快速了解AI工具怎么用", link: "digital.html" }
+    { name: "AI头像/情侣画接单", price: "9.9U", desc: "在家接单，单张9.9-30元", link: "order.html?name=AI头像/情侣画接单&price=9.9U" },
+    { name: "朋友圈/短视频文案代写", price: "9.9U", desc: "单条15-50元，宝妈上班族都适合", link: "order.html?name=朋友圈/短视频文案代写&price=9.9U" },
+    { name: "夜市AI绘画打印赚钱", price: "19.9U", desc: "一单15-30元，手机+打印机就能做", link: "order.html?name=夜市AI绘画打印赚钱&price=19.9U" }
   ]
 };
 
@@ -122,7 +121,6 @@ function paint(html) {
 function search(q) {
   const text = (q || "").toLowerCase().trim();
   
-  // 记录搜索
   try {
     const demands = JSON.parse(localStorage.getItem("gyx_demands") || "[]");
     demands.unshift({ q: text, date: new Date().toLocaleString() });
@@ -134,7 +132,6 @@ function search(q) {
     return;
   }
 
-  // 匹配搜索库
   let matched = null;
   for (const item of SEARCH_DB) {
     if (item.keywords.some(k => text.includes(k.toLowerCase()))) {
@@ -157,7 +154,7 @@ function search(q) {
       </div>
       <div style="display:flex;gap:8px;align-items:center;white-space:nowrap">
         <span style="color:var(--blue);font-weight:700;font-size:13px">${it.price}</span>
-        <a href="${it.link}">查看</a>
+        <a href="${it.link}">选择</a>
       </div>
     </div>`;
   });
