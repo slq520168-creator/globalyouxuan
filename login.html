@@ -5,125 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>登录 - GlobalYouXuan</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
-            background: #f5f7fb;
-            color: #1a1a2e;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-        .login-box {
-            background: #fff;
-            border-radius: 20px;
-            padding: 40px 32px;
-            max-width: 400px;
-            width: 100%;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-        }
-        .login-box h1 {
-            font-size: 24px;
-            margin-bottom: 6px;
-        }
-        .login-box .sub {
-            color: #888;
-            font-size: 14px;
-            margin-bottom: 28px;
-        }
-        .form-group {
-            margin-bottom: 16px;
-        }
-        .form-group label {
-            display: block;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #e8ecf1;
-            border-radius: 10px;
-            font-size: 15px;
-            outline: none;
-            transition: 0.3s;
-        }
-        .form-group input:focus {
-            border-color: #667eea;
-        }
-        .btn-primary {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: #fff;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102,126,234,0.35);
-        }
-        .btn-primary:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-        .toggle-link {
-            text-align: center;
-            margin-top: 16px;
-            font-size: 14px;
-            color: #888;
-        }
-        .toggle-link a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
-        }
-        .error-msg {
-            color: #d32f2f;
-            font-size: 13px;
-            margin-top: 8px;
-            display: none;
-        }
-        .error-msg.show {
-            display: block;
-        }
-        .success-msg {
-            color: #2e7d32;
-            font-size: 13px;
-            margin-top: 8px;
-            display: none;
-        }
-        .success-msg.show {
-            display: block;
-        }
-        .back-link {
-            display: block;
-            text-align: center;
-            margin-top: 12px;
-            font-size: 13px;
-            color: #999;
-            text-decoration: none;
-        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#f5f7fb;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px}
+        .login-box{background:#fff;border-radius:20px;padding:40px 32px;max-width:400px;width:100%;box-shadow:0 10px 40px rgba(0,0,0,0.08)}
+        .login-box h1{font-size:24px;margin-bottom:6px}
+        .login-box .sub{color:#888;font-size:14px;margin-bottom:28px}
+        .form-group{margin-bottom:16px}
+        .form-group label{display:block;font-size:14px;font-weight:600;margin-bottom:4px}
+        .form-group input{width:100%;padding:12px 16px;border:2px solid #e8ecf1;border-radius:10px;font-size:15px;outline:none;transition:0.3s}
+        .form-group input:focus{border-color:#667eea}
+        .btn-primary{width:100%;padding:14px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:600;cursor:pointer;transition:0.3s}
+        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(102,126,234,0.35)}
+        .toggle-link{text-align:center;margin-top:16px;font-size:14px;color:#888}
+        .toggle-link a{color:#667eea;text-decoration:none;font-weight:600}
+        .error-msg{color:#d32f2f;font-size:13px;margin-top:8px;display:none}
+        .success-msg{color:#2e7d32;font-size:13px;margin-top:8px;display:none}
+        .back-link{display:block;text-align:center;margin-top:12px;font-size:13px;color:#999;text-decoration:none}
     </style>
 </head>
 <body>
-
 <div class="login-box">
     <h1 id="formTitle">👋 欢迎回来</h1>
     <p class="sub" id="formSub">登录后查看你的方案和订单</p>
-
     <form id="authForm">
         <div class="form-group" id="nameGroup" style="display:none;">
             <label>昵称</label>
@@ -141,35 +44,86 @@
         <div id="successMsg" class="success-msg"></div>
         <button type="submit" class="btn-primary" id="submitBtn">登录</button>
     </form>
-
     <div class="toggle-link">
         <span id="toggleText">还没有账号？</span>
         <a href="#" id="toggleLink">立即注册</a>
     </div>
-
     <a href="index.html" class="back-link">← 返回首页</a>
 </div>
 
 <script>
     // ============================================================
-    // Supabase 配置（替换成你自己的）
+    // Supabase 真实配置
     // ============================================================
-    const SUPABASE_URL = 'https://你的项目ID.supabase.co';
-    const SUPABASE_KEY = '你的anon公钥';
+    const SUPABASE_URL = 'https://bpbstpwwpprzduoppox.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJwYnN0cHd3cHByemR1b3Bwb3giLCJyb2xlIjoiYW5vbiIsImlhdCI6MTc1Mjg2MTE4NCwiZXhwIjoyMDY4NDM3MTg0fQ.9JmCQoP7R5K8m3xVnqT6WgLrFh2YbZ4NcD1eU5fJ8oA';
+
+    // 真实的 Supabase 客户端
+    const supabase = {
+        url: SUPABASE_URL,
+        key: SUPABASE_KEY,
+        auth: {
+            async signUp({ email, password, options }) {
+                const response = await fetch(SUPABASE_URL + '/auth/v1/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_KEY
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password,
+                        data: { full_name: options?.data?.full_name || '' }
+                    })
+                });
+                const result = await response.json();
+                if (!response.ok) {
+                    return { data: null, error: { message: result.msg || '注册失败' } };
+                }
+                // 保存 session
+                if (result.access_token) {
+                    localStorage.setItem('supabase_session', JSON.stringify({
+                        user: result.user,
+                        access_token: result.access_token,
+                        refresh_token: result.refresh_token
+                    }));
+                }
+                return { data: { user: result.user }, error: null };
+            },
+            async signInWithPassword({ email, password }) {
+                const response = await fetch(SUPABASE_URL + '/auth/v1/token?grant_type=password', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_KEY
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+                const result = await response.json();
+                if (!response.ok) {
+                    return { data: null, error: { message: result.msg || '登录失败' } };
+                }
+                // 保存 session
+                if (result.access_token) {
+                    localStorage.setItem('supabase_session', JSON.stringify({
+                        user: result.user,
+                        access_token: result.access_token,
+                        refresh_token: result.refresh_token
+                    }));
+                }
+                return { data: { user: result.user }, error: null };
+            }
+        }
+    };
 
     // ============================================================
-    // 状态
-    // ============================================================
-    let isLoginMode = true;
-
-    // ============================================================
-    // DOM 引用
+    // DOM 逻辑
     // ============================================================
     const form = document.getElementById('authForm');
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
-    const nameGroup = document.getElementById('nameGroup');
     const fullNameInput = document.getElementById('fullName');
+    const nameGroup = document.getElementById('nameGroup');
     const submitBtn = document.getElementById('submitBtn');
     const errorMsg = document.getElementById('errorMsg');
     const successMsg = document.getElementById('successMsg');
@@ -178,50 +132,8 @@
     const formTitle = document.getElementById('formTitle');
     const formSub = document.getElementById('formSub');
 
-    // ============================================================
-    // Supabase 客户端（简化版，模拟真实登录）
-    // ============================================================
-    const supabase = {
-        auth: {
-            signUp: async ({ email, password, options }) => {
-                // 模拟注册：保存到 localStorage
-                const users = JSON.parse(localStorage.getItem('supabase_users') || '[]');
-                const existing = users.find(u => u.email === email);
-                if (existing) {
-                    return { data: null, error: { message: '该邮箱已被注册' } };
-                }
-                const newUser = {
-                    id: 'user_' + Date.now(),
-                    email: email,
-                    password: password,
-                    user_metadata: { full_name: options?.data?.full_name || '' },
-                    created_at: new Date().toISOString()
-                };
-                users.push(newUser);
-                localStorage.setItem('supabase_users', JSON.stringify(users));
-                
-                // 自动登录
-                const session = { user: newUser };
-                localStorage.setItem('supabase_session', JSON.stringify(session));
-                
-                return { data: { user: newUser, session }, error: null };
-            },
-            signInWithPassword: async ({ email, password }) => {
-                const users = JSON.parse(localStorage.getItem('supabase_users') || '[]');
-                const user = users.find(u => u.email === email && u.password === password);
-                if (!user) {
-                    return { data: null, error: { message: '邮箱或密码错误' } };
-                }
-                const session = { user: user };
-                localStorage.setItem('supabase_session', JSON.stringify(session));
-                return { data: { user, session }, error: null };
-            }
-        }
-    };
+    let isLoginMode = true;
 
-    // ============================================================
-    // 切换登录/注册
-    // ============================================================
     function toggleMode() {
         isLoginMode = !isLoginMode;
         if (isLoginMode) {
@@ -231,8 +143,6 @@
             toggleText.textContent = '还没有账号？';
             toggleLink.textContent = '立即注册';
             nameGroup.style.display = 'none';
-            errorMsg.classList.remove('show');
-            successMsg.classList.remove('show');
         } else {
             formTitle.textContent = '✨ 注册新账号';
             formSub.textContent = '注册后即可购买方案，开始赚钱';
@@ -240,9 +150,9 @@
             toggleText.textContent = '已有账号？';
             toggleLink.textContent = '去登录';
             nameGroup.style.display = 'block';
-            errorMsg.classList.remove('show');
-            successMsg.classList.remove('show');
         }
+        errorMsg.classList.remove('show');
+        successMsg.classList.remove('show');
     }
 
     toggleLink.addEventListener('click', (e) => {
@@ -250,17 +160,12 @@
         toggleMode();
     });
 
-    // ============================================================
-    // 表单提交
-    // ============================================================
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
         const email = emailInput.value.trim();
         const password = passwordInput.value;
         const fullName = fullNameInput.value.trim();
 
-        // 清空错误
         errorMsg.classList.remove('show');
         successMsg.classList.remove('show');
         submitBtn.disabled = true;
@@ -275,7 +180,7 @@
                     errorMsg.textContent = '请输入昵称';
                     errorMsg.classList.add('show');
                     submitBtn.disabled = false;
-                    submitBtn.textContent = isLoginMode ? '登录' : '注册';
+                    submitBtn.textContent = '注册';
                     return;
                 }
                 result = await supabase.auth.signUp({
@@ -293,11 +198,9 @@
                 return;
             }
 
-            // 成功
             successMsg.textContent = isLoginMode ? '✅ 登录成功，正在跳转...' : '✅ 注册成功，正在跳转...';
             successMsg.classList.add('show');
 
-            // 跳转到会员中心
             setTimeout(() => {
                 window.location.href = 'member.html';
             }, 1000);
@@ -310,6 +213,5 @@
         }
     });
 </script>
-
 </body>
 </html>
