@@ -3,60 +3,111 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>量化感知资源库 - GlobalYouXuan</title>
+<title>智控未来 - GlobalYouXuan</title>
 <link rel="stylesheet" href="style.css">
 <style>
-.res-page{max-width:720px;margin:0 auto;padding:20px 16px 60px}
-.res-header{margin-bottom:28px}
-.res-header a{color:var(--blue);font-size:14px}
-.res-header h1{font-size:26px;margin:12px 0 8px}
-.res-header p{color:var(--muted);font-size:15px;margin:0}
-.res-list{display:grid;gap:14px}
-.res-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
-.res-card h3{margin:0 0 6px;font-size:17px}
-.res-card p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
-.res-meta{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
-.res-price{font-weight:700;color:var(--blue);font-size:15px}
-.res-price.free{color:var(--cyan)}
-.res-btn{display:inline-block;padding:8px 16px;border-radius:10px;font-size:13px;font-weight:600;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff}
-.res-btn.outline{background:transparent;border:1px solid var(--line);color:var(--text)}
+.page{max-width:720px;margin:0 auto;padding:20px 16px 60px}
+.back{display:inline-block;margin-bottom:14px;color:var(--blue);font-size:15px}
+h1{font-size:28px;margin:0 0 10px}
+.lead{color:var(--muted);font-size:16px;margin:0 0 24px;line-height:1.7}
+.tier{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:16px;box-shadow:var(--shadow)}
+.tier-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px}
+.tier h2{margin:0;font-size:20px}
+.price{font-size:24px;font-weight:800;color:var(--blue);white-space:nowrap}
+.price small{font-size:14px;font-weight:600;color:var(--muted)}
+.tag{display:inline-block;font-size:13px;padding:5px 10px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--muted);margin-bottom:10px}
+.tier p{margin:0 0 12px;font-size:16px;line-height:1.75}
+.tier ul{margin:0 0 14px;padding-left:18px;font-size:16px;line-height:1.85;color:var(--text)}
+.btn-wrap{text-align:center}
+.btn{display:inline-block;padding:12px 20px;border-radius:12px;font-size:15px;font-weight:700;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;text-decoration:none}
 </style>
 </head>
 <body>
 <header class="topbar">
   <a class="brand" href="index.html"><span class="brand-mark">G</span><span class="brand-name">GlobalYouXuan</span></a>
 </header>
-<div class="res-page">
-  <div class="res-header">
-    <a href="index.html">← 返回首页</a>
-    <h1>量化感知资源库</h1>
-    <p>订单自动化、数据分析、运营表格与监控方案</p>
+
+<div class="page">
+  <a class="back" href="index.html">← 返回首页</a>
+  <h1>智控未来</h1>
+  <p class="lead">四个方案，从个人提醒到企业全链路自动化，按规模选择即可。</p>
+
+  <div class="tier">
+    <div class="tag">体验版</div>
+    <div class="tier-top">
+      <h2>体验版</h2>
+      <div class="price">9.9 <small>U</small></div>
+    </div>
+    <p>没有基础也能快速掌握，从零开始体验自动化。</p>
+    <ul>
+      <li>日程备忘、待办提醒、周期性任务自动推送</li>
+      <li>微信/飞书/短信多渠道通知</li>
+      <li>手机端设置，操作简单</li>
+      <li>支持每日/每周/每月循环提醒</li>
+      <li>到点自动通知，不会忘、不会漏</li>
+      <li>附赠新手操作手册+入门教程</li>
+    </ul>
+    <p>适合吃药提醒、水电费缴纳、例会通知、项目截止预警、客户生日问候等日常场景。</p>
+    <div class="btn-wrap"><a class="btn" href="order.html">选择此方案</a></div>
   </div>
-  <div class="res-list">
-    <div class="res-card">
-      <h3>订单自动化基础方案</h3>
-      <p>收集需求、通知、整理订单的基础自动化流程。</p>
-      <div class="res-meta">
-        <span class="res-price">149 U</span>
-        <a class="res-btn" href="order.html">立即购买</a>
-      </div>
+
+  <div class="tier">
+    <div class="tag">小微自动化版</div>
+    <div class="tier-top">
+      <h2>小微自动化版</h2>
+      <div class="price">99 <small>U</small></div>
     </div>
-    <div class="res-card">
-      <h3>运营数据看板模板</h3>
-      <p>表格版运营数据统计模板，适合日常复盘。</p>
-      <div class="res-meta">
-        <span class="res-price">39 U</span>
-        <a class="res-btn" href="order.html">立即购买</a>
-      </div>
+    <p>让重复的事情自己跑起来，你只管做正事。</p>
+    <ul>
+      <li>表单提交后自动回复、自动通知相关人员</li>
+      <li>库存低于设定值自动发送补货提醒</li>
+      <li>客户咨询自动分配、自动跟进记录</li>
+      <li>多平台消息自动同步，不漏单、不拖延</li>
+      <li>无需代码，手机端配置即可生效</li>
+      <li>支持微信/飞书/邮件/短信多渠道输出</li>
+    </ul>
+    <p>适合小生意、门店：客户咨询自动分配、库存提醒、订单通知、预约确认等。</p>
+    <div class="btn-wrap"><a class="btn" href="order.html">选择此方案</a></div>
+  </div>
+
+  <div class="tier">
+    <div class="tag">团队协同版</div>
+    <div class="tier-top">
+      <h2>团队协同版</h2>
+      <div class="price">999 <small>U</small></div>
     </div>
-    <div class="res-card">
-      <h3>Telegram通知模板</h3>
-      <p>付款、订单、异常提醒的消息模板合集。</p>
-      <div class="res-meta">
-        <span class="res-price free">免费</span>
-        <a class="res-btn outline" href="#">查看</a>
-      </div>
+    <p>打通团队数据和工具，让协作自动流转。</p>
+    <ul>
+      <li>多应用数据自动同步（表单、表格、文档、日历）</li>
+      <li>跨部门审批流自动流转，减少沟通成本</li>
+      <li>数据自动汇总生成报表，无需人工统计</li>
+      <li>项目进度自动追踪，逾期自动预警</li>
+      <li>支持连接飞书/钉钉/企业微信/Notion/Airtable等工具</li>
+      <li>可视化流程编排，无需代码，配置即可用</li>
+    </ul>
+    <p>适合团队协作、企业办公：跨部门审批、销售报表、项目预警、多门店数据合并等。</p>
+    <div class="btn-wrap"><a class="btn" href="order.html">选择此方案</a></div>
+  </div>
+
+  <div class="tier">
+    <div class="tag">企业定制版</div>
+    <div class="tier-top">
+      <h2>企业定制版</h2>
+      <div class="price">3999 <small>U</small></div>
     </div>
+    <p>全业务链路自动化，私有化部署，数据不出企业。</p>
+    <ul>
+      <li>打通ERP/CRM/SAP等企业内部系统</li>
+      <li>跨系统数据自动同步，消除信息孤岛</li>
+      <li>复杂业务流程可视化编排，支持多条件分支</li>
+      <li>企业级权限管理，不同角色不同操作权限</li>
+      <li>专属服务器私有化部署，数据安全自主可控</li>
+      <li>支持千万级数据量处理，高并发稳定运行</li>
+      <li>对接企业现有账号体系，统一登录认证</li>
+      <li>专属技术团队提供长期维护与迭代支持</li>
+    </ul>
+    <p>适合大型企业、集团：全链路供应链、财务合并、客户全生命周期运营等。</p>
+    <div class="btn-wrap"><a class="btn" href="order.html">选择此方案</a></div>
   </div>
 </div>
 </body>
