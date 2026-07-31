@@ -87,7 +87,6 @@
 const BOT_TOKEN = '8835320602:AAGCrOvqcmBcYIFctpTAba3ZcPw3a7GU8aQ';
 const CHAT_ID = '6934078288';
 
-// 从网址读取产品信息
 const params = new URLSearchParams(location.search);
 const PRODUCT = {
   name: params.get('name') || '未指定产品',
@@ -97,20 +96,55 @@ const PRODUCT = {
 document.getElementById('productName').textContent = PRODUCT.name;
 document.getElementById('productPrice').textContent = PRODUCT.price.replace('U','');
 
-function selectPay(el){document.querySelectorAll('.pay-item').forEach(i=>i.classList.remove('active'));el.classList.add('active')}
-function copyAddr(e){e.stopPropagation();navigator.clipboard.writeText(document.getElementById('usdtAddr').textContent).then(()=>{e.target.textContent='已复制';setTimeout(()=>e.target.textContent='复制',1500)})}
-function genPwd(){const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<6;i++)s+=c[Math.floor(Math.random()*c.length)];return s}
+function selectPay(el){
+  document.querySelectorAll('.pay-item').forEach(i=>i.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function copyAddr(e){
+  e.stopPropagation();
+  navigator.clipboard.writeText(document.getElementById('usdtAddr').textContent).then(()=>{
+    e.target.textContent='已复制';
+    setTimeout(()=>e.target.textContent='复制',1500);
+  });
+}
+
+function genPwd(){
+  const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let s='';
+  for(let i=0;i<6;i++) s+=c[Math.floor(Math.random()*c.length)];
+  return s;
+}
+
 async function submitPaid(){
-  const contact=document.getElementById('contact').value.trim();
-  const note=document.getElementById('note').value.trim();
-  const payType=document.querySelector('.pay-item.active')?.dataset.pay||'usdt';
-  const orderId='GYX'+Date.now().toString().slice(-8);
-  const pwd=genPwd();
-  const text=encodeURIComponent(`🛒 待确认订单\n订单号: ${orderId}\n产品: ${PRODUCT.name}\n金额: ${PRODUCT.price}\n付款方式: ${payType}\n联系方式: ${contact||'未填'}\n备注: ${note||'无'}\n下载密码: ${pwd}\n时间: ${new Date().toLocaleString()}\n\n确认到账后，把下面这行加入 confirmed.json：\n{"id":"${orderId}","pwd":"${pwd}"}`);
-  try{await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${text}`)}catch(e){}
-  document.getElementById('orderForm').style.display='none';
-  document.getElementById('resultBox').style.display='block';
-  document.getElementById('orderIdShow').textContent=orderId;
+  const contact = document.getElementById('contact').value.trim();
+  const note = document.getElementById('note').value.trim();
+  const payType = document.querySelector('.pay-item.active')?.dataset.pay || 'usdt';
+  const orderId = 'GYX' + Date.now().toString().slice(-8);
+  const pwd = genPwd();
+
+  const orderText = encodeURIComponent(`🛒 待确认订单
+订单号: ${orderId}
+产品: ${PRODUCT.name}
+金额: ${PRODUCT.price}
+付款方式: ${payType}
+联系方式: ${contact||'未填'}
+备注: ${note||'无'}
+下载密码: ${pwd}
+时间: ${new Date().toLocaleString()}`);
+
+  const jsonText = encodeURIComponent(`确认到账后，复制下面整行加入 confirmed.json：
+
+{"id":"${orderId}","pwd":"${pwd}"}`);
+
+  try {
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${orderText}`);
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${jsonText}`);
+  } catch(e) {}
+
+  document.getElementById('orderForm').style.display = 'none';
+  document.getElementById('resultBox').style.display = 'block';
+  document.getElementById('orderIdShow').textContent = orderId;
 }
 </script>
 </body>
