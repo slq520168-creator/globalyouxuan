@@ -25,112 +25,76 @@ const I18N = {
   }
 };
 
-// 5 轮问答（只选项，不付款）
-const STEPS = [
+// 独立搜索内容库（不依赖四个固定入口）
+const SEARCH_DB = [
   {
-    title: "你现在最想先解决的是？",
-    options: [
-      { id: "web", label: "有个网站能展示和获客" },
-      { id: "ai", label: "用 AI 提升效率和内容" },
-      { id: "auto", label: "减少重复劳动，做自动化" },
-      { id: "learn", label: "先系统学习怎么做" },
-      { id: "unsure", label: "还不太确定" }
+    keywords: ["网站", "官网", "主页", "展示", "相册", "落地页", "商城", "页面"],
+    title: "你可能需要网站相关方案",
+    items: [
+      { name: "个人相册版", price: "99U", desc: "私人数字空间，适合家庭/作品记录", link: "web.html" },
+      { name: "商户展示版", price: "399U", desc: "小生意线上展示，客户点开就能看懂", link: "web.html" },
+      { name: "品牌官网版", price: "999U", desc: "有品牌感的正式官网", link: "web.html" }
     ]
   },
   {
-    title: "你更偏向哪种结果？",
-    options: [
-      { id: "fast", label: "尽快能用起来" },
-      { id: "stable", label: "先做稳，后面再扩展" },
-      { id: "cheap", label: "先低成本试一下" },
-      { id: "full", label: "想要比较完整的方案" },
-      { id: "diy", label: "我自己能操作最好" }
+    keywords: ["自动", "提醒", "通知", "流程", "审批", "同步", "订单", "库存", "表单"],
+    title: "你可能需要自动化相关方案",
+    items: [
+      { name: "体验版", price: "9.9U", desc: "日程提醒、到点通知，从零开始", link: "automation.html" },
+      { name: "小微自动化版", price: "99U", desc: "表单自动回复、库存提醒、订单通知", link: "automation.html" },
+      { name: "团队协同版", price: "999U", desc: "跨部门审批、数据自动汇总", link: "automation.html" }
     ]
   },
   {
-    title: "你主要用在什么场景？",
-    options: [
-      { id: "business", label: "自己的生意/店铺" },
-      { id: "content", label: "内容创作和发布" },
-      { id: "service", label: "客户咨询和售后" },
-      { id: "team", label: "团队协作和流程" },
-      { id: "personal", label: "个人学习提升" }
+    keywords: ["ai", "写作", "文案", "图片", "视频", "剪辑", "周报", "PPT", "翻译", "润色", "内容"],
+    title: "你可能需要AI提效相关方案",
+    items: [
+      { name: "体验版", price: "9.9U", desc: "写周报、整理纪要、做PPT大纲", link: "ai.html" },
+      { name: "内容营销版", price: "99U", desc: "批量生成文案、配图、短视频辅助", link: "ai.html" },
+      { name: "企业办公版", price: "999U", desc: "会议纪要、知识库、商业文档辅助", link: "ai.html" }
     ]
   },
   {
-    title: "你现在的基础更接近？",
-    options: [
-      { id: "zero", label: "几乎从零开始" },
-      { id: "some", label: "有一点经验" },
-      { id: "ready", label: "已经有产品/网站雏形" },
-      { id: "busy", label: "会一点，但没时间细做" },
-      { id: "outsource", label: "更想直接用现成方案" }
+    keywords: ["学习", "课程", "教程", "培训", "学院", "怎么学", "入门", "变现", "接单"],
+    title: "你可能需要学习相关方案",
+    items: [
+      { name: "体验包", price: "9.9U", desc: "11个板块免费工具+操作步骤", link: "digital.html" },
+      { name: "学习包", price: "99U", desc: "系统课程+实战作业+答疑", link: "digital.html" },
+      { name: "高手包", price: "999U", desc: "深度教学+接单变现路径", link: "digital.html" }
     ]
   },
   {
-    title: "最后确认，你更希望先拿到？",
-    options: [
-      { id: "tool", label: "能马上用的工具/模板" },
-      { id: "course", label: "能跟着做的教程/课程" },
-      { id: "service", label: "有人帮忙落地的服务" },
-      { id: "bundle", label: "资料 + 模板组合" },
-      { id: "start_ai", label: "先从 AI 入门开始" }
+    keywords: ["便宜", "低成本", "试一下", "体验", "入门", "新手", "不会"],
+    title: "推荐从低成本体验开始",
+    items: [
+      { name: "自动化体验版", price: "9.9U", desc: "从零体验日程提醒与通知", link: "automation.html" },
+      { name: "AI体验版", price: "9.9U", desc: "写周报、做PPT、翻译润色", link: "ai.html" },
+      { name: "学院体验包", price: "9.9U", desc: "快速上手AI工具", link: "digital.html" }
+    ]
+  },
+  {
+    keywords: ["企业", "公司", "团队", "集团", "定制", "私有化", "高端", "完整"],
+    title: "推荐企业级完整方案",
+    items: [
+      { name: "企业系统版（网站）", price: "3999U", desc: "多账号+API+千万级承载", link: "web.html" },
+      { name: "企业定制版（自动化）", price: "3999U", desc: "私有化部署+ERP/CRM打通", link: "automation.html" },
+      { name: "企业定制版（AI）", price: "3999U", desc: "专属模型+系统深度集成", link: "ai.html" }
     ]
   }
 ];
 
-const PLANS = {
-  web: {
-    title: "为您匹配到适合您的方案",
-    summary: "更适合先把展示和获客入口搭起来。",
-    items: [
-      { name: "企业展示官网模板", price: "99U", link: "order.html" },
-      { name: "高转化落地页模板", price: "49U", link: "order.html" },
-      { name: "查看网站建设资源库", price: "", link: "web.html" }
-    ]
-  },
-  ai: {
-    title: "为您匹配到适合您的方案",
-    summary: "更适合先用 AI 提升内容和效率。",
-    items: [
-      { name: "三分钟玩转AI", price: "9.9U", link: "order.html" },
-      { name: "AI提示词精选库", price: "29U", link: "order.html" },
-      { name: "查看智控未来资源库", price: "", link: "ai.html" }
-    ]
-  },
-  auto: {
-    title: "为您匹配到适合您的方案",
-    summary: "更适合先减少重复操作，把流程跑顺。",
-    items: [
-      { name: "订单自动化基础方案", price: "149U", link: "order.html" },
-      { name: "运营数据看板模板", price: "39U", link: "order.html" },
-      { name: "查看量化感知资源库", price: "", link: "automation.html" }
-    ]
-  },
-  learn: {
-    title: "为您匹配到适合您的方案",
-    summary: "更适合先把方法和路径学清楚。",
-    items: [
-      { name: "跨境数字业务入门", price: "129U", link: "order.html" },
-      { name: "手机端运营实操课", price: "59U", link: "order.html" },
-      { name: "查看数字学院资源库", price: "", link: "digital.html" }
-    ]
-  },
-  default: {
-    title: "为您匹配到适合您的方案",
-    summary: "根据你的选择，建议先从低成本可执行的方向开始。",
-    items: [
-      { name: "三分钟玩转AI", price: "9.9U", link: "order.html" },
-      { name: "高转化落地页模板", price: "49U", link: "order.html" },
-      { name: "查看全部资源入口", price: "", link: "ai.html" }
-    ]
-  }
+// 兜底内容（随便输什么都有答案）
+const FALLBACK = {
+  title: "根据你的描述，推荐先从这些开始",
+  items: [
+    { name: "AI体验版", price: "9.9U", desc: "最快上手，写周报/做PPT/润色", link: "ai.html" },
+    { name: "个人相册版", price: "99U", desc: "先有一个属于自己的数字空间", link: "web.html" },
+    { name: "自动化体验版", price: "9.9U", desc: "日程提醒、到点通知", link: "automation.html" },
+    { name: "学院体验包", price: "9.9U", desc: "快速了解AI工具怎么用", link: "digital.html" }
+  ]
 };
 
 let currentLang = "zh";
-let step = 0;
-let answers = [];
-let lastQuery = "";
 
 function setLang(lang) {
   currentLang = lang;
@@ -155,99 +119,54 @@ function paint(html) {
   if (hero) hero.innerHTML = html;
 }
 
-function renderStep() {
-  if (step >= STEPS.length) {
-    renderPlan();
+function search(q) {
+  const text = (q || "").toLowerCase().trim();
+  
+  // 记录搜索
+  try {
+    const demands = JSON.parse(localStorage.getItem("gyx_demands") || "[]");
+    demands.unshift({ q: text, date: new Date().toLocaleString() });
+    localStorage.setItem("gyx_demands", JSON.stringify(demands.slice(0, 50)));
+  } catch (e) {}
+
+  if (!text) {
+    paint(`<div class="qa-card"><p style="color:var(--muted)">请输入你想解决的问题</p></div>`);
     return;
   }
-  const cur = STEPS[step];
+
+  // 匹配搜索库
+  let matched = null;
+  for (const item of SEARCH_DB) {
+    if (item.keywords.some(k => text.includes(k.toLowerCase()))) {
+      matched = item;
+      break;
+    }
+  }
+
+  const result = matched || FALLBACK;
+
   let html = `<div class="qa-card">
-    <h3>${cur.title}</h3>`;
-  cur.options.forEach(op => {
-    html += `<button type="button" class="qa-btn" onclick="choose('${op.id}')">${op.label}</button>`;
-  });
-  html += `<div class="qa-actions">`;
-  if (step > 0) html += `<button type="button" class="qa-mini" onclick="backStep()">← 上一步</button>`;
-  html += `<button type="button" class="qa-mini" onclick="restart()">重新开始</button>`;
-  html += `</div></div>`;
-  paint(html);
-}
+    <h3>${result.title}</h3>
+    <p style="color:var(--muted);font-size:13px;margin:0 0 14px">根据「${text}」为你匹配</p>`;
 
-function decidePlan() {
-  // 优先看第1题大方向
-  const first = answers[0];
-  if (first === "web") return "web";
-  if (first === "ai" || first === "start_ai") return "ai";
-  if (first === "auto") return "auto";
-  if (first === "learn") return "learn";
-
-  // 看最后一题
-  const last = answers[answers.length - 1];
-  if (last === "start_ai" || last === "tool") return "ai";
-  if (last === "course") return "learn";
-  if (last === "service" || last === "bundle") return "web";
-
-  // 看关键词输入
-  const q = (lastQuery || "").toLowerCase();
-  if (/(网站|官网|商城|落地)/.test(q)) return "web";
-  if (/(ai|提示|视频|写作|客服)/.test(q)) return "ai";
-  if (/(自动|订单|通知|数据)/.test(q)) return "auto";
-  if (/(课程|教程|学习|资料)/.test(q)) return "learn";
-
-  return "default";
-}
-
-function renderPlan() {
-  const key = decidePlan();
-  const plan = PLANS[key] || PLANS.default;
-  let html = `<div class="qa-card">
-    <h3>${plan.title}</h3>
-    <p style="color:var(--muted);font-size:14px;margin:0 0 12px">${plan.summary}</p>`;
-  plan.items.forEach(it => {
+  result.items.forEach(it => {
     html += `<div class="plan-item">
-      <b style="font-size:14px">${it.name}</b>
-      <div style="display:flex;gap:8px;align-items:center">
-        ${it.price ? `<span style="color:var(--blue);font-weight:700;font-size:13px">${it.price}</span>` : ""}
-        <a href="${it.link}">${it.price ? "去付款" : "查看"}</a>
+      <div>
+        <b style="font-size:14px">${it.name}</b>
+        <div style="font-size:12px;color:var(--muted);margin-top:2px">${it.desc || ""}</div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;white-space:nowrap">
+        <span style="color:var(--blue);font-weight:700;font-size:13px">${it.price}</span>
+        <a href="${it.link}">查看</a>
       </div>
     </div>`;
   });
+
   html += `<div class="qa-actions" style="margin-top:14px">
-    <button type="button" class="qa-mini" onclick="restart()">重新匹配</button>
+    <button type="button" class="qa-mini" onclick="document.getElementById('heroResult').innerHTML=''">关闭</button>
   </div></div>`;
+
   paint(html);
-}
-
-function choose(id) {
-  answers[step] = id;
-  step += 1;
-  if (step >= STEPS.length) renderPlan();
-  else renderStep();
-}
-
-function backStep() {
-  if (step <= 0) return;
-  step -= 1;
-  answers = answers.slice(0, step);
-  renderStep();
-}
-
-function restart() {
-  step = 0;
-  answers = [];
-  renderStep();
-}
-
-function showPlan(q) {
-  lastQuery = q || "";
-  step = 0;
-  answers = [];
-  try {
-    const demands = JSON.parse(localStorage.getItem("gyx_demands") || "[]");
-    demands.unshift({ q: lastQuery, date: new Date().toLocaleString() });
-    localStorage.setItem("gyx_demands", JSON.stringify(demands.slice(0, 50)));
-  } catch (e) {}
-  renderStep();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -264,10 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (form) {
     form.onsubmit = e => {
       e.preventDefault();
-      showPlan(document.getElementById("mainSearchInput").value);
+      search(document.getElementById("mainSearchInput").value);
     };
   }
-
-  // 打开页面也可直接开始问答
-  // renderStep();
 });
