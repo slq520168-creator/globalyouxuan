@@ -3,60 +3,106 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>数字学院资源库 - GlobalYouXuan</title>
+<title>数字学院 - GlobalYouXuan</title>
 <link rel="stylesheet" href="style.css">
 <style>
-.res-page{max-width:720px;margin:0 auto;padding:20px 16px 60px}
-.res-header{margin-bottom:28px}
-.res-header a{color:var(--blue);font-size:14px}
-.res-header h1{font-size:26px;margin:12px 0 8px}
-.res-header p{color:var(--muted);font-size:15px;margin:0}
-.res-list{display:grid;gap:14px}
-.res-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
-.res-card h3{margin:0 0 6px;font-size:17px}
-.res-card p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
-.res-meta{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
-.res-price{font-weight:700;color:var(--blue);font-size:15px}
-.res-price.free{color:var(--cyan)}
-.res-btn{display:inline-block;padding:8px 16px;border-radius:10px;font-size:13px;font-weight:600;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff}
-.res-btn.outline{background:transparent;border:1px solid var(--line);color:var(--text)}
+.page{max-width:720px;margin:0 auto;padding:20px 16px 60px}
+.back{display:inline-block;margin-bottom:14px;color:var(--blue);font-size:15px}
+h1{font-size:28px;margin:0 0 10px}
+.lead{color:var(--muted);font-size:16px;margin:0 0 24px;line-height:1.7}
+.tier{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:16px;box-shadow:var(--shadow)}
+.tier-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px}
+.tier h2{margin:0;font-size:20px}
+.price{font-size:24px;font-weight:800;color:var(--blue);white-space:nowrap}
+.price small{font-size:14px;font-weight:600;color:var(--muted)}
+.tag{display:inline-block;font-size:13px;padding:5px 10px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--muted);margin-bottom:10px}
+.tier p{margin:0 0 12px;font-size:16px;line-height:1.75}
+.tier ul{margin:0 0 14px;padding-left:18px;font-size:16px;line-height:1.85;color:var(--text)}
+.btn-wrap{text-align:center}
+.btn{display:inline-block;padding:12px 20px;border-radius:12px;font-size:15px;font-weight:700;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;text-decoration:none}
 </style>
 </head>
 <body>
 <header class="topbar">
   <a class="brand" href="index.html"><span class="brand-mark">G</span><span class="brand-name">GlobalYouXuan</span></a>
 </header>
-<div class="res-page">
-  <div class="res-header">
-    <a href="index.html">← 返回首页</a>
-    <h1>数字学院资源库</h1>
-    <p>课程、教程、资料包与数字产品</p>
+
+<div class="page">
+  <a class="back" href="index.html">← 返回首页</a>
+  <h1>数字学院</h1>
+  <p class="lead">四个方案，从免费体验到一对一私教，按学习目标选择即可。</p>
+
+  <div class="tier">
+    <div class="tag">体验包</div>
+    <div class="tier-top">
+      <h2>体验包</h2>
+      <div class="price">9.9 <small>U</small></div>
+    </div>
+    <p>没有基础也能快速掌握，从零开始体验AI工具。</p>
+    <ul>
+      <li>AI视频、AI绘画、AI数字人、AI智能体</li>
+      <li>自动工作流、网站搭建、本地部署</li>
+      <li>视频大模型、实时视频、AI办公、AI营销</li>
+      <li>每个板块1-3个免费工具+操作步骤</li>
+      <li>手机就能用，10分钟上手</li>
+      <li>可下载文档+新手入门教程</li>
+    </ul>
+    <p>包含形式：可下载文档 / 在线查看 / 新手交流群。适合纯新手想试试。</p>
+    <div class="btn-wrap"><a class="btn" href="order.html">选择此方案</a></div>
   </div>
-  <div class="res-list">
-    <div class="res-card">
-      <h3>跨境数字业务入门</h3>
-      <p>从0到1了解跨境数字产品与自动交付思路。</p>
-      <div class="res-meta">
-        <span class="res-price">129 U</span>
-        <a class="res-btn" href="order.html">立即购买</a>
-      </div>
+
+  <div class="tier">
+    <div class="tag">学习包</div>
+    <div class="tier-top">
+      <h2>学习包</h2>
+      <div class="price">99 <small>U</small></div>
     </div>
-    <div class="res-card">
-      <h3>手机端运营实操课</h3>
-      <p>只用手机完成内容、客服、简单自动化的实操指南。</p>
-      <div class="res-meta">
-        <span class="res-price">59 U</span>
-        <a class="res-btn" href="order.html">立即购买</a>
-      </div>
+    <p>系统课程+实战训练，认真学、认真用。</p>
+    <ul>
+      <li>11个板块系统教学（视频+图文）</li>
+      <li>每个工具完整操作流程+实操演示</li>
+      <li>真实案例拆解与作业练习</li>
+      <li>学员专属交流群+老师答疑</li>
+      <li>学习进度追踪，按周推进</li>
+    </ul>
+    <p>适合想认真系统学习AI工具的人。</p>
+    <div class="btn-wrap"><a class="btn" href="order.html">选择此方案</a></div>
+  </div>
+
+  <div class="tier">
+    <div class="tag">高手包</div>
+    <div class="tier-top">
+      <h2>高手包</h2>
+      <div class="price">999 <small>U</small></div>
     </div>
-    <div class="res-card">
-      <h3>免费资料包</h3>
-      <p>入门清单、工具推荐、基础模板合集。</p>
-      <div class="res-meta">
-        <span class="res-price free">免费</span>
-        <a class="res-btn outline" href="#">查看</a>
-      </div>
+    <p>深度定制+接单变现，用AI做出专业结果。</p>
+    <ul>
+      <li>AI短剧/商单/企业级应用深度教学</li>
+      <li>多工具组合工作流搭建</li>
+      <li>商单接单技巧+报价策略+作品集打造</li>
+      <li>个人品牌/副业变现完整路径</li>
+      <li>一对一个人方案定制咨询</li>
+    </ul>
+    <p>适合想用AI升级变现、接商单的人。</p>
+    <div class="btn-wrap"><a class="btn" href="order.html">选择此方案</a></div>
+  </div>
+
+  <div class="tier">
+    <div class="tag">私教定制</div>
+    <div class="tier-top">
+      <h2>私教定制</h2>
+      <div class="price">3999 <small>U</small></div>
     </div>
+    <p>一对一专属指导，从需求到落地全程陪跑。</p>
+    <ul>
+      <li>专属导师一对一诊断+定制学习计划</li>
+      <li>不限次一对一咨询辅导</li>
+      <li>实际项目陪跑指导（真实需求、真实产出）</li>
+      <li>独家高阶提示词库+工作流模板</li>
+      <li>长期迭代支持，持续更新</li>
+    </ul>
+    <p>适合企业主、团队负责人，需要一对一专属指导与项目陪跑。</p>
+    <div class="btn-wrap"><a class="btn" href="order.html">选择此方案</a></div>
   </div>
 </div>
 </body>
