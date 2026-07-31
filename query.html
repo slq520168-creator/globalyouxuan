@@ -28,50 +28,44 @@ a.back{display:inline-block;margin-bottom:20px;color:var(--blue);font-size:14px}
   <a class="back" href="index.html">← 返回首页</a>
   <div class="card">
     <h1>查询并下载</h1>
-    <p class="sub">输入订单号和下载密码</p>
-    <input id="oid" placeholder="订单号 例如 GYX12345678" />
-    <input id="pwd" placeholder="下载密码" />
+    <p class="sub">输入订单号即可下载</p>
+    <input id="oid" placeholder="订单号 例如 YX0001" />
     <button onclick="query()">查询下载</button>
     <div id="result" class="result" style="display:none"></div>
   </div>
 </div>
 <script>
-// 产品名严格对应文件（不会下错）
 const FILE_MAP = {
   "个人相册版": "xiangce.txt",
-  "商户展示版": "files/商户展示版.zip",
-  "品牌官网版": "files/品牌官网版.zip",
-  "企业系统版": "files/企业系统版.zip",
-
-  "体验版": "files/自动化体验版.zip",
-  "小微自动化版": "files/小微自动化版.zip",
-  "团队协同版": "files/团队协同版.zip",
-  "企业定制版": "files/企业定制版.zip",
-
-  "内容营销版": "files/内容营销版.zip",
-  "企业办公版": "files/企业办公版.zip",
-
-  "体验包": "files/体验包.zip",
-  "学习包": "files/学习包.zip",
-  "高手包": "files/高手包.zip",
-  "私教定制": "files/私教定制.zip"
+  "商户展示版": "shanghu.txt",
+  "品牌官网版": "pinpai.txt",
+  "企业系统版": "qiye.txt",
+  "体验版": "zidonghua.txt",
+  "小微自动化版": "xiaowei.txt",
+  "团队协同版": "tuandui.txt",
+  "企业定制版": "dingzhi.txt",
+  "内容营销版": "neirong.txt",
+  "企业办公版": "bangong.txt",
+  "体验包": "tiyan.txt",
+  "学习包": "xuexi.txt",
+  "高手包": "gaoshou.txt",
+  "私教定制": "sijiao.txt"
 };
 
 async function query(){
   const id = document.getElementById('oid').value.trim().toUpperCase();
-  const pwd = document.getElementById('pwd').value.trim();
   const box = document.getElementById('result');
   
-  if(!id || !pwd){
+  if(!id){
     box.style.display = 'block';
-    box.innerHTML = '<p class="err">请输入订单号和密码</p>';
+    box.innerHTML = '<p class="err">请输入订单号</p>';
     return;
   }
 
   try{
     const res = await fetch('confirmed.json?t=' + Date.now());
     const list = await res.json();
-    const found = list.find(x => (x.id||'').toUpperCase() === id && x.pwd === pwd);
+    const found = list.find(x => (x.id||'').toUpperCase() === id);
     
     box.style.display = 'block';
     
@@ -88,13 +82,13 @@ async function query(){
       } else {
         box.innerHTML = `
           <p class="ok">验证成功</p>
-          <p style="font-size:14px;color:var(--muted);text-align:center;margin-top:8px">该产品文件暂未上传，请联系客服</p>
+          <p style="font-size:14px;color:var(--muted);text-align:center;margin-top:8px">文件准备中，请稍后再试</p>
         `;
       }
     } else {
       box.innerHTML = `
-        <p class="err">订单号或密码错误</p>
-        <p style="font-size:13px;color:var(--muted);margin-top:8px;text-align:center">请确认是否正确，或联系客服</p>
+        <p class="err">订单号不存在或尚未确认</p>
+        <p style="font-size:13px;color:var(--muted);margin-top:8px;text-align:center">请确认订单号是否正确，或稍后再试</p>
       `;
     }
   } catch(e){
