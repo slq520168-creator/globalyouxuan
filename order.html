@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>下单 - 三分钟玩转AI</title>
+<title>下单 - GlobalYouXuan</title>
 <link rel="stylesheet" href="style.css">
 <style>
 .order-page{max-width:480px;margin:0 auto;padding:20px 16px 60px}
@@ -35,10 +35,10 @@
   <a class="brand" href="index.html"><span class="brand-mark">G</span><span class="brand-name">GlobalYouXuan</span></a>
 </header>
 <div class="order-page">
-  <a class="back" href="index.html">← 返回首页</a>
+  <a class="back" href="javascript:history.back()">← 返回</a>
   <div class="order-card" id="orderForm">
-    <h1>三分钟玩转AI</h1>
-    <div class="price">9.9 <small>USDT</small></div>
+    <h1 id="productName">加载中...</h1>
+    <div class="price"><span id="productPrice">--</span> <small>USDT</small></div>
     <div class="field">
       <label>联系方式（选填）</label>
       <input id="contact" placeholder="Telegram / 微信 / 邮箱" />
@@ -86,7 +86,17 @@
 <script>
 const BOT_TOKEN = '8835320602:AAGCrOvqcmBcYIFctpTAba3ZcPw3a7GU8aQ';
 const CHAT_ID = '6934078288';
-const PRODUCT = { name: '三分钟玩转AI', price: '9.9U' };
+
+// 从网址读取产品信息
+const params = new URLSearchParams(location.search);
+const PRODUCT = {
+  name: params.get('name') || '未指定产品',
+  price: params.get('price') || '0U'
+};
+
+document.getElementById('productName').textContent = PRODUCT.name;
+document.getElementById('productPrice').textContent = PRODUCT.price.replace('U','');
+
 function selectPay(el){document.querySelectorAll('.pay-item').forEach(i=>i.classList.remove('active'));el.classList.add('active')}
 function copyAddr(e){e.stopPropagation();navigator.clipboard.writeText(document.getElementById('usdtAddr').textContent).then(()=>{e.target.textContent='已复制';setTimeout(()=>e.target.textContent='复制',1500)})}
 function genPwd(){const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<6;i++)s+=c[Math.floor(Math.random()*c.length)];return s}
