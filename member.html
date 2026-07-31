@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>会员中心 - GlobalYouXuan</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.box{max-width:420px;margin:0 auto;padding:40px 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow);margin-bottom:16px}
+h1{font-size:20px;margin:0 0 16px}
+.info{font-size:14px;color:var(--muted);line-height:1.6}
+.btn{display:block;width:100%;padding:14px;border:0;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;font-weight:700;text-align:center;text-decoration:none;margin-top:12px}
+.btn-out{background:#ef4444}
+a.back{display:inline-block;margin-bottom:20px;color:var(--blue);font-size:14px}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html"><span class="brand-mark">G</span><span class="brand-name">GlobalYouXuan</span></a>
+</header>
+<div class="box">
+  <a class="back" href="index.html">← 返回首页</a>
+  <div class="card">
+    <h1>会员中心</h1>
+    <div class="info" id="info">加载中...</div>
+    <a class="btn" href="index.html">去首页选方案</a>
+    <a class="btn" href="query.html">查询下载</a>
+    <button class="btn btn-out" onclick="logout()">退出登录</button>
+  </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = 'https://bpbstpwppprizduoppox.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_l3NVNYilYYqLFSWODvpLYw_sp9Bpefg';
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+async function init() {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
+    location.href = 'login.html';
+    return;
+  }
+  document.getElementById('info').innerHTML = `
+    已登录<br>
+    邮箱：${user.email}<br>
+    注册时间：${new Date(user.created_at).toLocaleString()}
+  `;
+}
+
+async function logout() {
+  await supabase.auth.signOut();
+  location.href = 'login.html';
+}
+
+init();
+</script>
+
+
+</body>
+</html>
