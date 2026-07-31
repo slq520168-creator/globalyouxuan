@@ -12,12 +12,10 @@ h1{font-size:26px;margin:0 0 8px}
 .lead{color:var(--muted);font-size:15px;margin:0 0 22px;line-height:1.6}
 .tier{
   background:var(--card);border:1px solid var(--line);border-radius:18px;
-  padding:16px;margin-bottom:16px;box-shadow:var(--shadow);
-  display:grid;grid-template-columns:1.05fr 1fr;gap:16px;align-items:start
+  padding:16px;margin-bottom:18px;box-shadow:var(--shadow);
+  display:grid;grid-template-columns:1.1fr 1fr;gap:16px;align-items:start
 }
-@media (max-width:800px){
-  .tier{grid-template-columns:1fr}
-}
+@media (max-width:800px){.tier{grid-template-columns:1fr}}
 .tag{display:inline-block;font-size:12px;padding:4px 8px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--muted);margin:0 6px 8px 0}
 .tier h2{margin:0;font-size:18px}
 .price{font-size:22px;font-weight:800;color:var(--blue);white-space:nowrap}
@@ -25,33 +23,32 @@ h1{font-size:26px;margin:0 0 8px}
 .tier-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:8px}
 .tier p{margin:0 0 8px;font-size:14px;line-height:1.6}
 .tier ul{margin:6px 0 12px;padding-left:18px;color:var(--muted);font-size:13px;line-height:1.7}
-.btn{display:inline-block;padding:10px 14px;border-radius:12px;font-size:13px;font-weight:700;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff}
+.btn{display:inline-block;padding:10px 14px;border-radius:12px;font-size:13px;font-weight:700;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;text-decoration:none}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--text)}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .why{background:color-mix(in srgb,var(--blue) 8%,var(--bg));border:1px solid color-mix(in srgb,var(--blue) 18%,var(--line));border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:13px;line-height:1.6}
 .note{margin-top:18px;font-size:12px;color:var(--muted);line-height:1.6}
 
-/* 左侧完整预览页 */
-.preview-page{
-  border:1px solid #dbe3f0;border-radius:16px;overflow:hidden;background:#fff;
-  box-shadow:0 8px 24px rgba(15,23,42,.06);min-height:280px
-}
+.preview-page{border:1px solid #dbe3f0;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 8px 24px rgba(15,23,42,.06)}
 .preview-bar{height:30px;background:#eef2f7;display:flex;align-items:center;gap:6px;padding:0 10px;border-bottom:1px solid #e2e8f0}
 .preview-bar i{width:8px;height:8px;border-radius:50%;display:inline-block}
 .preview-bar i:nth-child(1){background:#f87171}
 .preview-bar i:nth-child(2){background:#fbbf24}
 .preview-bar i:nth-child(3){background:#34d399}
-.preview-main{padding:14px}
-.preview-main .brand{font-size:13px;font-weight:700;margin-bottom:10px;color:#0f172a}
-.preview-main .hero-title{font-size:18px;font-weight:800;margin:0 0 6px;color:#0f172a}
-.preview-main .hero-sub{font-size:12px;color:#64748b;margin:0 0 12px;line-height:1.5}
-.preview-main .cta{display:inline-block;padding:8px 12px;border-radius:10px;background:#2563eb;color:#fff;font-size:12px;font-weight:700;margin-bottom:12px}
-.preview-main .blocks{display:grid;gap:8px}
-.preview-main .block{border:1px solid #e2e8f0;border-radius:12px;padding:10px;background:#f8fafc}
-.preview-main .block b{display:block;font-size:12px;margin-bottom:4px;color:#0f172a}
-.preview-main .block span{font-size:11px;color:#64748b;line-height:1.4}
-.preview-main .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.preview-main .price-row{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.preview-main .nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
-.preview-main .nav span{font-size:11px;color:#64748b;background:#f1f5f9;border-radius:999px;padding:4px 8px}
+.preview-main{padding:14px 14px 12px}
+.pv-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.pv-nav span{font-size:11px;color:#64748b;background:#f1f5f9;border-radius:999px;padding:4px 8px}
+.pv-title{font-size:18px;font-weight:800;margin:0 0 6px;color:#0f172a}
+.pv-sub{font-size:12px;color:#64748b;margin:0 0 12px;line-height:1.5}
+.pv-cta{display:inline-block;padding:8px 12px;border-radius:10px;background:#2563eb;color:#fff;font-size:12px;font-weight:700;margin-bottom:12px}
+.pv-grid{display:grid;gap:8px}
+.pv-grid.two{grid-template-columns:1fr 1fr}
+.pv-card{border:1px solid #e2e8f0;border-radius:12px;padding:10px;background:#f8fafc}
+.pv-card b{display:block;font-size:12px;margin-bottom:4px;color:#0f172a}
+.pv-card span{font-size:11px;color:#64748b;line-height:1.4}
+.pv-item{display:flex;justify-content:space-between;align-items:center;gap:8px;border:1px solid #e2e8f0;border-radius:12px;padding:10px;background:#f8fafc}
+.pv-item .p{font-size:12px;font-weight:800;color:#2563eb}
+.pv-consult{display:block;text-align:center;margin:10px 12px 12px;padding:10px 12px;border-radius:12px;border:1px solid #dbe3f0;background:#fff;color:#0f172a;font-size:13px;font-weight:700;text-decoration:none}
 </style>
 </head>
 <body>
@@ -62,139 +59,149 @@ h1{font-size:26px;margin:0 0 8px}
 <div class="page">
   <a class="back" href="index.html">← 返回首页</a>
   <h1>网站建设</h1>
-  <p class="lead">四个梯级，从展示到系统。左侧是完整结构预览，右侧是功能、周期与选择理由。</p>
+  <p class="lead">四个梯级，从个人展示到企业系统。左侧为清晰预览，右侧为功能、周期与收益说明。</p>
 
-  <!-- 99 -->
+  <!-- 99 个人介绍 -->
   <div class="tier">
-    <div class="preview-page">
-      <div class="preview-bar"><i></i><i></i><i></i></div>
-      <div class="preview-main">
-        <div class="brand">展示型官网</div>
-        <div class="nav"><span>首页</span><span>关于</span><span>服务</span><span>联系</span></div>
-        <div class="hero-title">你的品牌名称</div>
-        <div class="hero-sub">一句话说明你是谁、能提供什么服务。</div>
-        <div class="cta">立即联系</div>
-        <div class="blocks">
-          <div class="block"><b>关于我们</b><span>介绍背景与服务理念</span></div>
-          <div class="block"><b>服务项目</b><span>列出核心服务内容</span></div>
-          <div class="block"><b>联系方式</b><span>电话 / 邮箱 / 在线联系</span></div>
+    <div>
+      <div class="preview-page">
+        <div class="preview-bar"><i></i><i></i><i></i></div>
+        <div class="preview-main">
+          <div class="pv-nav"><span>首页</span><span>关于</span><span>作品</span><span>联系</span></div>
+          <div class="pv-title">你好，我是某某</div>
+          <div class="pv-sub">个人介绍站：一页说清你是谁、擅长什么、如何联系。</div>
+          <div class="pv-cta">查看简介</div>
+          <div class="pv-grid">
+            <div class="pv-card"><b>个人简介</b><span>经历、方向、服务说明</span></div>
+            <div class="pv-card"><b>作品展示</b><span>3-6 个代表项目</span></div>
+            <div class="pv-card"><b>联系入口</b><span>统一联系方式入口</span></div>
+          </div>
         </div>
+        <a class="pv-consult" href="https://t.me/globalyouxuan_notify_bot">立即咨询</a>
       </div>
     </div>
     <div>
       <span class="tag">入门档</span><span class="tag">难度 ★☆☆☆☆</span><span class="tag">周期 1-2 天</span>
-      <div class="tier-top"><h2>展示型官网</h2><div class="price">99 <small>U</small></div></div>
-      <div class="why"><b>选择理由：</b>花最少预算先上线，让客户能找到你、看懂你、联系你。</div>
-      <p><b>适合：</b>个人、工作室、小团队，先有线上门面。</p>
+      <div class="tier-top"><h2>个人介绍站</h2><div class="price">99 <small>U</small></div></div>
+      <div class="why"><b>选择理由：</b>最快拥有正式个人主页，比纯社交账号更专业、更好转发。</div>
+      <p><b>适合：</b>个人、自由职业、工作室起步。</p>
       <ul>
-        <li>页面：首页 / 关于 / 服务介绍 / 联系</li>
-        <li>功能：手机自适应、基础 SEO、一键联系</li>
-        <li>资料：搭建教程、上线说明、内容模板</li>
-        <li>利益：快速建立信任，拥有正式站点</li>
+        <li>页面：首页、简介、作品、联系</li>
+        <li>功能：手机自适应、基础 SEO、联系入口</li>
+        <li>自己搭建：按教程约 1-2 天可完成</li>
+        <li>好处：提升信任感，方便客户保存和分享你的主页</li>
+        <li>资料：搭建教程、内容填写模板、上线说明</li>
       </ul>
-      <a class="btn" href="order.html">选择此方案</a>
+      <div class="btns"><a class="btn" href="order.html">选择此方案</a></div>
     </div>
   </div>
 
-  <!-- 399 -->
+  <!-- 399 公司展示 -->
   <div class="tier">
-    <div class="preview-page">
-      <div class="preview-bar"><i></i><i></i><i></i></div>
-      <div class="preview-main">
-        <div class="brand">获客型官网</div>
-        <div class="nav"><span>首页</span><span>服务</span><span>案例</span><span>咨询</span></div>
-        <div class="hero-title">帮你获得更多咨询</div>
-        <div class="hero-sub">突出卖点，引导访客留下联系方式。</div>
-        <div class="cta">提交咨询</div>
-        <div class="blocks">
-          <div class="block"><b>核心卖点</b><span>3 个关键优势说明</span></div>
-          <div class="block"><b>客户案例</b><span>展示结果与反馈</span></div>
-          <div class="block"><b>咨询表单</b><span>姓名 / 联系方式 / 需求</span></div>
+    <div>
+      <div class="preview-page">
+        <div class="preview-bar"><i></i><i></i><i></i></div>
+        <div class="preview-main">
+          <div class="pv-nav"><span>首页</span><span>业务</span><span>案例</span><span>联系</span></div>
+          <div class="pv-title">公司品牌展示</div>
+          <div class="pv-sub">企业形象站：业务介绍 + 案例 + 联系入口，适合正式对外展示。</div>
+          <div class="pv-cta">了解业务</div>
+          <div class="pv-grid two">
+            <div class="pv-card"><b>公司介绍</b><span>定位与优势</span></div>
+            <div class="pv-card"><b>服务项目</b><span>核心业务说明</span></div>
+            <div class="pv-card"><b>客户案例</b><span>结果与反馈</span></div>
+            <div class="pv-card"><b>联系入口</b><span>统一咨询按钮</span></div>
+          </div>
         </div>
+        <a class="pv-consult" href="https://t.me/globalyouxuan_notify_bot">立即咨询</a>
       </div>
     </div>
     <div>
       <span class="tag">获客档</span><span class="tag">难度 ★★☆☆☆</span><span class="tag">周期 3-5 天</span>
-      <div class="tier-top"><h2>获客型官网</h2><div class="price">399 <small>U</small></div></div>
-      <div class="why"><b>选择理由：</b>不只是展示，还能留下咨询，把流量变成客户线索。</div>
-      <p><b>适合：</b>需要咨询转化、留资、私域导流。</p>
+      <div class="tier-top"><h2>公司展示站</h2><div class="price">399 <small>U</small></div></div>
+      <div class="why"><b>选择理由：</b>看起来更像正规公司，方便获客、合作沟通和品牌背书。</div>
+      <p><b>适合：</b>小公司、团队、需要对外展示与咨询转化。</p>
       <ul>
-        <li>包含展示型全部内容</li>
-        <li>页面：详情、案例、表单留资</li>
-        <li>功能：表单收集、联系方式跳转、基础统计</li>
-        <li>资料：获客结构教程、表单说明、文案示例</li>
-        <li>利益：提高咨询率，减少只看不联系</li>
+        <li>页面：首页、业务、案例、联系</li>
+        <li>功能：展示结构、咨询入口、基础统计</li>
+        <li>自己搭建：按教程约 3-5 天可完成</li>
+        <li>好处：提高咨询意愿，减少反复口头解释</li>
+        <li>资料：页面结构教程、文案示例、上线清单</li>
       </ul>
-      <a class="btn" href="order.html">选择此方案</a>
+      <div class="btns"><a class="btn" href="order.html">选择此方案</a></div>
     </div>
   </div>
 
-  <!-- 999 -->
+  <!-- 999 商品+购买 -->
   <div class="tier">
-    <div class="preview-page">
-      <div class="preview-bar"><i></i><i></i><i></i></div>
-      <div class="preview-main">
-        <div class="brand">商城 / 业务站</div>
-        <div class="nav"><span>首页</span><span>套餐</span><span>详情</span><span>下单</span></div>
-        <div class="hero-title">产品与套餐列表</div>
-        <div class="hero-sub">清晰展示方案，引导客户选择并下单。</div>
-        <div class="blocks">
-          <div class="block price-row"><div><b>基础套餐</b><span>入门功能 + 教程</span></div><b>99U</b></div>
-          <div class="block price-row"><div><b>进阶套餐</b><span>更多页面与转化</span></div><b>399U</b></div>
-          <div class="block price-row"><div><b>专业套餐</b><span>完整业务引导</span></div><b>999U</b></div>
+    <div>
+      <div class="preview-page">
+        <div class="preview-bar"><i></i><i></i><i></i></div>
+        <div class="preview-main">
+          <div class="pv-nav"><span>首页</span><span>产品</span><span>详情</span><span>下单</span></div>
+          <div class="pv-title">商品介绍与下单</div>
+          <div class="pv-sub">业务销售站：产品说明清晰，支持一键进入购买/下单流程。</div>
+          <div class="pv-grid">
+            <div class="pv-item"><div><b>基础版</b><span style="display:block;font-size:11px;color:#64748b">入门功能 + 教程</span></div><div class="p">99U</div></div>
+            <div class="pv-item"><div><b>进阶版</b><span style="display:block;font-size:11px;color:#64748b">更多页面与转化</span></div><div class="p">399U</div></div>
+            <div class="pv-item"><div><b>专业版</b><span style="display:block;font-size:11px;color:#64748b">完整下单引导</span></div><div class="p">999U</div></div>
+          </div>
         </div>
+        <a class="pv-consult" href="https://t.me/globalyouxuan_notify_bot">立即咨询</a>
       </div>
     </div>
     <div>
       <span class="tag">业务档</span><span class="tag">难度 ★★★☆☆</span><span class="tag">周期 7-10 天</span>
-      <div class="tier-top"><h2>商城 / 业务站</h2><div class="price">999 <small>U</small></div></div>
-      <div class="why"><b>选择理由：</b>产品更清晰，客户能直接选方案并进入下单，减少反复解释。</div>
-      <p><b>适合：</b>有产品/套餐，需要展示并引导下单。</p>
+      <div class="tier-top"><h2>商品销售站</h2><div class="price">999 <small>U</small></div></div>
+      <div class="why"><b>选择理由：</b>客户能直接看懂产品并下单，减少来回问价和沟通成本。</div>
+      <p><b>适合：</b>有产品/套餐，需要展示并引导购买。</p>
       <ul>
-        <li>包含获客型全部内容</li>
-        <li>页面：列表、详情、下单引导</li>
-        <li>功能：分类展示、询价/下单入口、订单流程</li>
-        <li>资料：业务站教程、下单说明、配置清单</li>
-        <li>利益：提升成交效率，让报价更标准</li>
+        <li>页面：产品列表、详情、下单引导</li>
+        <li>功能：分类展示、价格呈现、一键下单入口</li>
+        <li>自己搭建：按教程约 7-10 天可完成</li>
+        <li>好处：提升成交效率，让销售流程更标准</li>
+        <li>资料：销售页教程、下单流程说明、配置清单</li>
       </ul>
-      <a class="btn" href="order.html">选择此方案</a>
+      <div class="btns"><a class="btn" href="order.html">选择此方案</a></div>
     </div>
   </div>
 
-  <!-- 3999 -->
+  <!-- 3999 企业系统 -->
   <div class="tier">
-    <div class="preview-page">
-      <div class="preview-bar"><i></i><i></i><i></i></div>
-      <div class="preview-main">
-        <div class="brand">定制系统站</div>
-        <div class="nav"><span>匹配</span><span>业务中心</span><span>订单</span><span>通知</span><span>管理</span></div>
-        <div class="hero-title">完整业务系统结构</div>
-        <div class="hero-sub">从展示、匹配到下单、通知与管理，形成闭环。</div>
-        <div class="grid2">
-          <div class="block"><b>智能匹配</b><span>按需求引导方案</span></div>
-          <div class="block"><b>业务中心</b><span>多板块资源入口</span></div>
-          <div class="block"><b>订单流程</b><span>下单与确认路径</span></div>
-          <div class="block"><b>自动通知</b><span>付款与进度提醒</span></div>
+    <div>
+      <div class="preview-page">
+        <div class="preview-bar"><i></i><i></i><i></i></div>
+        <div class="preview-main">
+          <div class="pv-nav"><span>方案匹配</span><span>业务中心</span><span>订单</span><span>通知</span><span>管理</span></div>
+          <div class="pv-title">大型企业业务系统</div>
+          <div class="pv-sub">专业系统站：展示、匹配、下单、通知、管理一体化。</div>
+          <div class="pv-grid two">
+            <div class="pv-card"><b>方案匹配</b><span>按需求引导客户</span></div>
+            <div class="pv-card"><b>业务中心</b><span>多板块服务入口</span></div>
+            <div class="pv-card"><b>订单流程</b><span>下单与确认路径</span></div>
+            <div class="pv-card"><b>自动通知</b><span>进度与付款提醒</span></div>
+          </div>
         </div>
+        <a class="pv-consult" href="https://t.me/globalyouxuan_notify_bot">立即咨询</a>
       </div>
     </div>
     <div>
       <span class="tag">系统档</span><span class="tag">难度 ★★★★☆</span><span class="tag">周期 15-25 天</span>
-      <div class="tier-top"><h2>定制系统站</h2><div class="price">3999 <small>U</small></div></div>
-      <div class="why"><b>选择理由：</b>从展示到成交到通知形成闭环，减少人工反复对接，后期更好扩展。</div>
-      <p><b>适合：</b>需要完整业务闭环的团队或项目。</p>
+      <div class="tier-top"><h2>企业系统站</h2><div class="price">3999 <small>U</small></div></div>
+      <div class="why"><b>选择理由：</b>从展示到成交到通知形成闭环，适合长期运营和持续扩展。</div>
+      <p><b>适合：</b>需要完整业务闭环的团队或企业项目。</p>
       <ul>
-        <li>包含商城/业务站全部内容</li>
-        <li>模块：自动通知、后台管理思路、多入口/多语言规划</li>
-        <li>功能：订单通知、客户跟进、可扩展模块</li>
-        <li>资料：完整教程、模块说明、交付与维护指南</li>
-        <li>利益：更少漏单、更高效率、更适合长期运营</li>
+        <li>模块：展示、匹配、下单、通知、管理思路</li>
+        <li>功能：多入口规划、订单路径、自动通知、可扩展结构</li>
+        <li>自己搭建：按教程约 15-25 天可完成（含联调）</li>
+        <li>好处：减少漏单与重复沟通，效率更高，更专业</li>
+        <li>资料：完整落地教程、模块说明、维护指南</li>
       </ul>
-      <a class="btn" href="order.html">选择此方案</a>
+      <div class="btns"><a class="btn" href="order.html">选择此方案</a></div>
     </div>
   </div>
 
-  <p class="note">左侧为完整结构预览，便于对比差异。购买后提供对应模板与详细教程。周期为常规标准交付参考。</p>
+  <p class="note">预览为高清晰结构示意。购买后提供对应模板与详细教程。「立即咨询」将跳转客服机器人。</p>
 </div>
 </body>
 </html>
