@@ -6,199 +6,195 @@
 <title>网站建设 - GlobalYouXuan</title>
 <link rel="stylesheet" href="style.css">
 <style>
-.page{max-width:720px;margin:0 auto;padding:20px 16px 60px}
+.page{max-width:980px;margin:0 auto;padding:20px 16px 60px}
 .back{display:inline-block;margin-bottom:14px;color:var(--blue);font-size:14px}
 h1{font-size:26px;margin:0 0 8px}
 .lead{color:var(--muted);font-size:15px;margin:0 0 22px;line-height:1.6}
-.tier{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:16px;box-shadow:var(--shadow)}
-.tier-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px}
+.tier{
+  background:var(--card);border:1px solid var(--line);border-radius:18px;
+  padding:16px;margin-bottom:16px;box-shadow:var(--shadow);
+  display:grid;grid-template-columns:1.05fr 1fr;gap:16px;align-items:start
+}
+@media (max-width:800px){
+  .tier{grid-template-columns:1fr}
+}
+.tag{display:inline-block;font-size:12px;padding:4px 8px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--muted);margin:0 6px 8px 0}
 .tier h2{margin:0;font-size:18px}
 .price{font-size:22px;font-weight:800;color:var(--blue);white-space:nowrap}
 .price small{font-size:13px;font-weight:600;color:var(--muted)}
-.tag{display:inline-block;font-size:12px;padding:4px 8px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--muted);margin:0 6px 8px 0}
+.tier-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:8px}
 .tier p{margin:0 0 8px;font-size:14px;line-height:1.6}
 .tier ul{margin:6px 0 12px;padding-left:18px;color:var(--muted);font-size:13px;line-height:1.7}
-.btns{display:flex;flex-wrap:wrap;gap:8px}
 .btn{display:inline-block;padding:10px 14px;border-radius:12px;font-size:13px;font-weight:700;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff}
+.why{background:color-mix(in srgb,var(--blue) 8%,var(--bg));border:1px solid color-mix(in srgb,var(--blue) 18%,var(--line));border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:13px;line-height:1.6}
 .note{margin-top:18px;font-size:12px;color:var(--muted);line-height:1.6}
-.why{background:color-mix(in srgb,var(--blue) 8%,var(--bg));border:1px solid color-mix(in srgb,var(--blue) 18%,var(--line));border-radius:12px;padding:10px 12px;margin:0 0 12px;font-size:13px;line-height:1.6}
 
-/* 浅色清晰预览 */
-.preview{margin:10px 0 14px;border:1px solid #dbe3f0;border-radius:14px;overflow:hidden;background:#f8fafc}
+/* 左侧完整预览页 */
+.preview-page{
+  border:1px solid #dbe3f0;border-radius:16px;overflow:hidden;background:#fff;
+  box-shadow:0 8px 24px rgba(15,23,42,.06);min-height:280px
+}
 .preview-bar{height:30px;background:#eef2f7;display:flex;align-items:center;gap:6px;padding:0 10px;border-bottom:1px solid #e2e8f0}
 .preview-bar i{width:8px;height:8px;border-radius:50%;display:inline-block}
 .preview-bar i:nth-child(1){background:#f87171}
 .preview-bar i:nth-child(2){background:#fbbf24}
 .preview-bar i:nth-child(3){background:#34d399}
-.preview-body{padding:14px;color:#0f172a}
-.preview-body .t{font-size:14px;font-weight:700;margin-bottom:4px}
-.preview-body .s{font-size:12px;color:#64748b;margin-bottom:10px}
-.preview-body .box{height:12px;border-radius:6px;background:#e2e8f0;margin-bottom:6px}
-.preview-body .box.short{width:58%}
-.preview-body .row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
-.preview-body .cell{height:42px;border-radius:10px;background:#e8eef7;border:1px solid #dbe3f0;display:flex;align-items:center;justify-content:center;font-size:11px;color:#64748b}
-.preview-body .line{height:8px;border-radius:6px;background:#e2e8f0;margin-bottom:6px}
-.preview-body .line.w1{width:90%}
-.preview-body .line.w2{width:70%}
-.preview-body .line.w3{width:50%}
+.preview-main{padding:14px}
+.preview-main .brand{font-size:13px;font-weight:700;margin-bottom:10px;color:#0f172a}
+.preview-main .hero-title{font-size:18px;font-weight:800;margin:0 0 6px;color:#0f172a}
+.preview-main .hero-sub{font-size:12px;color:#64748b;margin:0 0 12px;line-height:1.5}
+.preview-main .cta{display:inline-block;padding:8px 12px;border-radius:10px;background:#2563eb;color:#fff;font-size:12px;font-weight:700;margin-bottom:12px}
+.preview-main .blocks{display:grid;gap:8px}
+.preview-main .block{border:1px solid #e2e8f0;border-radius:12px;padding:10px;background:#f8fafc}
+.preview-main .block b{display:block;font-size:12px;margin-bottom:4px;color:#0f172a}
+.preview-main .block span{font-size:11px;color:#64748b;line-height:1.4}
+.preview-main .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.preview-main .price-row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.preview-main .nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.preview-main .nav span{font-size:11px;color:#64748b;background:#f1f5f9;border-radius:999px;padding:4px 8px}
 </style>
 </head>
 <body>
 <header class="topbar">
   <a class="brand" href="index.html"><span class="brand-mark">G</span><span class="brand-name">GlobalYouXuan</span></a>
 </header>
+
 <div class="page">
   <a class="back" href="index.html">← 返回首页</a>
   <h1>网站建设</h1>
-  <p class="lead">四个梯级，从展示到系统。每档说明功能、难度、周期，以及为什么值得选。</p>
+  <p class="lead">四个梯级，从展示到系统。左侧是完整结构预览，右侧是功能、周期与选择理由。</p>
 
   <!-- 99 -->
   <div class="tier">
-    <span class="tag">入门档</span>
-    <span class="tag">难度 ★☆☆☆☆</span>
-    <span class="tag">周期 1-2 天</span>
-    <div class="tier-top">
-      <h2>展示型官网</h2>
-      <div class="price">99 <small>U</small></div>
-    </div>
-    <div class="preview">
+    <div class="preview-page">
       <div class="preview-bar"><i></i><i></i><i></i></div>
-      <div class="preview-body">
-        <div class="t">品牌首页示意</div>
-        <div class="s">首页 · 关于 · 服务 · 联系</div>
-        <div class="line w1"></div>
-        <div class="line w2"></div>
-        <div class="row">
-          <div class="cell">关于</div>
-          <div class="cell">服务</div>
-        </div>
-        <div class="row">
-          <div class="cell">联系</div>
-          <div class="cell">手机适配</div>
+      <div class="preview-main">
+        <div class="brand">展示型官网</div>
+        <div class="nav"><span>首页</span><span>关于</span><span>服务</span><span>联系</span></div>
+        <div class="hero-title">你的品牌名称</div>
+        <div class="hero-sub">一句话说明你是谁、能提供什么服务。</div>
+        <div class="cta">立即联系</div>
+        <div class="blocks">
+          <div class="block"><b>关于我们</b><span>介绍背景与服务理念</span></div>
+          <div class="block"><b>服务项目</b><span>列出核心服务内容</span></div>
+          <div class="block"><b>联系方式</b><span>电话 / 邮箱 / 在线联系</span></div>
         </div>
       </div>
     </div>
-    <div class="why"><b>选择理由：</b>花最少预算先上线，让客户能搜到你、看懂你、找到你。</div>
-    <p><b>适合：</b>个人、工作室、小团队，先有线上门面。</p>
-    <ul>
-      <li>页面：首页 / 关于 / 服务介绍 / 联系</li>
-      <li>功能：手机自适应、基础 SEO、一键联系</li>
-      <li>资料：搭建教程、上线说明、内容模板</li>
-      <li>利益：快速建立信任，避免只有社交账号没有正式站点</li>
-    </ul>
-    <div class="btns"><a class="btn" href="order.html">选择此方案</a></div>
+    <div>
+      <span class="tag">入门档</span><span class="tag">难度 ★☆☆☆☆</span><span class="tag">周期 1-2 天</span>
+      <div class="tier-top"><h2>展示型官网</h2><div class="price">99 <small>U</small></div></div>
+      <div class="why"><b>选择理由：</b>花最少预算先上线，让客户能找到你、看懂你、联系你。</div>
+      <p><b>适合：</b>个人、工作室、小团队，先有线上门面。</p>
+      <ul>
+        <li>页面：首页 / 关于 / 服务介绍 / 联系</li>
+        <li>功能：手机自适应、基础 SEO、一键联系</li>
+        <li>资料：搭建教程、上线说明、内容模板</li>
+        <li>利益：快速建立信任，拥有正式站点</li>
+      </ul>
+      <a class="btn" href="order.html">选择此方案</a>
+    </div>
   </div>
 
   <!-- 399 -->
   <div class="tier">
-    <span class="tag">获客档</span>
-    <span class="tag">难度 ★★☆☆☆</span>
-    <span class="tag">周期 3-5 天</span>
-    <div class="tier-top">
-      <h2>获客型官网</h2>
-      <div class="price">399 <small>U</small></div>
-    </div>
-    <div class="preview">
+    <div class="preview-page">
       <div class="preview-bar"><i></i><i></i><i></i></div>
-      <div class="preview-body">
-        <div class="t">获客落地示意</div>
-        <div class="s">卖点 · 案例 · 表单留资</div>
-        <div class="line w1"></div>
-        <div class="line w2"></div>
-        <div class="line w3"></div>
-        <div class="row">
-          <div class="cell">案例展示</div>
-          <div class="cell">表单咨询</div>
+      <div class="preview-main">
+        <div class="brand">获客型官网</div>
+        <div class="nav"><span>首页</span><span>服务</span><span>案例</span><span>咨询</span></div>
+        <div class="hero-title">帮你获得更多咨询</div>
+        <div class="hero-sub">突出卖点，引导访客留下联系方式。</div>
+        <div class="cta">提交咨询</div>
+        <div class="blocks">
+          <div class="block"><b>核心卖点</b><span>3 个关键优势说明</span></div>
+          <div class="block"><b>客户案例</b><span>展示结果与反馈</span></div>
+          <div class="block"><b>咨询表单</b><span>姓名 / 联系方式 / 需求</span></div>
         </div>
       </div>
     </div>
-    <div class="why"><b>选择理由：</b>不只是展示，还能留下咨询，把流量变成客户线索。</div>
-    <p><b>适合：</b>需要咨询转化、留资、私域导流。</p>
-    <ul>
-      <li>包含展示型全部内容</li>
-      <li>页面：详情、案例、表单留资</li>
-      <li>功能：表单收集、TG/WhatsApp 跳转、基础统计</li>
-      <li>资料：获客结构教程、表单说明、文案示例</li>
-      <li>利益：提高咨询率，减少只看不联系的浪费</li>
-    </ul>
-    <div class="btns"><a class="btn" href="order.html">选择此方案</a></div>
+    <div>
+      <span class="tag">获客档</span><span class="tag">难度 ★★☆☆☆</span><span class="tag">周期 3-5 天</span>
+      <div class="tier-top"><h2>获客型官网</h2><div class="price">399 <small>U</small></div></div>
+      <div class="why"><b>选择理由：</b>不只是展示，还能留下咨询，把流量变成客户线索。</div>
+      <p><b>适合：</b>需要咨询转化、留资、私域导流。</p>
+      <ul>
+        <li>包含展示型全部内容</li>
+        <li>页面：详情、案例、表单留资</li>
+        <li>功能：表单收集、联系方式跳转、基础统计</li>
+        <li>资料：获客结构教程、表单说明、文案示例</li>
+        <li>利益：提高咨询率，减少只看不联系</li>
+      </ul>
+      <a class="btn" href="order.html">选择此方案</a>
+    </div>
   </div>
 
   <!-- 999 -->
   <div class="tier">
-    <span class="tag">业务档</span>
-    <span class="tag">难度 ★★★☆☆</span>
-    <span class="tag">周期 7-10 天</span>
-    <div class="tier-top">
-      <h2>商城 / 业务站</h2>
-      <div class="price">999 <small>U</small></div>
-    </div>
-    <div class="preview">
+    <div class="preview-page">
       <div class="preview-bar"><i></i><i></i><i></i></div>
-      <div class="preview-body">
-        <div class="t">业务套餐示意</div>
-        <div class="s">列表 · 详情 · 下单引导</div>
-        <div class="row">
-          <div class="cell">基础套餐</div>
-          <div class="cell">进阶套餐</div>
-        </div>
-        <div class="row">
-          <div class="cell">详情页</div>
-          <div class="cell">下单入口</div>
+      <div class="preview-main">
+        <div class="brand">商城 / 业务站</div>
+        <div class="nav"><span>首页</span><span>套餐</span><span>详情</span><span>下单</span></div>
+        <div class="hero-title">产品与套餐列表</div>
+        <div class="hero-sub">清晰展示方案，引导客户选择并下单。</div>
+        <div class="blocks">
+          <div class="block price-row"><div><b>基础套餐</b><span>入门功能 + 教程</span></div><b>99U</b></div>
+          <div class="block price-row"><div><b>进阶套餐</b><span>更多页面与转化</span></div><b>399U</b></div>
+          <div class="block price-row"><div><b>专业套餐</b><span>完整业务引导</span></div><b>999U</b></div>
         </div>
       </div>
     </div>
-    <div class="why"><b>选择理由：</b>产品更清晰，客户能直接选方案并进入下单，减少反复解释。</div>
-    <p><b>适合：</b>有产品/套餐，需要展示并引导下单。</p>
-    <ul>
-      <li>包含获客型全部内容</li>
-      <li>页面：列表、详情、下单引导</li>
-      <li>功能：分类展示、询价/下单入口、订单流程</li>
-      <li>资料：业务站教程、下单说明、配置清单</li>
-      <li>利益：提升成交效率，让报价和选择更标准</li>
-    </ul>
-    <div class="btns"><a class="btn" href="order.html">选择此方案</a></div>
+    <div>
+      <span class="tag">业务档</span><span class="tag">难度 ★★★☆☆</span><span class="tag">周期 7-10 天</span>
+      <div class="tier-top"><h2>商城 / 业务站</h2><div class="price">999 <small>U</small></div></div>
+      <div class="why"><b>选择理由：</b>产品更清晰，客户能直接选方案并进入下单，减少反复解释。</div>
+      <p><b>适合：</b>有产品/套餐，需要展示并引导下单。</p>
+      <ul>
+        <li>包含获客型全部内容</li>
+        <li>页面：列表、详情、下单引导</li>
+        <li>功能：分类展示、询价/下单入口、订单流程</li>
+        <li>资料：业务站教程、下单说明、配置清单</li>
+        <li>利益：提升成交效率，让报价更标准</li>
+      </ul>
+      <a class="btn" href="order.html">选择此方案</a>
+    </div>
   </div>
 
   <!-- 3999 -->
   <div class="tier">
-    <span class="tag">系统档</span>
-    <span class="tag">难度 ★★★★☆</span>
-    <span class="tag">周期 15-25 天</span>
-    <div class="tier-top">
-      <h2>定制系统站</h2>
-      <div class="price">3999 <small>U</small></div>
-    </div>
-    <div class="preview">
+    <div class="preview-page">
       <div class="preview-bar"><i></i><i></i><i></i></div>
-      <div class="preview-body">
-        <div class="t">完整业务系统示意</div>
-        <div class="s">展示 · 匹配 · 下单 · 通知 · 管理</div>
-        <div class="row">
-          <div class="cell">智能匹配</div>
-          <div class="cell">业务中心</div>
+      <div class="preview-main">
+        <div class="brand">定制系统站</div>
+        <div class="nav"><span>匹配</span><span>业务中心</span><span>订单</span><span>通知</span><span>管理</span></div>
+        <div class="hero-title">完整业务系统结构</div>
+        <div class="hero-sub">从展示、匹配到下单、通知与管理，形成闭环。</div>
+        <div class="grid2">
+          <div class="block"><b>智能匹配</b><span>按需求引导方案</span></div>
+          <div class="block"><b>业务中心</b><span>多板块资源入口</span></div>
+          <div class="block"><b>订单流程</b><span>下单与确认路径</span></div>
+          <div class="block"><b>自动通知</b><span>付款与进度提醒</span></div>
         </div>
-        <div class="row">
-          <div class="cell">订单流程</div>
-          <div class="cell">自动通知</div>
-        </div>
-        <div class="line w1"></div>
-        <div class="line w3"></div>
       </div>
     </div>
-    <div class="why"><b>选择理由：</b>从展示到成交到通知形成闭环，减少人工反复对接，后期更好扩展。</div>
-    <p><b>适合：</b>需要完整业务闭环的团队或项目。</p>
-    <ul>
-      <li>包含商城/业务站全部内容</li>
-      <li>模块：自动通知、后台管理思路、多入口/多语言规划</li>
-      <li>功能：订单通知、客户跟进、可扩展模块</li>
-      <li>资料：完整教程、模块说明、交付与维护指南</li>
-      <li>利益：更少遗漏订单、更高处理效率、更像可长期运营的系统</li>
-    </ul>
-    <div class="btns"><a class="btn" href="order.html">选择此方案</a></div>
+    <div>
+      <span class="tag">系统档</span><span class="tag">难度 ★★★★☆</span><span class="tag">周期 15-25 天</span>
+      <div class="tier-top"><h2>定制系统站</h2><div class="price">3999 <small>U</small></div></div>
+      <div class="why"><b>选择理由：</b>从展示到成交到通知形成闭环，减少人工反复对接，后期更好扩展。</div>
+      <p><b>适合：</b>需要完整业务闭环的团队或项目。</p>
+      <ul>
+        <li>包含商城/业务站全部内容</li>
+        <li>模块：自动通知、后台管理思路、多入口/多语言规划</li>
+        <li>功能：订单通知、客户跟进、可扩展模块</li>
+        <li>资料：完整教程、模块说明、交付与维护指南</li>
+        <li>利益：更少漏单、更高效率、更适合长期运营</li>
+      </ul>
+      <a class="btn" href="order.html">选择此方案</a>
+    </div>
   </div>
 
-  <p class="note">预览为结构示意，便于理解每档差异。购买后提供对应模板与详细教程。周期为常规标准交付参考，定制需求可能延长。</p>
+  <p class="note">左侧为完整结构预览，便于对比差异。购买后提供对应模板与详细教程。周期为常规标准交付参考。</p>
 </div>
 </body>
 </html>
