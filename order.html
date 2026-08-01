@@ -1,133 +1,15 @@
-<!doctype html>
-<html lang="zh-CN">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>下单 - GlobalYouXuan</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#f5f7fb;padding:20px}
-.order-page{max-width:480px;margin:0 auto}
-.card{background:#fff;border-radius:16px;padding:24px;box-shadow:0 4px 20px rgba(0,0,0,0.06);margin-bottom:16px}
-.card h1{font-size:22px}
-.price{font-size:28px;font-weight:700;color:#667eea;margin:8px 0 20px}
-.field{margin-bottom:14px}
-.field label{font-size:13px;color:#888;display:block;margin-bottom:4px}
-.field input{width:100%;padding:12px;border:1px solid #e0e0e0;border-radius:10px;font-size:15px}
-.pay-item{border:1px solid #e0e0e0;border-radius:12px;padding:14px;margin-bottom:10px}
-.pay-item.active{border-color:#667eea;background:#f8f9ff}
-.pay-item h3{font-size:15px}
-.pay-item p{font-size:13px;color:#888}
-.addr-box{display:flex;gap:8px;margin-top:10px}
-.addr-box code{flex:1;font-size:12px;background:#f0f2f7;padding:10px;border-radius:8px;word-break:break-all}
-.copy-btn{border:0;background:#667eea;color:#fff;border-radius:8px;padding:10px 16px;font-weight:600;cursor:pointer}
-.btn-main{width:100%;border:0;border-radius:14px;padding:16px;font-size:16px;font-weight:700;cursor:pointer;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;margin-top:8px}
-.status-box{text-align:center;padding:24px 16px;display:none}
-.order-id{font-size:24px;font-weight:700;color:#667eea;margin:12px 0;letter-spacing:2px}
-.note{font-size:12px;color:#888;margin-top:12px}
-.back{display:inline-block;margin-bottom:16px;color:#667eea}
-.btn-outline{background:transparent;color:#667eea;border:2px solid #667eea;padding:10px 20px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer}
-</style>
-</head>
-<body>
-<div class="order-page">
-  <a class="back" href="javascript:history.back()">← 返回</a>
+// ========== 配置 ==========\nconst CONFIG = {\n  apiBase: 'https://globalyouxuan-order.pages.dev',\n  products: {\n    office: {\n      id: 'office',\n      name: 'AI办公',\n      emoji: '💼',\n      price: 9.9,\n      count: '6个资源',\n      items: ['ChatGPT办公实战', 'AI文案创作', 'Excel智能办公', 'PPT一键生成', '数据分析', '办公提示词库']\n    },\n    creation: {\n      id: 'creation',\n      name: 'AI创作',\n      emoji: '🎨',\n      price: 19.99,\n      count: '8个资源',\n      items: ['AI绘画', 'AI视频生成', 'AI剪辑', 'AI数字人', 'AI配音', 'AI图片修复', '爆款内容制作', '创作提示词大全']\n    },\n    business: {\n      id: 'business',\n      name: 'AI商业',\n      emoji: '🚀',\n      price: 29.99,\n      count: '10个资源',\n      items: ['大模型实战教程', 'AI智能体开发', 'AI网站建设', 'AI知识库搭建', 'AI客服系统', 'AI营销获客', 'AI销售自动化', 'AI项目实战', 'AI创业案例', '企业级AI解决方案']\n    },\n    automation: {\n      id: 'automation',\n      name: 'AI自动化',\n      emoji: '⚙️',\n      price: 19.99,\n      count: '8个资源',\n      items: ['AI工作流', '多Agent协同', '自动内容生成', '自动发布系统', '自动数据采集', '自动回复系统', '自动执行任务', '企业级自动化实战']\n    }\n  },\n  wallet: 'TKfQoN7kZirALGYxMkxU4SoqMWJRqXsh7k',\n  network: 'USDT-TRC20',\n  timeoutMinutes: 15,\n  supportTelegram: '@qqyousubot'\n};\n\n// ========== 状态 ==========\nlet currentProduct = null;\nlet currentOrder = null;\nlet countdownInterval = null;\nlet pollInterval = null;\n\n// ========== 工具函数 ==========\nfunction $(id) {\n  return document.getElementById(id);\n}\n\nfunction showError(msg) {\n  const el = $('orderError');\n  if (!el) return;\n  el.textContent = '❌ ' + msg;\n  el.classList.add('show');\n  setTimeout(() => el.classList.remove('show'), 6000);\n}\n\nfunction clearError() {\n  const el = $('orderError');\n  if (el) el.classList.remove('show');\n}\n\nasync function api(path, options = {}) {\n  const url = CONFIG.apiBase + path;\n  const res = await fetch(url, {\n    headers: { 'Content-Type': 'application/json', ...(options.headers || {}) },\n    ...options\n  });\n  const data = await res.json().catch(() => ({}));\n  if (!res.ok || data.ok === false) {\n    throw new Error(data.message || ('请求失败 ' + res.status));\n  }\n  return data;\n}\n\n// ========== 打开订单弹窗 ==========\nfunction openOrder(productId) {\n  currentProduct = CONFIG.products[productId];\n  if (!currentProduct) return;\n\n  currentOrder = null;\n  clearInterval(countdownInterval);\n  clearInterval(pollInterval);\n\n  $('modalTitle').textContent = `${currentProduct.emoji} ${currentProduct.name}`;\n  $('orderModal').classList.add('show');\n  switchOrderStep(1);\n  clearError();\n\n  $('orderName').value = '';\n  $('orderEmail').value = '';\n  $('orderPhone').value = '';\n}\n\n// ========== 关闭订单弹窗 ==========\nfunction closeOrder() {\n  $('orderModal').classList.remove('show');\n  clearInterval(countdownInterval);\n  clearInterval(pollInterval);\n  currentOrder = null;\n}\n\n// ========== 切换步骤 ==========\nfunction switchOrderStep(step) {\n  document.querySelectorAll('.step-content').forEach(el => el.classList.remove('show'));\n  document.querySelectorAll('.step-btn').forEach(el => el.classList.remove('active'));\n\n  const content = $(`orderStep${step}`);\n  if (content) content.classList.add('show');\n  const btns = document.querySelectorAll('.step-btn');\n  if (btns[step - 1]) btns[step - 1].classList.add('active');\n}\n\n// ========== 验证表单 ==========\nfunction validateForm() {\n  const name = $('orderName').value.trim();\n  const email = $('orderEmail').value.trim();\n  const phone = $('orderPhone').value.trim();\n\n  if (!name) {\n    showError('请输入姓名');\n    return null;\n  }\n  if (!email || !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) {\n    showError('请输入正确的邮箱');\n    return null;\n  }\n  if (!phone || phone.length < 7) {\n    showError('请输入正确的电话');\n    return null;\n  }\n  return { name, email, phone };\n}\n\n// ========== 创建订单并进入支付 ==========\nasync function proceedToPayment() {\n  const form = validateForm();\n  if (!form) return;\n\n  const btn = document.querySelector('#orderStep1 .action-btn');\n  if (btn) {\n    btn.disabled = true;\n    btn.textContent = '创建订单中...';\n  }\n\n  try {\n    const data = await api('/api/create-order', {\n      method: 'POST',\n      body: JSON.stringify({\n        product: currentProduct.name,\n        amount: currentProduct.price\n      })\n    });\n\n    currentOrder = {\n      orderId: data.orderId,\n      product: data.product,\n      amount: data.amount,\n      baseAmount: currentProduct.price,\n      walletAddress: data.walletAddress || CONFIG.wallet,\n      network: data.network || CONFIG.network,\n      expiresAt: data.expiresAt,\n      status: data.status,\n      name: form.name,\n      email: form.email,\n      phone: form.phone\n    };\n\n    $('paymentName').textContent = form.name;\n    $('paymentPrice').textContent = currentOrder.amount.toFixed(2);\n    $('paymentOrderNo').textContent = currentOrder.orderId;\n    $('walletAddr').textContent = currentOrder.walletAddress;\n\n    $('finalName').textContent = form.name;\n    $('finalEmail').textContent = form.email;\n    $('finalPhone').textContent = form.phone;\n    $('finalPrice').textContent = currentOrder.amount.toFixed(2);\n    $('finalOrderNo').textContent = currentOrder.orderId;\n    $('successEmail').textContent = form.email;\n\n    const remainSec = Math.max(0, Math.floor((currentOrder.expiresAt - Date.now()) / 1000));\n    startCountdown(remainSec);\n\n    switchOrderStep(2);\n    clearError();\n  } catch (err) {\n    showError(err.message || '创建订单失败，请稍后重试');\n  } finally {\n    if (btn) {\n      btn.disabled = false;\n      btn.textContent = '下一步：支付';\n    }\n  }\n}\n\n// ========== 倒计时 ==========\nfunction startCountdown(seconds) {\n  clearInterval(countdownInterval);\n\n  const update = () => {\n    if (seconds <= 0) {\n      clearInterval(countdownInterval);\n      clearInterval(pollInterval);\n      $('countdownDisplay').textContent = '00:00';\n      $('timerText').textContent = '00:00';\n      showError('订单已过期，请重新下单');\n      setTimeout(() => switchOrderStep(1), 2500);\n      return;\n    }\n    const m = String(Math.floor(seconds / 60)).padStart(2, '0');\n    const s = String(seconds % 60).padStart(2, '0');\n    const display = `${m}:${s}`;\n    $('countdownDisplay').textContent = display;\n    $('timerText').textContent = display;\n    seconds--;\n  };\n\n  update();\n  countdownInterval = setInterval(update, 1000);\n}\n\n// ========== 复制钱包地址 ==========\nasync function copyWallet() {\n  try {\n    const addr = currentOrder?.walletAddress || CONFIG.wallet;\n    await navigator.clipboard.writeText(addr);\n    const btn = event.target;\n    const original = btn.textContent;\n    btn.textContent = '✓ 已复制';\n    setTimeout(() => { btn.textContent = original; }, 2000);\n  } catch {\n    showError('复制失败，请手动长按复制');\n  }\n}\n\n// ========== 提交付款信息 + 检测状态 ==========\nasync function checkPaymentStatus() {\n  if (!currentOrder) {\n    showError('订单不存在，请重新下单');\n    return;\n  }\n\n  const btn = $('checkPaymentBtn');\n  btn.disabled = true;\n  btn.textContent = '提交中...';\n\n  try {\n    await api('/api/payment-submitted', {\n      method: 'POST',\n      body: JSON.stringify({\n        orderId: currentOrder.orderId,\n        contact: `${currentOrder.name} | ${currentOrder.email} | ${currentOrder.phone}`,\n        amount: currentOrder.amount\n      })\n    });\n\n    btn.textContent = '核对中...';\n    startPolling();\n  } catch (err) {\n    showError(err.message || '提交失败');\n    btn.disabled = false;\n    btn.textContent = '🔄 检测支付状态';\n  }\n}\n\n// ========== 轮询订单状态 ==========\nfunction startPolling() {\n  clearInterval(pollInterval);\n  let tries = 0;\n  const maxTries = 60;\n\n  const poll = async () => {\n    tries++;\n    try {\n      const data = await api(`/api/order-status?orderId=${encodeURIComponent(currentOrder.orderId)}`);\n\n      if (data.status === 'paid') {\n        clearInterval(pollInterval);\n        clearInterval(countdownInterval);\n        await finishDelivery();\n        return;\n      }\n\n      if (data.status === 'expired') {\n        clearInterval(pollInterval);\n        showError('订单已过期');\n        const btn = $('checkPaymentBtn');\n        if (btn) {\n          btn.disabled = false;\n          btn.textContent = '🔄 检测支付状态';\n        }\n        return;\n      }\n\n      if (tries >= maxTries) {\n        clearInterval(pollInterval);\n        showError('核对超时，请联系客服 ' + CONFIG.supportTelegram);\n        const btn = $('checkPaymentBtn');\n        if (btn) {\n          btn.disabled = false;\n          btn.textContent = '🔄 检测支付状态';\n        }\n      }\n    } catch (err) {\n      console.warn('轮询失败', err);\n    }\n  };\n\n  poll();\n  pollInterval = setInterval(poll, 5000);\n}\n\n// ========== 完成交付 ==========\nasync function finishDelivery() {\n  try {\n    const data = await api(`/api/delivery?orderId=${encodeURIComponent(currentOrder.orderId)}`);\n    switchOrderStep(3);\n\n    if (data.deliveryUrl) {\n      const box = document.querySelector('#orderStep3 .info-box');\n      if (box) {\n        const linkEl = document.createElement('div');\n        linkEl.style.marginTop = '12px';\n        linkEl.innerHTML = `<a href=\"${data.deliveryUrl}\" target=\"_blank\" style=\"color:#46efc0;font-weight:700;\">点击获取资源 →</a>`;\n        box.appendChild(linkEl);\n      }\n    }\n  } catch (err) {\n    switchOrderStep(3);\n    showError('交付链接获取失败，请联系客服 ' + CONFIG.supportTelegram);\n  } finally {\n    const btn = $('checkPaymentBtn');\n    if (btn) {\n      btn.disabled = false;\n      btn.textContent = '🔄 检测支付状态';\n    }\n  }\n}\n\n// 暴露给 HTML 调用\nwindow.openOrder = openOrder;\nwindow.closeOrder = closeOrder;\nwindow.switchOrderStep = switchOrderStep;\nwindow.proceedToPayment = proceedToPayment;\nwindow.copyWallet = copyWallet;\nwindow.checkPaymentStatus = checkPaymentStatus;\n```
 
-  <div class="card" id="orderForm">
-    <h1 id="productName">加载中...</h1>
-    <div class="price"><span id="productPrice">--</span> U</div>
+### 使用说明
+1. 打开 `globalyouxuan-order` 仓库
+2. 找到 `order.js` → 编辑 → 全部替换成上面的代码 → 提交
+3. 刷新 `shop.html` 页面测试
 
-    <div class="field">
-      <label>联系方式（选填）</label>
-      <input id="contact" placeholder="Telegram / 微信 / 邮箱" />
-    </div>
+### 测试流程
+1. 打开商品 → 填信息 → 点「下一步：支付」
+2. 会调用真实 API，生成带随机尾数的应付金额（例如 9.9 变成 10.23）
+3. 复制地址转账后点「检测支付状态」
+4. 此时状态变成 `checking`，需要你在后台用管理员接口确认到账（或配置 Telegram 后通知你）
+5. 确认后自动进入完成页并显示交付链接
 
-    <div class="pay-item active">
-      <h3>① U收款（推荐）</h3>
-      <p>USDT · TRC20</p>
-      <div class="addr-box">
-        <code id="usdtAddr">TKfQoN7kZirALGYxMkxU4SoqMWJRqXsh7k</code>
-        <button class="copy-btn" onclick="copyAddr()">复制</button>
-      </div>
-    </div>
-
-    <div class="pay-item">
-      <h3>② 支付宝 / 微信</h3>
-      <p>联系客服获取收款码</p>
-      <a href="tg://resolve?domain=qqyousubot" style="color:#667eea;font-weight:600;">联系客服</a>
-    </div>
-
-    <button class="btn-main" onclick="submitPaid()">我已付款，请确认</button>
-    <p class="note">先转账再点击，确认后生成订单号</p>
-  </div>
-
-  <div class="card status-box" id="resultBox">
-    <h2>✅ 订单已提交</h2>
-    <p>你的订单号：</p>
-    <div class="order-id" id="orderIdShow"></div>
-    <p class="note">保存此订单号，联系客服确认到账后即可下载</p>
-    <br>
-    <a href="index.html" class="btn-outline" style="display:inline-block;text-decoration:none;">返回首页</a>
-  </div>
-</div>
-
-<script>
-// 配置
-const BOT_TOKEN = '8835320602:AAGCrOvqcmBcYIFctpTAba3ZcPw3a7GU8aQ';
-const CHAT_ID = '6934078288';
-
-const params = new URLSearchParams(location.search);
-const PRODUCT = {
-  name: params.get('name') || '未指定产品',
-  price: params.get('price') || '0U'
-};
-
-document.getElementById('productName').textContent = PRODUCT.name;
-document.getElementById('productPrice').textContent = PRODUCT.price.replace('U','');
-
-function copyAddr(){
-  const addr = document.getElementById('usdtAddr').textContent;
-  // 用系统弹窗复制，手机上最稳
-  const input = document.createElement('input');
-  input.value = addr;
-  document.body.appendChild(input);
-  input.select();
-  try {
-    document.execCommand('copy');
-    alert('已复制收款地址');
-  } catch(e) {
-    alert('请长按地址手动复制：\n' + addr);
-  }
-  document.body.removeChild(input);
-}
-
-function genOrderId(){
-  const n = Date.now().toString().slice(-6);
-  return 'YX' + n;
-}
-
-async function submitPaid(){
-  const contact = document.getElementById('contact').value.trim();
-  const orderId = genOrderId();
-
-  // 显示订单号
-  document.getElementById('orderForm').style.display = 'none';
-  document.getElementById('resultBox').style.display = 'block';
-  document.getElementById('orderIdShow').textContent = orderId;
-
-  // 发送通知到 Telegram
-  try {
-    const msg = encodeURIComponent(`🛒 新订单
-订单号: ${orderId}
-产品: ${PRODUCT.name}
-金额: ${PRODUCT.price}
-联系方式: ${contact || '未填'}
-时间: ${new Date().toLocaleString()}`);
-    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${msg}`);
-  } catch(e) {
-    console.log('通知发送失败');
-  }
-}
-</script>
-</body>
-</html>
+需要我再给你管理员确认接口的调用方式（curl 或简单后台按钮）吗？
