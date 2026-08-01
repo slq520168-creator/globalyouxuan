@@ -1,75 +1,179 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>GlobalYouXuan 后台</title>
-<link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>后台管理 - GlobalYouXuan</title>
 <style>
-.admin{padding:80px 16px 40px;max-width:720px;margin:0 auto}
-.panel{border:1px solid var(--line);border-radius:18px;padding:20px;background:var(--card);margin-bottom:16px;box-shadow:var(--shadow)}
-.panel h2{margin:0 0 12px;font-size:18px}
-.panel input,.panel textarea{width:100%;padding:11px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--text);margin:6px 0}
-.panel button{padding:11px 14px;border-radius:10px;border:0;background:linear-gradient(135deg,var(--cyan),var(--blue));color:#fff;font-weight:700;cursor:pointer;margin-right:8px;margin-top:8px}
-.tip{font-size:13px;color:var(--muted);line-height:1.5;margin:8px 0 12px}
-.out{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px;font-size:13px;word-break:break-all;margin-top:10px;display:none}
-.row{border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:8px;font-size:14px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#f5f7fb;padding:20px;color:#1a1a2e}
+.container{max-width:900px;margin:0 auto}
+.card{background:#fff;border-radius:16px;padding:22px;box-shadow:0 4px 20px rgba(0,0,0,.06);margin-bottom:18px}
+h1{font-size:22px;margin-bottom:6px}
+.sub{color:#888;font-size:13px;margin-bottom:18px}
+.login-box input{width:100%;padding:12px 14px;border:2px solid #e8ecf1;border-radius:10px;margin-bottom:12px;font-size:15px}
+.btn{padding:11px 20px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border:none;border-radius:10px;font-weight:600;cursor:pointer;font-size:14px}
+.btn-sm{padding:7px 14px;font-size:13px}
+.order-row{border:1px solid #eee;border-radius:12px;padding:14px;margin-bottom:10px}
+.order-row .top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.order-row .meta{font-size:13px;color:#666;line-height:1.5}
+.status{padding:3px 10px;border-radius:20px;font-size:12px;font-weight:600}
+.status.pending{background:#fff3e0;color:#e65100}
+.status.paid{background:#e8f5e9;color:#2e7d32}
+.status.delivered{background:#e3f2fd;color:#1565c0}
+input.inline{padding:8px 10px;border:1px solid #ddd;border-radius:8px;font-size:13px;width:100%;margin:4px 0}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.hide{display:none}
 </style>
 </head>
 <body>
-<header class="topbar">
-  <div class="brand">
-    <span class="brand-mark">GY</span>
-    <span class="brand-text"><b>后台</b></span>
+<div class="container">
+  <!-- 管理员登录 -->
+  <div class="card" id="adminLogin">
+    <h1>🔐 后台管理</h1>
+    <p class="sub">输入管理员密码进入</p>
+    <input type="password" id="adminPwd" placeholder="管理员密码">
+    <button class="btn" onclick="checkAdmin()">进入后台</button>
+    <p style="font-size:12px;color:#999;margin-top:12px">默认密码：admin123（可在代码里改）</p>
   </div>
-  <a href="index.html" style="color:var(--cyan)">返回网站</a>
-</header>
 
-<main class="admin">
-  <section class="panel">
-    <h2>确认订单（最简单）</h2>
-    <p class="tip">从 Telegram 通知里复制订单号和密码，填在下面，点生成。然后把结果复制到 confirmed.json 里保存。</p>
-    <input id="cid" placeholder="订单号 例如 GYX18649672">
-    <input id="cpwd" placeholder="密码 例如 SJC3FC">
-    <button type="button" onclick="makeConfirm()">生成确认内容</button>
-    <div class="out" id="out"></div>
-  </section>
-
-  <section class="panel">
-    <h2>操作说明</h2>
-    <p class="tip">
-      1. 客户下单后你收到 Telegram 通知<br>
-      2. 核对 U 是否到账<br>
-      3. 把通知里的订单号、密码填到上面<br>
-      4. 点「生成确认内容」<br>
-      5. 复制生成的内容，打开仓库 confirmed.json，粘贴保存<br>
-      6. 客户即可在查询页输入订单号看到密码
-    </p>
-  </section>
-
-  <section class="panel">
-    <h2>快捷链接</h2>
-    <p class="tip">
-      <a href="order.html" style="color:var(--blue)">订单页</a> ·
-      <a href="query.html" style="color:var(--blue)">查询密码页</a> ·
-      <a href="https://github.com/slq520168-creator/globalyouxuan/blob/main/confirmed.json" style="color:var(--blue)">编辑 confirmed.json</a>
-    </p>
-  </section>
-</main>
+  <!-- 后台内容 -->
+  <div id="adminPanel" class="hide">
+    <div class="card">
+      <h1>📋 全部订单</h1>
+      <p class="sub">实时从 Supabase 读取</p>
+      <button class="btn btn-sm" onclick="loadAllOrders()">🔄 刷新</button>
+      <button class="btn btn-sm" style="background:#888;margin-left:8px" onclick="logoutAdmin()">退出</button>
+    </div>
+    <div id="orderList"></div>
+  </div>
+</div>
 
 <script>
-function makeConfirm(){
-  const id = document.getElementById('cid').value.trim();
-  const pwd = document.getElementById('cpwd').value.trim();
-  const out = document.getElementById('out');
-  if(!id || !pwd){
-    out.style.display = 'block';
-    out.textContent = '请填写订单号和密码';
-    return;
+const SUPABASE_URL = 'https://afzcohtnljnmucrkgcaz.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_EqF-kTNRsSZWhUE8LWB8DQ_UNkTjImv';
+const ADMIN_PASSWORD = 'admin123';  // 自己改成复杂密码
+
+function checkAdmin() {
+  const pwd = document.getElementById('adminPwd').value;
+  if (pwd === ADMIN_PASSWORD) {
+    localStorage.setItem('gyx_admin', '1');
+    document.getElementById('adminLogin').classList.add('hide');
+    document.getElementById('adminPanel').classList.remove('hide');
+    loadAllOrders();
+  } else {
+    alert('密码错误');
   }
-  const line = `{"id":"${id}","pwd":"${pwd}"}`;
-  out.style.display = 'block';
-  out.innerHTML = `把 confirmed.json 改成：<br><br>[${line}]<br><br>如果已有其他订单，就加在数组里：<br>[{之前的}, ${line}]`;
+}
+
+function logoutAdmin() {
+  localStorage.removeItem('gyx_admin');
+  location.reload();
+}
+
+// 页面加载时检查是否已登录管理员
+if (localStorage.getItem('gyx_admin') === '1') {
+  document.getElementById('adminLogin').classList.add('hide');
+  document.getElementById('adminPanel').classList.remove('hide');
+  loadAllOrders();
+}
+
+async function loadAllOrders() {
+  const list = document.getElementById('orderList');
+  list.innerHTML = '<div class="card">加载中...</div>';
+
+  try {
+    // 注意：anon key 默认只能看自己的订单。
+    // 如果这里读不到全部订单，需要你在 Supabase 再加一条 policy 或用 service_role key。
+    const res = await fetch(SUPABASE_URL + '/rest/v1/orders?order=created_at.desc', {
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY
+      }
+    });
+    const orders = await res.json();
+
+    if (!orders || orders.length === 0) {
+      list.innerHTML = '<div class="card">暂无订单</div>';
+      return;
+    }
+
+    let html = '';
+    orders.forEach(o => {
+      html += `
+      <div class="card order-row">
+        <div class="top">
+          <div>
+            <b>${o.plan_name || '方案'}</b>
+            <span style="margin-left:8px;color:#667eea;font-weight:700">${o.plan_price || ''}</span>
+          </div>
+          <span class="status ${o.status}">${o.status}</span>
+        </div>
+        <div class="meta">
+          订单号：${o.order_no || o.id}<br>
+          联系方式：${o.contact || '-'}<br>
+          时间：${o.created_at ? new Date(o.created_at).toLocaleString() : '-'}
+        </div>
+        <div class="actions">
+          <input class="inline" id="url_${o.id}" placeholder="填写交付链接" value="${o.download_url || ''}">
+          <button class="btn btn-sm" onclick="updateOrder('${o.id}','paid')">标记已支付</button>
+          <button class="btn btn-sm" onclick="updateOrder('${o.id}','delivered')">标记已交付</button>
+          <button class="btn btn-sm" style="background:#2e7d32" onclick="saveDownload('${o.id}')">保存链接</button>
+        </div>
+      </div>`;
+    });
+    list.innerHTML = html;
+  } catch (e) {
+    list.innerHTML = '<div class="card">加载失败：' + e.message + '</div>';
+  }
+}
+
+async function updateOrder(id, status) {
+  try {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/orders?id=eq.' + id, {
+      method: 'PATCH',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({ status })
+    });
+    if (res.ok) {
+      alert('状态已更新');
+      loadAllOrders();
+    } else {
+      alert('更新失败，可能需要 service_role 权限');
+    }
+  } catch (e) {
+    alert('错误：' + e.message);
+  }
+}
+
+async function saveDownload(id) {
+  const url = document.getElementById('url_' + id).value.trim();
+  if (!url) return alert('请填写链接');
+  try {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/orders?id=eq.' + id, {
+      method: 'PATCH',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({ download_url: url, status: 'delivered' })
+    });
+    if (res.ok) {
+      alert('交付链接已保存');
+      loadAllOrders();
+    } else {
+      alert('保存失败');
+    }
+  } catch (e) {
+    alert('错误：' + e.message);
+  }
 }
 </script>
 </body>
