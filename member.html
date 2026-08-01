@@ -1,123 +1,125 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>会员中心 - GlobalYouXuan</title>
-    <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#f5f7fb;color:#1a1a2e;padding:20px}
-        .container{max-width:800px;margin:0 auto}
-        .card{background:#fff;border-radius:16px;padding:30px;box-shadow:0 4px 20px rgba(0,0,0,0.06);margin-bottom:20px}
-        .card h2{font-size:20px;margin-bottom:16px;display:flex;align-items:center;gap:10px}
-        .card h2 .badge{font-size:12px;background:#667eea;color:#fff;padding:2px 12px;border-radius:20px}
-        .user-info{display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid #f0f2f7}
-        .user-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:600}
-        .user-detail .name{font-size:18px;font-weight:600}
-        .user-detail .email{font-size:14px;color:#888}
-        .order-item{padding:14px 0;border-bottom:1px solid #f0f2f7;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-        .order-item:last-child{border-bottom:none}
-        .order-item .info .title{font-weight:600;font-size:15px}
-        .order-item .info .time{font-size:12px;color:#999}
-        .order-item .status{font-size:13px;padding:4px 12px;border-radius:20px;background:#e8f5e9;color:#2e7d32}
-        .order-item .status.pending{background:#fff3e0;color:#e65100}
-        .order-item .download-link{font-size:13px;color:#667eea;text-decoration:none;font-weight:600;padding:4px 12px;border:1px solid #667eea;border-radius:8px}
-        .btn{display:inline-block;padding:10px 24px;background:#1a1a2e;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;transition:0.3s}
-        .btn:hover{background:#667eea}
-        .btn-outline{background:transparent;color:#667eea;border:2px solid #667eea}
-        .btn-outline:hover{background:#667eea;color:#fff}
-        .empty-state{text-align:center;padding:40px 20px;color:#999}
-        .empty-state .icon{font-size:48px;margin-bottom:12px}
-        @media (max-width:480px){.card{padding:18px}.order-item{flex-direction:column;align-items:flex-start;gap:8px}}
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>会员中心 - GlobalYouXuan</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#f5f7fb;color:#1a1a2e;padding:20px}
+.container{max-width:800px;margin:0 auto}
+.card{background:#fff;border-radius:16px;padding:24px;box-shadow:0 4px 20px rgba(0,0,0,.06);margin-bottom:18px}
+.card h2{font-size:18px;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.card h2 .badge{font-size:12px;background:#667eea;color:#fff;padding:3px 12px;border-radius:20px}
+.user-info{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid #f0f2f7}
+.user-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:600}
+.user-detail .name{font-size:17px;font-weight:600}
+.user-detail .email{font-size:13px;color:#888;margin-top:2px}
+.order-item{padding:14px 0;border-bottom:1px solid #f0f2f7;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.order-item:last-child{border-bottom:none}
+.order-item .title{font-weight:600;font-size:15px}
+.order-item .time{font-size:12px;color:#999;margin-top:2px}
+.order-item .status{font-size:13px;padding:4px 12px;border-radius:20px;background:#e8f5e9;color:#2e7d32}
+.order-item .status.pending{background:#fff3e0;color:#e65100}
+.download-link{font-size:13px;color:#667eea;text-decoration:none;font-weight:600;padding:4px 12px;border:1px solid #667eea;border-radius:8px}
+.btn{display:inline-block;padding:10px 22px;background:#1a1a2e;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none}
+.btn-outline{background:transparent;color:#667eea;border:2px solid #667eea}
+.empty-state{text-align:center;padding:40px 20px;color:#999}
+.empty-state .icon{font-size:48px;margin-bottom:12px}
+@media(max-width:480px){.card{padding:18px}}
+</style>
 </head>
 <body>
 <div class="container">
-    <div class="card">
-        <h2>👤 会员中心 <span class="badge">已登录</span></h2>
-        <div class="user-info">
-            <div class="user-avatar" id="userAvatar">G</div>
-            <div class="user-detail">
-                <div class="name" id="userName">用户</div>
-                <div class="email" id="userEmail">email@example.com</div>
-            </div>
-        </div>
-        <div style="margin-top:16px;">
-            <button class="btn btn-outline" id="logoutBtn">🚪 退出登录</button>
-        </div>
+  <div class="card">
+    <h2>👤 会员中心 <span class="badge">已登录</span></h2>
+    <div class="user-info">
+      <div class="user-avatar" id="userAvatar">G</div>
+      <div class="user-detail">
+        <div class="name" id="userName">用户</div>
+        <div class="email" id="userEmail">email@example.com</div>
+      </div>
     </div>
+    <div style="margin-top:16px">
+      <button class="btn btn-outline" id="logoutBtn">🚪 退出登录</button>
+    </div>
+  </div>
 
-    <div class="card">
-        <h2>📦 我的订单</h2>
-        <div id="orderList">
-            <div class="empty-state" id="emptyState">
-                <div class="icon">📭</div>
-                <p>暂无订单<br><span style="font-size:13px;color:#ccc;">去首页选一个方案开始赚钱吧</span></p>
-                <a href="index.html" class="btn" style="margin-top:12px;">去首页选方案</a>
-            </div>
-        </div>
+  <div class="card">
+    <h2>📦 我的订单</h2>
+    <div id="orderList">
+      <div class="empty-state" id="emptyState">
+        <div class="icon">📭</div>
+        <p>暂无订单<br><span style="font-size:13px;color:#ccc">去首页选一个方案开始赚钱吧</span></p>
+        <a href="index.html" class="btn" style="margin-top:14px">去首页选方案</a>
+      </div>
     </div>
+  </div>
 
-    <div class="card">
-        <h2>🚀 快捷入口</h2>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-            <a href="index.html" class="btn" style="text-align:center;">🏠 首页</a>
-            <a href="order.html" class="btn" style="text-align:center;">📥 下单</a>
-        </div>
+  <div class="card">
+    <h2>🚀 快捷入口</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <a href="index.html" class="btn" style="text-align:center">🏠 首页</a>
+      <a href="order.html" class="btn" style="text-align:center">📥 下单</a>
     </div>
+  </div>
 </div>
+
 <script>
-    const SUPABASE_URL = 'https://bpbstpwwpprzduoppox.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJwYnN0cHd3cHByemR1b3Bwb3giLCJyb2xlIjoiYW5vbiIsImlhdCI6MTc1Mjg2MTE4NCwiZXhwIjoyMDY4NDM3MTg0fQ.9JmCQoP7R5K8m3xVnqT6WgLrFh2YbZ4NcD1eU5fJ8oA';
+const SUPABASE_URL = 'https://afzcohtnljnmucrkgcaz.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_EqF-kTNRsSZWhUE8LWB8DQ_UNkTjImv';
 
-    // 读取登录态
-    const session = JSON.parse(localStorage.getItem('supabase_session') || 'null');
+const session = JSON.parse(localStorage.getItem('supabase_session') || 'null');
+if (!session || !session.access_token) {
+  location.href = 'login.html';
+}
 
-    if (!session || !session.user) {
-        window.location.href = 'login.html';
-    }
+const user = session.user;
+document.getElementById('userName').textContent = user.user_metadata?.full_name || user.email || '用户';
+document.getElementById('userEmail').textContent = user.email || '';
+document.getElementById('userAvatar').textContent = (user.user_metadata?.full_name || user.email || 'U')[0].toUpperCase();
 
-    const user = session.user;
-    document.getElementById('userName').textContent = user.user_metadata?.full_name || user.email || '用户';
-    document.getElementById('userEmail').textContent = user.email || '';
-    document.getElementById('userAvatar').textContent = (user.user_metadata?.full_name || user.email || 'U')[0].toUpperCase();
-
-    // 加载订单
-    async function loadOrders() {
-        try {
-            const response = await fetch(SUPABASE_URL + '/rest/v1/orders?user_id=eq.' + user.id, {
-                headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
-            });
-            if (!response.ok) return;
-            const orders = await response.json();
-            if (orders.length === 0) return;
-            document.getElementById('emptyState').style.display = 'none';
-            let html = '';
-            orders.forEach(order => {
-                const statusMap = {'pending':'⏳ 待确认','paid':'✅ 已支付','downloaded':'📥 已下载'};
-                const statusClass = order.status === 'pending' ? 'pending' : '';
-                const downloadLink = order.download_url ? `<a href="${order.download_url}" class="download-link" download>📥 下载</a>` : '';
-                html += `<div class="order-item">
-                    <div class="info">
-                        <div class="title">${order.plan_name || '方案'}</div>
-                        <div class="time">${order.created_at ? new Date(order.created_at).toLocaleString() : ''}</div>
-                    </div>
-                    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-                        <span style="font-weight:700;color:#667eea;">${order.plan_price || '0U'}</span>
-                        <span class="status ${statusClass}">${statusMap[order.status] || order.status}</span>
-                        ${downloadLink}
-                    </div>
-                </div>`;
-            });
-            document.getElementById('orderList').innerHTML = html;
-        } catch(e) { console.error('加载订单失败:', e); }
-    }
-    loadOrders();
-
-    document.getElementById('logoutBtn')?.addEventListener('click', function() {
-        localStorage.removeItem('supabase_session');
-        window.location.href = 'login.html';
+async function loadOrders() {
+  try {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/orders?user_id=eq.' + user.id + '&order=created_at.desc', {
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + session.access_token
+      }
     });
+    if (!res.ok) return;
+    const orders = await res.json();
+    if (!orders || orders.length === 0) return;
+
+    document.getElementById('emptyState').style.display = 'none';
+    let html = '';
+    orders.forEach(order => {
+      const statusMap = {pending:'⏳ 待确认', paid:'✅ 已支付', delivered:'📥 已交付'};
+      const statusClass = order.status === 'pending' ? 'pending' : '';
+      const download = order.download_url ? `<a href="${order.download_url}" class="download-link" target="_blank">📥 下载</a>` : '';
+      html += `<div class="order-item">
+        <div>
+          <div class="title">${order.plan_name || '方案'}</div>
+          <div class="time">${order.created_at ? new Date(order.created_at).toLocaleString() : ''}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <span style="font-weight:700;color:#667eea">${order.plan_price || ''}</span>
+          <span class="status ${statusClass}">${statusMap[order.status] || order.status}</span>
+          ${download}
+        </div>
+      </div>`;
+    });
+    document.getElementById('orderList').innerHTML = html;
+  } catch(e) {
+    console.error(e);
+  }
+}
+loadOrders();
+
+document.getElementById('logoutBtn').onclick = () => {
+  localStorage.removeItem('supabase_session');
+  location.href = 'login.html';
+};
 </script>
 </body>
 </html>
